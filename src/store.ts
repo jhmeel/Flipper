@@ -1,0 +1,71 @@
+import { configureStore } from "@reduxjs/toolkit";
+import { combineReducers } from "redux";
+import {
+  persistStore,
+  persistReducer,
+  FLUSH,
+  REHYDRATE,
+  PAUSE,
+  PERSIST,
+  PURGE, 
+  REGISTER,
+} from "reduxjs-toolkit-persist";
+import localForage from "localforage";
+import {
+  passwordReducer,
+  profileReducer,
+  userReducer,
+  packageReducer,
+  walletReducer,
+} from "./reducers/user";
+import { taskReducer } from "./reducers/task";
+
+
+
+const reducer = combineReducers({
+  user: userReducer,
+  password: passwordReducer,
+  profile: profileReducer,
+  package: packageReducer,
+  wallet:walletReducer,
+  task: taskReducer
+});
+
+localForage.config({
+  name: "flipper",
+  storeName: "state",
+  version: 1,
+  driver: [
+    localForage.INDEXEDDB,
+    localForage.WEBSQL,
+    localForage.LOCALSTORAGE,
+  ],
+  size: 200 * 1024 * 1024,
+});
+
+const persistConfig = {
+  key: "root",
+  storage: localForage,
+  whitelist: [
+    "user",
+    "profile",
+    "package",
+    "password",
+    "wallet",
+    "task",
+  ],
+};
+
+const persistedReducer = persistReducer<any>(persistConfig, reducer);
+
+export const store = configureStore({
+  reducer: persistedReducer,
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware({
+      serializableCheck: {
+        ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
+      },
+    }),
+});
+
+export const persistor = persistStore(store);

@@ -1,0 +1,173 @@
+import { Link } from "react-router-dom";
+import styled from "styled-components";
+import {
+  Icon402Facebook2,
+  Icon458Linkedin,
+  IconSquareInstagram,
+  IconSquareTwitter,
+} from "../assets/icons";
+import Config from "../config/Config";
+
+const Footer = () => {
+  return (
+    <>
+      <MainFooter className="footer">
+        <img className="foot-logo" src={""} alt="flipper" />
+
+        <div className="f-socials">
+          <span className="f-social-txt">Follow us</span>
+          <ul>
+            <li title="Instagram">
+              <Link to={Config.SOCIALS.instagram.url}>
+                <IconSquareInstagram className="f-socials-icon" />
+              </Link>
+            </li>
+            <li title="Twitter">
+              <Link to={Config.SOCIALS.twitter.url}>
+                <IconSquareTwitter className="f-socials-icon" />
+              </Link>
+            </li>
+            <li title="Facebook">
+              <Link to={Config.SOCIALS.facebook.url}>
+                <Icon402Facebook2 className="f-socials-icon" />
+              </Link>
+            </li>
+            <li title="Linkedin">
+              <Link to={Config.SOCIALS.linkedIn.url}>
+                <Icon458Linkedin className="f-socials-icon" />
+              </Link>
+            </li>
+          </ul>
+        </div>
+        <div className="footer-p-t-lnk">
+          <Link to="/privacy-policy" title="Privacy Policy">
+            {" "}
+            Privacy Policy |
+          </Link>
+          <Link to="/terms-of-service" title="Terms of service">
+            {" "}
+            Terms of use.
+          </Link>
+        </div>
+        <p className="f-copy-right">
+          © {new Date().getFullYear()}. All rights reserved.
+        </p>
+      </MainFooter>
+    </>
+  );
+};
+
+export default Footer;
+
+const MainFooter = styled.footer`
+  position: relative;
+  left: 0;
+  bottom: 0;
+  height: fit-content;
+  max-width: 100%;
+  background-color: rgb(85, 85, 263);
+  color: #ccc;
+  padding: 20px;
+  text-align: center;
+  z-index: 99;
+
+  .foot-logo {
+    height: 130px;
+    width: 130px;
+    border: 1px solid #ccc;
+  }
+
+  .footer-body {
+    margin-bottom: 40px;
+  }
+
+  .footer-body::after {
+    content: "";
+    display: block;
+    clear: both;
+  }
+
+  .footer-body > div {
+    float: left;
+    padding: 20px;
+  }
+
+  .footer-body > div:first-child {
+    font-size: 150%;
+    width: 35%;
+    text-align: center;
+  }
+
+  .footer-body > div:last-child {
+    width: 65%;
+  }
+  .footer-body ul {
+    list-style-type: none;
+    margin: 0px;
+    padding: 0px;
+    text-align: center;
+  }
+  .footer-body li > a {
+    color: white;
+    text-decoration: none;
+    margin-bottom: 7px;
+  }
+  .footer-p-t-lnk a {
+    text-decoration: none;
+    color: #ccc;
+    font-size: 13px;
+  }
+  @media (max-width: 767px) {
+    .footer {
+      font-size: 14px;
+    }
+  }
+
+  @media (min-width: 768px) and (max-width: 991px) {
+    .footer {
+      font-size: 16px;
+    }
+  }
+
+  @media (min-width: 992px) {
+    .footer {
+      font-size: 18px;
+    }
+  }
+
+  .f-copy-right {
+    color: #ccc;
+  }
+
+  .f-socials {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .f-socials ul {
+    list-style: none;
+    display: flex;
+    width: 100%;
+    justify-content: center;
+  }
+  .f-socials ul li {
+    padding: 5px 10px;
+  }
+
+  .f-socials-icon {
+    height: 28px;
+    width: 28px;
+    transition: 0.3s ease-out;
+    fill: gray;
+  }
+  .f-socials-icon:hover {
+    fill: rgba(175, 174, 232, 0.402);
+  }
+  .f-social-txt {
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+      Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue",
+      sans-serif;
+    font-size: 14px;
+    color: #ccc;
+  }
+`;

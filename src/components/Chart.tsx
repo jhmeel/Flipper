@@ -14,6 +14,12 @@ const Chart = ({ weeklyCumulation }) => {
 
   const [cumulations, setCumulation] = useState([]);
   const days = ["SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT"];
+
+  
+  /**
+   * @updateCumulation- reformat the activities object keys {coming from the server} with a more native keys;
+   *  it exchange the {_id} which is a list of numbers {1-7} representing days of the week with actual day in the days array above
+   */
   const updateCumulation = () => {
     if (weeklyCumulation) {
       setCumulation(

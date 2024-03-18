@@ -77,7 +77,7 @@ const BannerImage = styled.img`
 
 const Banner: React.FC = () => {
   return (
-    <BannerWrapper>
+    <BannerWrapper id='banner'>
       <BannerContainer>
         <BannerText>
           <Title>

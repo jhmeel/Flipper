@@ -15,7 +15,7 @@ import { Task } from "../types";
 import { getDailyTask, clearErrors as clearTaskErr } from "../actions/task";
 import {
   getBalance,
-  clearErrors as clearwalletErr,
+  clearErrors as clearWalletErr,
   getTxHistory,
 } from "../actions/user";
 import getToken from "../utils/getToken";
@@ -43,7 +43,6 @@ const TaskExecution = () => {
     tillLastweekCumulation,
   } = useSelector((state: any) => state.wallet);
 
-
   const { wallet } = useSelector((state: any) => state.package);
   const [time, setTime] = useState<number>(0);
   const [activeTask, setActiveTask] = useState<Task | null>(null);
@@ -64,11 +63,10 @@ const TaskExecution = () => {
     }
   }, [progress]);
 
-
   const onTaskExecModalRemove = () => {
     setIsTaskExecModalActive(false);
   };
-  
+
   useEffect(() => {
     if (taskErr) {
       enqueueSnackbar(taskErr, { variant: "error" });
@@ -95,7 +93,7 @@ const TaskExecution = () => {
   useEffect(() => {
     if (walletErr) {
       enqueueSnackbar(walletErr, { variant: "error" });
-      dispatch<any>(clearwalletErr());
+      dispatch<any>(clearWalletErr());
     }
 
     const getWalletBalance = async () => {
@@ -149,11 +147,11 @@ const TaskExecution = () => {
               <h6>{taskCompletionStatus}</h6>
             </header>
             <h2 className="current-earning" title="Balance">
-              {walletLoading || !balance ? <RDotSpinner /> : `₦${balance}`}
+              {walletLoading ? <RDotSpinner /> : balance ? `₦${balance}` : "--"}
             </h2>
             <div className="progrss-desc"></div>
             <div className="act-progress">
-              <span></span>
+              <span style={{ width: `${(progress * 100) / 3}%` }}></span>
             </div>
             <div className="progress-footer">
               <span className="timer">
@@ -168,7 +166,7 @@ const TaskExecution = () => {
         </div>
         <div className="activities">
           <header>
-            <h3>Daily Task</h3>
+            <h3>Daily Tasks</h3>
             <span className="activity-date">
               <IconCalendarEventFill fill="gray" />
               {new Date().toDateString()}
@@ -232,7 +230,7 @@ const TaskExecution = () => {
               Last 7 days
             </span>
           </header>
-          <WeekActivity activities={tillLastweekCumulation} pId={wallet?.pId}/>
+          <WeekActivity activities={tillLastweekCumulation} pId={wallet?.pId} />
         </div>
       </TaskActivityRenderer>
 
@@ -316,7 +314,6 @@ const TaskActivityRenderer = styled.div`
     position: absolute;
     background-color: #cac53d;
     height: 100%;
-    width: 20%;
     border-radius: 12px;
     transition: 0.3s ease-out;
   }

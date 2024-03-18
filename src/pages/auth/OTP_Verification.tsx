@@ -5,16 +5,14 @@ import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { clearErrors, verifyOTP } from "../../actions/user";
-import {
-  FORGOT_PASSWORD_RESET,
-  OTP_VERIFY_RESET,
-} from "../../constants";
+import { FORGOT_PASSWORD_RESET, OTP_VERIFY_RESET } from "../../constants";
 import HLoader from "../../components/loaders/HLoader";
 import { IconInfoCircleFill } from "../../assets/icons";
 import Footer from "../../components/Footer";
+import { enqueueSnackbar } from "notistack";
 
 const OTP_Verification = (): React.ReactElement => {
-  const { error, loading, message, expiresAt} = useSelector(
+  const { error, loading, message, expiresAt } = useSelector(
     (state: any) => state.password
   );
   const [OTP, setOTP] = useState<string | null>(null);
@@ -27,7 +25,7 @@ const OTP_Verification = (): React.ReactElement => {
 
   useEffect(() => {
     if (error) {
-      toast.error(error);
+      enqueueSnackbar(error, { variant: "error" });
       dispatch<any>(clearErrors());
     }
     if (message) {
@@ -99,11 +97,10 @@ const OTP_Verification = (): React.ReactElement => {
   };
 
   const onResendOTP = async () => {
-   navigate('/forgot-password')
+    navigate("/forgot-password");
   };
 
   //OTP EXPIRY TIMER
-
   const [time, setTime] = useState<number>(0);
 
   useEffect(() => {
@@ -138,16 +135,16 @@ const OTP_Verification = (): React.ReactElement => {
         {loading && <HLoader />}
         <h3>Security Verification</h3>
         <div className="info">
-        <span>
-          <IconInfoCircleFill fill="#125b8c" />
-        </span>
+          <span>
+            <IconInfoCircleFill fill="#125b8c" />
+          </span>
 
-        <p>
-          Please provide the one time passcode[OTP] that was sent to your email address.
-        </p>
-      </div>
+          <p>
+            Please provide the one time passcode[OTP] that was sent to your
+            email address.
+          </p>
+        </div>
         <form>
-         
           <div className="input-cont">
             {OTPInputs.map((inputRef, index) => (
               <input
@@ -162,9 +159,14 @@ const OTP_Verification = (): React.ReactElement => {
           <div className="input-cont-footer">
             <div className="footer-in">
               <span>
-                {formatTime(hours)}:{formatTime(minutes)}:{formatTime(seconds)}
+                {formatTime(minutes)}:{formatTime(seconds)}
               </span>
-              <span onClick={onResendOTP}>resend Code?</span>
+              <span
+                style={{ textDecoration: "underline" }}
+                onClick={onResendOTP}
+              >
+                resend Code?
+              </span>
             </div>
 
             <button onClick={onVerifyOTP} ref={btn} className="active-btn">
@@ -173,7 +175,7 @@ const OTP_Verification = (): React.ReactElement => {
           </div>
         </form>
       </OTPFormRenderer>
-      <Footer/>
+      <Footer />
     </>
   );
 };
@@ -184,9 +186,9 @@ const OTPFormRenderer = styled.div`
   width: 100%;
   height: 100vh;
   display: flex;
-  flex-direction:column;
-  align-items:center;
-  gap:5px;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
   h3 {
     padding-bottom: 10px;
     display: flex;
@@ -247,10 +249,11 @@ const OTPFormRenderer = styled.div`
     padding: 8px 16px;
     border: none;
     outline: none;
-    border-radius: 4px;
+    border-radius: 14px;
     color: #fff;
     cursor: pointer;
     transition: all 0.2s ease;
+    width: 100%;
   }
   .active-btn:hover {
     transform: scale(1.01);
@@ -272,7 +275,7 @@ const OTPFormRenderer = styled.div`
     max-width: 600px;
     width: 90%;
     font-size: 12px;
-    border-left:4px solid  #2b7eb6;
+    border-left: 4px solid #2b7eb6;
   }
   .info p {
     color: #f1f1f1;

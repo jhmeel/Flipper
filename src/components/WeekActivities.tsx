@@ -8,6 +8,9 @@ import RDotSpinner from "./loaders/RDotSpinner";
 const WeekActivity = ({ activities, pId }): React.ReactElement => {
   const [weekActivity, setWeekActivity] = useState([]);
 
+  /**
+   * @updateActivity- reformat the activities object keys {coming from the server} with a more native keys and compute the cumulative percentage till last week
+   */
   const updateActivity = () => {
     if (activities) {
       setWeekActivity(

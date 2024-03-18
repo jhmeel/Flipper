@@ -55,7 +55,7 @@ const NotificationItem = (props: NotificationProps): React.ReactElement => {
             <img src={imageUrl} loading="lazy" />
           </div>
         )}
-        <h2>{title}</h2>
+        <h2 className="n-title">{title}</h2>
         <div className="notification-desc">
           {type === "typical" ? (
             <p dangerouslySetInnerHTML={{ __html: description }}></p>
@@ -64,7 +64,7 @@ const NotificationItem = (props: NotificationProps): React.ReactElement => {
           )}
         </div>
 
-        <button onClick={href ? handleHref : onPress}>{btnText}</button>
+        <button className="n-btn" onClick={href ? handleHref : onPress}>{btnText}</button>
       </div>
     </NotificationRenderer>
   );
@@ -146,29 +146,34 @@ const NotificationRenderer = styled.div`
     overflow-y: scroll;
     text-align: center;
   }
-  .notification-desc p{
-    line-height:1.6rem;
-    text-align:justify;
-font-family:system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  .notification-desc p {
+    font-size: .775rem;
+    letter-spacing: .02em;
+    color:#343333;
+
+   
   }
   .notification-desc::-webkit-scrollbar {
     display: none;
   }
 
-  button {
+  .n-btn{
     display: flex;
     flex-direction: row;
     gap: 10px;
     font-size: 12px;
     padding: 10px 20px;
-    border-radius: 8px;
+    border-radius: 14px;
     color: #fff;
     background-color: rgb(85, 85, 236);
     border: none;
     cursor: pointer;
     transition: 0.3s ease-in-out;
   }
-  button:hover {
+  .n-btn:hover {
     transform: scale(1.01);
+  }
+  .n-title{
+    color:rgb(7, 7, 69);
   }
 `;

@@ -11,7 +11,6 @@ import getToken from "../../utils/getToken";
 import HLoader from "../../components/loaders/HLoader";
 import emailjs from "@emailjs/browser";
 import { errorParser } from "../../utils/formatter";
-import { useSnackbar } from "notistack";
 
 interface FormData {
   username?: string;
@@ -34,7 +33,6 @@ const Signup = () => {
   const [isPasswordVisible, setIsPasswordVisible] = useState<boolean>(false);
 
   const [authToken, setAuthToken] = useState<string | undefined>(undefined);
-  const { enqueueSnackbar } = useSnackbar();
   const navigate = useNavigate();
   const dispatch = useDispatch();
   useEffect(() => {
@@ -62,7 +60,7 @@ const Signup = () => {
         from_name: "Flipper",
         message: `
         Thank you for signing up. We are excited to have you on board!
-        To get started, activate a package that fit your investment plan and setup your profile.
+        To complete your registration process, activate a package that fit your investment plan and setup your profile.
         `,
         site_name: "Flipper",
       };
@@ -75,12 +73,12 @@ const Signup = () => {
 
   useEffect(() => {
     if (error) {
-      enqueueSnackbar(errorParser(error), { variant: "error" });
+      toast.error(errorParser(error));
       dispatch<any>(clearErrors());
     }
     if (isAuthenticated === true && authToken !== undefined) {
       toast.success(
-        "Signed up successfully! -Proceed to activate your package"
+        "Signed up successfully! -Proceed to activate a package that fit your investment plan and setup your profile."
       );
       sendEmail();
       navigate("/");
@@ -110,8 +108,7 @@ const Signup = () => {
       {loading && <HLoader />}
       <SignupRenderer>
         <div className="form-header">
-          <h2>Get started with flipper</h2>
-          
+          <h3 style={{ fontWeight: 1000, fontSize: "2em" }}>Create Account-</h3>
         </div>
         <form onSubmit={handleSubmit}>
           <div className="input-cont">
@@ -284,21 +281,21 @@ const SignupRenderer = styled.div`
     position: relative;
   }
   .input-cont input {
- width: 100%;
-  height: 40px;
-  background-color: transparent;
-  border: none;
-  border: 1px solid #ededed;
-  margin: 10px 0;
-  color: black;
-  font-size: 0.8em;
-  font-weight: 500;
-  box-sizing: border-box;
-  padding: 10px;
-  padding-left: 30px;
+    width: 100%;
+    height: 40px;
+    background-color: transparent;
+    border: none;
+    border: 1px solid #ededed;
+    margin: 10px 0;
+    color: black;
+    font-size: 0.8em;
+    font-weight: 500;
+    box-sizing: border-box;
+    padding: 10px;
+    padding-left: 30px;
   }
   .input-cont input:focus {
-    border-bottom: 2px solid  #3498db;;
+    border-bottom: 2px solid #3498db;
     transition: 0.3s ease-in-out;
     outline: none;
   }
@@ -323,7 +320,7 @@ const SignupRenderer = styled.div`
   button {
     padding: 10px 20px;
     background-color: #3498db;
-    border-radius: 4px;
+    border-radius: 14px;
     border: none;
     cursor: pointer;
     color: #fff;

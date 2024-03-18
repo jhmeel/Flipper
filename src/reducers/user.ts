@@ -84,6 +84,7 @@ export const userReducer = (
     token: undefined,
     wallet: undefined,
     txHistory: undefined,
+    weeklyCumulation:undefined,
     error: null,
   },
   { type, payload }: { type: string; payload: any }

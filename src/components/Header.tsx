@@ -40,10 +40,10 @@ const Header = (): React.ReactElement => {
       document.removeEventListener("click", handleClickOutside);
     };
   }, []);
-  console.log(user?.avatar)
+
   return (
     <HeaderRenderer ref={modalRef}>
-      <div className="logo-cont">flipper</div>
+      <div className="logo-cont"><h3>Flipper</h3></div>
       <div className="user-mod" onClick={toggleModal}>
         <div className="user-avatar">
           <img src={user?.avatar || emptyAvatar} />
@@ -58,7 +58,7 @@ const Header = (): React.ReactElement => {
             !isAuthenticated &&
             !isMobile && (
               <div className="btns-cont">
-                <button onClick={() => navigate("/signup")}>Signup</button>
+                <button onClick={() => navigate("/signup")}>Signup</button>|
                 <button onClick={() => navigate("/login")}>Login</button>
               </div>
             )
@@ -76,7 +76,7 @@ const Header = (): React.ReactElement => {
               </>
             ) : (
               <div className="btns-cont">
-                <button onClick={() => navigate("/signup")}>Signup</button>
+                <button onClick={() => navigate("/signup")}>Signup</button>|
                 <button onClick={() => navigate("/login")}>Login</button>
               </div>
             )}
@@ -163,7 +163,7 @@ const HeaderRenderer = styled.div`
 
   .modal-user-details {
     position: absolute;
-    padding: 10px 20px;
+    padding:5px 10px;
     background-color: #ffffff;
     border-radius: 12px;
     display: flex;
@@ -193,14 +193,14 @@ const HeaderRenderer = styled.div`
     display: flex;
   }
   .btns-cont button {
-    padding: 6px 12px;
-    margin-left: 5px;
+    padding: 6px;
     border: none;
-    color: #fff;
-    background-color: rgb(85, 85, 236);
+    color:  rgb(85, 85, 236);
+    background-color:transparent;
     cursor: pointer;
     font-size: 12px;
     transition: 0.3s ease-in-out;
+    border-radius:6px;
   }
   .btns-cont button:hover {
     transform: scale(1.01);

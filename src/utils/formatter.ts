@@ -59,7 +59,7 @@ export const errorParser = (error: any): string => {
     errMsg?.includes("Network Error") ||
     errMsg?.includes("timed out")
   ) {
-    return "There was a network error. Please Check your internet connection and try again.";
+    return "Request timeout. Please Check your network status and try again.";
   } else {
     return errMsg || "An error occurred.";
   }
@@ -106,9 +106,9 @@ export const getPercentage = (
 
 /**
  * certainly need to review this
- * @param pId 
- * @param type 
- * @param amount 
+ * @param pId
+ * @param type
+ * @param amount
  * @returns number
  */
 

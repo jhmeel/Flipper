@@ -1,6 +1,6 @@
 import React, { ChangeEvent, useEffect, useState } from "react";
 import styled from "styled-components";
-import { IconChevronLeft } from "../assets/icons";
+import { IconChevronLeft, IconInfoCircleFill, IconLink } from "../assets/icons";
 import { useNavigate } from "react-router-dom";
 import { Task } from "../types";
 import { verifyExec, clearErrors } from "../actions/task";
@@ -45,8 +45,15 @@ const VerifyTaskExecModal = ({
   const verifyPost = async (e: MouseEvent) => {
     e.preventDefault();
     const authToken = await getToken();
+    if (!postLink) {
+      toast.error("Please provide the link!");
+      return;
+    } else if (!postLink.startsWith("https")) {
+      toast.error("Please provide a valid link!");
+      return;
+    }
     dispatch<any>(
-      verifyExec(authToken, { taskId: task._id, postUrl: postLink })
+      verifyExec(authToken, { taskId: task?._id, postUrl: postLink })
     );
   };
   return (
@@ -55,10 +62,22 @@ const VerifyTaskExecModal = ({
       <span title="back" className="back" onClick={onRemove}>
         <IconChevronLeft />| back
       </span>
+      <div className="info">
+        <span>
+          <IconInfoCircleFill fill="#125b8c" />
+        </span>
+
+        <p>
+          To receive your ROC, please provide the link to the post where you
+          completed the previous step. Ensure the link is correct.
+        </p>
+      </div>
+
       <form>
         <div className="input-cont">
-          <label htmlFor="Link to the quoted post">
-            Link to the quoted post<span className="required">*</span>
+          <label htmlFor="Link">
+            <IconLink height={20} width={20} />
+            Enter the Link<span className="required">*</span>
           </label>
           <input
             type="text"
@@ -113,9 +132,11 @@ const VerifyTaskExecModalRenderer = styled.div`
   }
   .input-cont label {
     font-weight: 600;
-    font-family: monospace;
     font-size: 15px;
     padding: 5px;
+    display: flex;
+    align-items: center;
+    gap: 3px;
   }
   .input-cont input {
     padding: 10px;
@@ -133,7 +154,7 @@ const VerifyTaskExecModalRenderer = styled.div`
   button {
     padding: 10px 20px;
     background-color: #3498db;
-    border-radius: 4px;
+    border-radius: 14px;
     border: none;
     cursor: pointer;
     color: #fff;
@@ -157,5 +178,23 @@ const VerifyTaskExecModalRenderer = styled.div`
     align-items: center;
     cursor: pointer;
     z-index: 99;
+  }
+
+  .info {
+    margin-top: 15px;
+    margin-bottom: 40px;
+    padding: 10px;
+    background-color: #77b1d7;
+    border-radius: 8px;
+    max-width: 600px;
+    width: 90%;
+    font-size: 12px;
+    border-left: 4px solid #2b7eb6;
+  }
+  .info p {
+    color: #f1f1f1;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+      Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue",
+      sans-serif;
   }
 `;

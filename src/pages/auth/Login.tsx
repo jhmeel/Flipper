@@ -14,7 +14,7 @@ interface FormData {
   password?: string;
 }
 const Login = () => {
-  const { loading, isAuthenticated, user, error } = useSelector(
+  const { loading, isAuthenticated, error } = useSelector(
     (state: any) => state.user
   );
   const [formData, setFormData] = useState<FormData>({
@@ -57,9 +57,8 @@ const Login = () => {
         <LoginHeader>
           <div className="img-cont">
             <img src={signupImg} />
-           
           </div>
-          <h3>Login</h3>
+          <h3 style={{ fontWeight: 1000 }}>Login</h3>
         </LoginHeader>
 
         <InputContainer>
@@ -196,7 +195,7 @@ const InputIcon = styled.svg`
 `;
 
 const Input = styled.input`
-   width: 100%;
+  width: 100%;
   height: 40px;
   background-color: transparent;
   border: none;
@@ -210,7 +209,7 @@ const Input = styled.input`
   padding-left: 30px;
 
   &:focus {
-    border-bottom: 2px solid  #3498db;;
+    border-bottom: 2px solid #3498db;
     transition: 0.3s ease-in-out;
     outline: none;
   }
@@ -224,7 +223,7 @@ const Input = styled.input`
 const Button = styled.button`
   padding: 10px 20px;
   background-color: #3498db;
-  border-radius: 4px;
+  border-radius: 14px;
   border: none;
   cursor: pointer;
   color: #fff;

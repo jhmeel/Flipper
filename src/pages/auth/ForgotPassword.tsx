@@ -139,9 +139,9 @@ const ForgotPasswordRenderer = styled.div`
     flex-direction: column;
   }
   .input-cont label {
+    color: rgb(80, 80, 80);
+    font-size: 1em;
     font-weight: 600;
-    font-size: 15px;
-    padding: 5px;
   }
   .input-cont input {
     padding: 10px;
@@ -150,7 +150,7 @@ const ForgotPasswordRenderer = styled.div`
     height: 40px;
     width: 320px;
     outline: none;
-    border-radius: 4px;
+
   }
   .input-cont input:focus {
     border-bottom: 2px solid #2481a9;
@@ -159,12 +159,13 @@ const ForgotPasswordRenderer = styled.div`
   button {
     padding: 10px 20px;
     background-color: #3498db;
-    border-radius: 4px;
+    border-radius: 14px;
     border: none;
     cursor: pointer;
     color: #fff;
     margin-top: 10px;
     transition: 0.3s ease-out;
+    width:100%;
   }
   button:hover {
     transform: scale(1.01);

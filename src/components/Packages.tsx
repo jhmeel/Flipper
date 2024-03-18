@@ -5,6 +5,7 @@ import PaymentModal from "./PaymentModal";
 import NotificationItem from "./NotificationItem";
 import { Package } from "../types";
 import Config from "../config/Config";
+
 const Packages = () => {
   const [purchasedPackage, setPurchasedPackage] = useState<{
     packageName?: string;
@@ -43,7 +44,7 @@ const Packages = () => {
   const oncloseHandler = () => {
     setIsPaymentModalActive(false);
   };
-  const packages: Array<Package> = Config.PACKAGES
+  const packages: Array<Package> = Config.PACKAGES;
 
   return (
     <PackageRenderer>
@@ -70,6 +71,7 @@ const Packages = () => {
         <span className="pname">{packages[0].name}</span>
         <span className="pp">{`₦${packages[0].price}`}</span>
         <button
+          className="p-btn"
           onClick={() =>
             handlePurchase(packages[0].name, packages[0].price, packages[0].id)
           }
@@ -101,11 +103,12 @@ const Packages = () => {
         <span className="pname">{packages[1].name}</span>
         <span className="pp">{`₦${packages[1].price}`}</span>
         <button
+          className="p-btn"
           onClick={() =>
             handlePurchase(packages[1].name, packages[1].price, packages[1].id)
           }
         >
-        Activate
+          Activate
         </button>
       </div>
 
@@ -132,6 +135,7 @@ const Packages = () => {
         <span className="pname">{packages[2].name}</span>
         <span className="pp">{`₦${packages[2].price}`}</span>
         <button
+          className="p-btn"
           onClick={() =>
             handlePurchase(packages[2].name, packages[2].price, packages[2].id)
           }
@@ -152,9 +156,10 @@ const Packages = () => {
           type="typical"
           title={activePackage.name}
           description={`
-  Package <b>${activePackage.name}</b> with ID <b>${activePackage.id}</b> is valued at <b>₦${activePackage.price}</b>.
-It offers a Return on Completion [ROC] of <b>${activePackage.ROC}%</b>  and a Total Lifetime Return on Investment [LROI] of <b>₦${activePackage.LROI}</b>. It is a testament to our commitment to delivering substantial value to our investors.
-`}
+                        Package <b>${activePackage.name}</b> with ID <b>${activePackage.id}</b> is valued at <b>₦${activePackage.price}</b>.
+                        It offers a Return on Completion [ROC] of <b>${activePackage.ROC}%</b>  and a Total Lifetime Return on Investment [LROI] of <b>₦${activePackage.LROI}</b>.
+                        <br/>--------------------------------------------------<br/><b>🔊Note that this package will only be active for the duration of 1 month and will require a renewal to begin another investment session<b/>.
+                    `}
           btnText="Purchase"
           onPress={() => {
             setNotificationModalActive(false);
@@ -241,7 +246,7 @@ const PackageRenderer = styled.div`
     font-weight: 600;
     margin-top: 10px;
   }
-  button {
+  .p-btn {
     padding: 5px 10px;
     border: none;
     border-top-right-radius: 8px;

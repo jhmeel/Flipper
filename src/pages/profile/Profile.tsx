@@ -28,13 +28,13 @@ import PDotSpinner from "../../components/loaders/PDotSpinner";
 import { UPDATE_PROFILE_RESET } from "../../constants";
 import { useSnackbar } from "notistack";
 import { getPercentage } from "../../utils/formatter";
+import Config from "../../config/Config";
 
 const Profile = () => {
   const dispatch = useDispatch();
   const { enqueueSnackbar } = useSnackbar();
-  const { user, error, wallet, txHistory, weeklyCumulation, loading } = useSelector(
-    (state: any) => state.user
-  );
+  const { user, error, wallet, txHistory, weeklyCumulation, loading } =
+    useSelector((state: any) => state.user);
 
   const {
     isUpdated,
@@ -52,6 +52,17 @@ const Profile = () => {
     useState<boolean>(false);
   const [isPTabOpen, setIsPTabOpened] = useState<boolean>(false);
   const navigate = useNavigate();
+
+  
+  useEffect(() => {
+    const today = new Date().getDay();
+    if (Object.values(Config.WITHDRAWAL_WINDOW).includes(today)) {
+      setWithdrawalDisabled(false);
+      return;
+    }
+    setWithdrawalDisabled(true);
+  }, []);
+
   const toggleAccountDetailsEditMode = () => {
     setAccountDetailsEditMode(!accountDetailsEditMode);
   };
@@ -69,6 +80,7 @@ const Profile = () => {
     if (profileUpdateErr) {
       enqueueSnackbar(profileUpdateErr, { variant: "error" });
       dispatch<any>(clearErrors());
+      setAvatar("");
     }
     if (isUpdated) {
       dispatch<any>({ type: UPDATE_PROFILE_RESET });
@@ -116,7 +128,7 @@ const Profile = () => {
     return;
   };
 
-  const onUpdateProfile = async () => {
+  const onUpdateProfile = async (avatar: string) => {
     const authToken = await getToken();
     dispatch<any>(updateProfile(authToken, avatar));
   };
@@ -134,14 +146,11 @@ const Profile = () => {
     reader.onload = () => {
       if (reader.readyState === 2) {
         setAvatar(reader.result);
+        onUpdateProfile(reader.result as string);
       }
     };
 
     e.target.files && reader.readAsDataURL(e.target.files[0]);
-
-    if (avatar) {
-      onUpdateProfile();
-    }
   };
   return (
     <>
@@ -218,7 +227,7 @@ const Profile = () => {
 
             <div className="col-info">
               <h4>PACKAGE</h4>
-              <span>{wallet?.pId || 'N/A'}</span>
+              <span>{wallet?.pId || "N/A"}</span>
             </div>
           </div>
 
@@ -280,7 +289,9 @@ const Profile = () => {
                   </span>
 
                   <span className="tx-amount">₦{tx?.amount}</span>
-                  <span className="in-percent">+{getPercentage(wallet?.pId, tx?.amount)}</span>
+                  <span className="in-percent">
+                    +{getPercentage(wallet?.pId, tx?.amount)}
+                  </span>
                   <div className="tx-time">
                     <IconClock fill="gray" />{" "}
                     <span>

@@ -49,7 +49,6 @@ const persistConfig = {
   whitelist: ["user", "profile", "package", "password", "wallet", "task"],
 };
 export type RootReducer = ReturnType<typeof rootReducer>;
-
 const persistedReducer = persistReducer<RootReducer>(
   persistConfig,
   rootReducer

@@ -50,8 +50,8 @@ const persistConfig: PersistConfig = {
   whitelist: ["user", "profile", "package", "password", "wallet", "task"],
 };
 
-// Create a persisted reducer using persistReducer
-const persistedReducer = persistReducer(persistConfig, reducer); // Assuming reducer is correctly defined
+
+const persistedReducer = persistReducer(persistConfig, reducer); 
 
 
 export const store = configureStore({

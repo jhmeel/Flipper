@@ -67,8 +67,9 @@ const TaskExecution = () => {
     setIsTaskExecModalActive(false);
   };
 
+   //Only show error if package is activated
   useEffect(() => {
-    if (taskErr) {
+    if (taskErr && wallet?.pId) {
       enqueueSnackbar(taskErr, { variant: "error" });
       dispatch<any>(clearTaskErr());
     }
@@ -90,8 +91,10 @@ const TaskExecution = () => {
     getTillLastWeekCumulation();
   }, []);
 
+
+  //Only show error if package is activated
   useEffect(() => {
-    if (walletErr) {
+    if (walletErr && wallet?.pId) {
       enqueueSnackbar(walletErr, { variant: "error" });
       dispatch<any>(clearWalletErr());
     }
@@ -156,9 +159,13 @@ const TaskExecution = () => {
             <div className="progress-footer">
               <span className="timer">
                 Time left{" "}
-                <span style={{ color: "#993908" }}>{`${formatTime(
-                  hours
-                )}:${formatTime(minutes)}:${formatTime(seconds)}`}</span>
+                <span style={{ color: "#993908" }}>
+                  {tasks
+                    ? `${formatTime(hours)}:${formatTime(minutes)}:${formatTime(
+                        seconds
+                      )}`
+                    : "N/A"}
+                </span>
               </span>
               <span>{progress && (Number(progress) / 3) * 100}</span>
             </div>
@@ -332,6 +339,7 @@ const TaskActivityRenderer = styled.div`
     justify-content: space-between;
     align-items: center;
     display: flex;
+    gap:4px;
   }
   .task-icon-cont {
     height: 30px;

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import toast from "react-hot-toast";
-import { PaystackButton} from "react-paystack";
+import { PaystackButton } from "react-paystack";
 import { IconChevronLeft, SuccessIcon } from "../assets/icons";
 import styled from "styled-components";
 import { useDispatch } from "react-redux";
@@ -31,11 +31,11 @@ const PaymentModal = ({
   const navigate = useNavigate();
   const { loading, isActivated, error } = useSelector(
     (state: any) => state.package
-   
   );
   const { user, error: userErr } = useSelector((state: any) => state.user);
   const { enqueueSnackbar } = useSnackbar();
   const componentProps = {
+    className: "purchase-btn",
     email,
     amount: Number(price) * 100,
     publicKey,
@@ -113,5 +113,14 @@ const PaymentModalRenderer = styled.div`
     align-items: center;
     cursor: pointer;
     z-index: 99;
+  }
+
+  .purchase-btn {
+    padding: 10px 20px;
+    border-radius: 6px;
+    background-color: rgb(85, 85, 236);
+    color: #fff;
+    border: none;
+    cursor: pointer;
   }
 `;

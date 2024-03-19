@@ -274,8 +274,8 @@ const PackageRenderer = styled.div`
   .pid1,
   .pid2,
   .pid3 {
-    height: 30px;
-    width: 30px;
-    font-size: 10px;
+    height: 25px;
+    width: 25px;
+    font-size: 8px;
   }
 `;

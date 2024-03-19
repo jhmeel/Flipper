@@ -58,7 +58,8 @@ const Header = (): React.ReactElement => {
             !isAuthenticated &&
             !isMobile && (
               <div className="btns-cont">
-                <button onClick={() => navigate("/signup")}>Signup</button>|
+                <button onClick={() => navigate("/signup")}>Signup</button>
+                <span className="pipe">|</span>
                 <button onClick={() => navigate("/login")}>Login</button>
               </div>
             )
@@ -76,7 +77,8 @@ const Header = (): React.ReactElement => {
               </>
             ) : (
               <div className="btns-cont">
-                <button onClick={() => navigate("/signup")}>Signup</button>|
+                <button onClick={() => navigate("/signup")}>Signup</button>
+                <span className="pipe">|</span>
                 <button onClick={() => navigate("/login")}>Login</button>
               </div>
             )}
@@ -191,6 +193,7 @@ const HeaderRenderer = styled.div`
   }
   .btns-cont {
     display: flex;
+    align-items:center;
   }
   .btns-cont button {
     padding: 6px;
@@ -201,6 +204,10 @@ const HeaderRenderer = styled.div`
     font-size: 12px;
     transition: 0.3s ease-in-out;
     border-radius:6px;
+    font-weight:700;
+  }
+  .pipe{
+    color:  rgb(85, 85, 236);
   }
   .btns-cont button:hover {
     transform: scale(1.01);

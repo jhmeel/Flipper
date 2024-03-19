@@ -142,6 +142,7 @@ const AccountDetailsFormRenderer = styled.div`
     flex-direction: column;
     align-items: center;
     gap: 5px;
+    margin-top:20px;
   }
   .required {
     color: crimson;
@@ -163,7 +164,6 @@ const AccountDetailsFormRenderer = styled.div`
     border: none;
     height: 40px;
     outline: none;
-    border-radius: 4px;
   }
   .input-cont input:focus {
     border-bottom: 2px solid #2481a9;
@@ -172,7 +172,7 @@ const AccountDetailsFormRenderer = styled.div`
   button {
     padding: 10px 20px;
     background-color: #3498db;
-    border-radius: 4px;
+    border-radius: 14px;
     border: none;
     cursor: pointer;
     color: #fff;

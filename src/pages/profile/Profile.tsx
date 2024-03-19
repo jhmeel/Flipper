@@ -53,7 +53,6 @@ const Profile = () => {
   const [isPTabOpen, setIsPTabOpened] = useState<boolean>(false);
   const navigate = useNavigate();
 
-  
   useEffect(() => {
     const today = new Date().getDay();
     if (Object.values(Config.WITHDRAWAL_WINDOW).includes(today)) {
@@ -163,7 +162,13 @@ const Profile = () => {
             {isPTabOpen && (
               <div className="u-nav-tab">
                 <ul id="u-ul">
-                  <li title="Reset password" onClick={togglePasswordResetModal}>
+                  <li
+                    title="Reset password"
+                    onClick={() => {
+                      navigate("/reset-password");
+                      togglePasswordResetModal;
+                    }}
+                  >
                     <PasswordIcon className="u-ul-icon" />
                     Reset password
                   </li>
@@ -586,20 +591,11 @@ const ProfileRenderer = styled.div`
     width: 20px;
     cursor: pointer;
   }
-  @media (max-width: 767px) {
-    .edit-account-details {
-      font-size: 10px;
-    }
-    .u-nav-tab {
-      top: 50px;
-      right: 5px;
-    }
-  }
 
   .withdrawal {
     position: absolute;
-    right: 10px;
-    bottom: 10px;
+    right: 5px;
+    bottom: 0;
     width: fit-content;
     padding: 5px;
     display: flex;
@@ -664,6 +660,20 @@ const ProfileRenderer = styled.div`
     }
     100% {
       opacity: 1;
+    }
+  }
+
+  @media (max-width: 767px) {
+    .edit-account-details {
+      font-size: 10px;
+    }
+    .u-nav-tab {
+      top: 50px;
+      right: 5px;
+    }
+    .active,
+    .disabled {
+      font-size: 9px;
     }
   }
 `;

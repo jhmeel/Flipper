@@ -43,13 +43,13 @@ localForage.config({
   size: 200 * 1024 * 1024,
 });
 
-const persistConfig = {
+const persistConfig:any = {
   key: "root",
   storage: customLocalForage,
   whitelist: ["user", "profile", "package", "password", "wallet", "task"],
 };
 export type RootReducer = ReturnType<typeof rootReducer>;
-const persistedReducer = persistReducer<RootReducer>(
+const persistedReducer = persistReducer<RootReducer, any>(
   persistConfig,
   rootReducer
 );

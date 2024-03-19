@@ -46,7 +46,7 @@ const AccountDetailsForm = ({ onRemove }: { onRemove: () => void }) => {
     }
   }, [dispatch, enqueueSnackbar, error, isUpdated, onRemove]);
 
-  const handleSubmit = async (e: MouseEvent) => {
+  const handleSubmit = async (e: any) => {
     e.preventDefault();
     if(!accountDetails.accountName || !accountDetails.accountNumber || !accountDetails.bankName){
       toast.error('Please provide your account details')
@@ -104,7 +104,7 @@ const AccountDetailsForm = ({ onRemove }: { onRemove: () => void }) => {
           />
         </div>
 
-        <button onClick={(e) => handleSubmit(e)}>Submit</button>
+        <button onClick={handleSubmit}>Submit</button>
       </form>
     </AccountDetailsFormRenderer>
   );

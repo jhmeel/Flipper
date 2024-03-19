@@ -42,7 +42,7 @@ const WithdrawalModal = ({ onRemove }: { onRemove: () => void }) => {
     }));
   };
 
-  const handleSubmit = async (e: MouseEvent) => {
+  const handleSubmit = async (e: any) => {
     e.preventDefault();
     if (!withdrawalDetails.amount) {
       enqueueSnackbar("Please provide the amount to withdraw", {
@@ -92,7 +92,7 @@ const WithdrawalModal = ({ onRemove }: { onRemove: () => void }) => {
           />
         </div>
 
-        <button onClick={(e) => handleSubmit(e)}>Submit</button>
+        <button onClick={handleSubmit}>Submit</button>
       </form>
     </WithdrawalModalRenderer>
   );

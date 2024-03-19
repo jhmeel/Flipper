@@ -88,7 +88,7 @@ const OTP_Verification = (): React.ReactElement => {
     }
   };
 
-  const onVerifyOTP = (e: MouseEvent) => {
+  const onVerifyOTP = (e:any) => {
     e.preventDefault();
     if (!OTP) {
       return;

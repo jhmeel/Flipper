@@ -42,7 +42,7 @@ const VerifyTaskExecModal = ({
     }
   }, [dispatch, navigate, error, isVerified, enqueueSnackbar]);
 
-  const verifyPost = async (e: MouseEvent) => {
+  const verifyPost = async (e: any) => {
     e.preventDefault();
     const authToken = await getToken();
     if (!postLink) {
@@ -88,7 +88,7 @@ const VerifyTaskExecModal = ({
           />
         </div>
 
-        <button title="verify" onClick={(e) => verifyPost(e)}>
+        <button title="verify" onClick={verifyPost}>
           Verify
         </button>
       </form>

@@ -17,6 +17,10 @@ const ResetPassword = () => {
   const { loading, message, error } = useSelector(
     (state: any) => state.password
   );
+  //To ensure state is at init when page is first loaded
+  useEffect(() => {
+    dispatch<any>(clearErrors());
+  }, []);
 
   useEffect(() => {
     if (error) {
@@ -73,7 +77,7 @@ const ResetPassword = () => {
           <button title="reset">Reset</button>
         </form>
       </ResetPasswordRenderer>
-      <Footer/>
+      <Footer />
     </>
   );
 };
@@ -137,7 +141,7 @@ const ResetPasswordRenderer = styled.div`
     color: #fff;
     margin-top: 10px;
     transition: 0.3s ease-out;
-    width:100%;
+    width: 100%;
   }
   button:hover {
     transform: scale(1.01);
@@ -151,7 +155,7 @@ const ResetPasswordRenderer = styled.div`
     max-width: 600px;
     width: 90%;
     font-size: 12px;
-    border-left:4px solid  #2b7eb6;
+    border-left: 4px solid #2b7eb6;
   }
   .info p {
     color: #f1f1f1;

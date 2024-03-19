@@ -20,6 +20,11 @@ const OTP_Verification = (): React.ReactElement => {
     useRef<HTMLInputElement | null>(null)
   );
 
+   //To ensure state is at init when page is first loaded
+   useEffect(() => {
+    dispatch<any>(clearErrors());
+  }, []);
+
   const navigate = useNavigate();
   const dispatch = useDispatch();
 

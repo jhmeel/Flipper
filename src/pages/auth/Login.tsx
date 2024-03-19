@@ -25,6 +25,12 @@ const Login = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
+
+   //To ensure state is at init when page is first loaded
+  useEffect(() => {
+    dispatch<any>(clearErrors());
+  }, []);
+
   useEffect(() => {
     if (error) {
       toast.error(error);

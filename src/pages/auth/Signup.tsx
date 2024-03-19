@@ -35,6 +35,13 @@ const Signup = () => {
   const [authToken, setAuthToken] = useState<string | undefined>(undefined);
   const navigate = useNavigate();
   const dispatch = useDispatch();
+
+  //To ensure state is at init when page is first loaded
+  useEffect(() => {
+    dispatch<any>(clearErrors());
+  }, []);
+
+
   useEffect(() => {
     emailjs.init({
       publicKey: "tTnt3JKDvvNxscd-i",

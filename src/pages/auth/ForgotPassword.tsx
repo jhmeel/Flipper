@@ -19,6 +19,12 @@ const ForgotPassword = () => {
   const { loading, otp, error } = useSelector((state: any) => state.password);
   const { enqueueSnackbar } = useSnackbar();
 
+  //To ensure state is at init when page is first loaded
+   useEffect(() => {
+    dispatch<any>(clearErrors());
+  }, []);
+
+
   useEffect(() => {
     emailjs.init({
       publicKey: "tTnt3JKDvvNxscd-i",

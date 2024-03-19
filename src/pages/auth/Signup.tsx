@@ -339,7 +339,7 @@ const SignupRenderer = styled.div`
     transform: scale(1.01);
   }
   .terms {
-    font-size: 12px;
+    font-size: 0.6em;
     padding: 5px 20px;
   }
   .terms a {

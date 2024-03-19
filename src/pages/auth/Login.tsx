@@ -245,7 +245,7 @@ const Button = styled.button`
 
 const LoginFooter = styled.div`
   z-index: 2;
-  font-size: 0.7em;
+  font-size: 0.6em;
   font-weight: 500;
   text-decoration: none;
   padding: 8px 15px;

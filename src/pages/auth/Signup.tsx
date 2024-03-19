@@ -73,7 +73,7 @@ const Signup = () => {
 
   useEffect(() => {
     if (error) {
-      toast.error(errorParser(error));
+      toast.error(error);
       dispatch<any>(clearErrors());
     }
     if (isAuthenticated === true && authToken !== undefined) {

@@ -20,8 +20,6 @@ import {
 } from "./reducers/user";
 import { taskReducer } from "./reducers/task";
 
-
-
 const reducer = combineReducers({
   user: userReducer,
   password: passwordReducer,
@@ -31,21 +29,23 @@ const reducer = combineReducers({
   task: taskReducer
 });
 
+interface CustomLocalForage extends LocalForage {
+  getAllKeys(callback?: (keys: string[]) => void): Promise<string[]>;
+}
+
+const customLocalForage: CustomLocalForage = localForage as CustomLocalForage;
+
 localForage.config({
   name: "flipper",
   storeName: "state",
   version: 1,
-  driver: [
-    localForage.INDEXEDDB,
-    localForage.WEBSQL,
-    localForage.LOCALSTORAGE,
-  ],
+  driver: [localForage.INDEXEDDB, localForage.WEBSQL, localForage.LOCALSTORAGE],
   size: 200 * 1024 * 1024,
 });
 
 const persistConfig = {
   key: "root",
-  storage: localForage,
+  storage: customLocalForage,
   whitelist: [
     "user",
     "profile",
@@ -56,7 +56,7 @@ const persistConfig = {
   ],
 };
 
-const persistedReducer = persistReducer<any>(persistConfig, reducer);
+const persistedReducer = persistReducer(persistConfig, reducer);
 
 export const store = configureStore({
   reducer: persistedReducer,

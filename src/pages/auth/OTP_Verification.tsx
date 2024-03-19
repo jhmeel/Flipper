@@ -82,12 +82,16 @@ const OTP_Verification = (): React.ReactElement => {
       e.key === "Backspace" &&
       OTPInputs[index].current?.previousElementSibling
     ) {
-      e.currentTarget.value = "";
-      e.currentTarget.setAttribute("disabled", "true");
-      OTPInputs[index].current?.previousElementSibling?.focus();
+      const currentInput = e.currentTarget as HTMLInputElement;
+      currentInput.value = "";
+      currentInput.disabled = true;
+  
+      const previousInput = OTPInputs[index].current?.previousElementSibling as HTMLInputElement;
+      if (previousInput) {
+        previousInput.focus();
+      }
     }
   };
-
   const onVerifyOTP = (e:any) => {
     e.preventDefault();
     if (!OTP) {
@@ -123,6 +127,7 @@ const OTP_Verification = (): React.ReactElement => {
     return () => clearInterval(intervalId);
   }, []);
 
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const hours = expiresAt ? Math.floor(time / 3600) : 0;
   const minutes = expiresAt ? Math.floor((time % 3600) / 60) : 0;
   const seconds = expiresAt ? time % 60 : 0;

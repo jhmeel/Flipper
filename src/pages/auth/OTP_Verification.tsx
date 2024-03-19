@@ -84,7 +84,7 @@ const OTP_Verification = (): React.ReactElement => {
     ) {
       e.currentTarget.value = "";
       e.currentTarget.setAttribute("disabled", "true");
-      OTPInputs[index].current?.previousElementSibling.focus();
+      OTPInputs[index].current?.previousElementSibling?.focus();
     }
   };
 

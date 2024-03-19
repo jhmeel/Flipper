@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import toast from "react-hot-toast";
-import { PaystackButton } from "react-paystack";
+import { PaystackButton} from "react-paystack";
 import { IconChevronLeft, SuccessIcon } from "../assets/icons";
 import styled from "styled-components";
 import { useDispatch } from "react-redux";
@@ -26,8 +26,6 @@ const PaymentModal = ({
   const publicKey: string = Config.PAYSTACK_SECRETE_KEY;
   const [price, setPrice] = useState<number | string | undefined>(packagePrice);
   const [email, setEmail] = useState<string>("");
-  const [name, setName] = useState<string>("");
-  const [phone, setPhone] = useState<string>("");
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -40,10 +38,6 @@ const PaymentModal = ({
   const componentProps = {
     email,
     amount: Number(price) * 100,
-    metadata: {
-      name,
-      phone,
-    },
     publicKey,
     text: `Purchase "${packageName}"`,
     onSuccess: () => {
@@ -57,9 +51,7 @@ const PaymentModal = ({
       navigate("/login");
     }
     setEmail(user?.email);
-    setPhone(user?.phone);
-    setName(user?.username);
-  }, [navigate, user, user?.email, user?.phone, user?.username, userErr]);
+  }, [navigate, user, user?.email, userErr]);
 
   useEffect(() => {
     if (error) {
@@ -71,7 +63,7 @@ const PaymentModal = ({
         icon: <SuccessIcon />,
       });
     }
-  }, [dispatch, error, isActivated]);
+  }, [dispatch, enqueueSnackbar, error, isActivated]);
 
   const onPackagePurchase = async () => {
     const authToken = await getToken();

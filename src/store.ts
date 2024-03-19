@@ -7,7 +7,7 @@ import {
   REHYDRATE,
   PAUSE,
   PERSIST,
-  PURGE, 
+  PURGE,
   REGISTER,
 } from "reduxjs-toolkit-persist";
 import localForage from "localforage";
@@ -20,13 +20,13 @@ import {
 } from "./reducers/user";
 import { taskReducer } from "./reducers/task";
 
-const reducer = combineReducers({
+const rootReducer = combineReducers({
   user: userReducer,
   password: passwordReducer,
   profile: profileReducer,
   package: packageReducer,
-  wallet:walletReducer,
-  task: taskReducer
+  wallet: walletReducer,
+  task: taskReducer,
 });
 
 interface CustomLocalForage extends LocalForage {
@@ -48,10 +48,12 @@ const persistConfig = {
   storage: customLocalForage,
   whitelist: ["user", "profile", "package", "password", "wallet", "task"],
 };
+export type RootReducer = ReturnType<typeof rootReducer>;
 
-
-const persistedReducer = persistReducer<any>(persistConfig, reducer); 
-
+const persistedReducer = persistReducer<RootReducer>(
+  persistConfig,
+  rootReducer
+);
 
 export const store = configureStore({
   reducer: persistedReducer,

@@ -3,6 +3,7 @@ import { combineReducers } from "redux";
 import {
   persistStore,
   persistReducer,
+  PersistConfig,
   FLUSH,
   REHYDRATE,
   PAUSE,
@@ -43,20 +44,15 @@ localForage.config({
   size: 200 * 1024 * 1024,
 });
 
-const persistConfig = {
+const persistConfig: PersistConfig = {
   key: "root",
   storage: customLocalForage,
-  whitelist: [
-    "user",
-    "profile",
-    "package",
-    "password",
-    "wallet",
-    "task",
-  ],
+  whitelist: ["user", "profile", "package", "password", "wallet", "task"],
 };
 
-const persistedReducer = persistReducer(persistConfig, reducer);
+// Create a persisted reducer using persistReducer
+const persistedReducer = persistReducer(persistConfig, reducer); // Assuming reducer is correctly defined
+
 
 export const store = configureStore({
   reducer: persistedReducer,

@@ -69,7 +69,7 @@ const TaskExecution = () => {
 
    //Only show error if package is activated
   useEffect(() => {
-    if (taskErr && wallet?.pId) {
+    if (taskErr) {
       enqueueSnackbar(taskErr, { variant: "error" });
       dispatch<any>(clearTaskErr());
     }

@@ -1,7 +1,7 @@
 import { useEffect, lazy, Suspense } from "react";
 import { IconCloudOffline16 } from "./assets/icons";
 import toast, { useToasterStore } from "react-hot-toast";
-import { Routes, Route, useLocation } from "react-router-dom";
+import { Routes, Route, useLocation, useNavigate } from "react-router-dom";
 import NavBar from "./components/Nav";
 import CSpinner from "./components/loaders/CSpinner";
 import ScrollReveal from "scrollreveal";
@@ -69,6 +69,15 @@ function App() {
       { opacity: 0, interval: 300 }
     );
   }, []);
+  const navigate = useNavigate();
+  const bc = new BroadcastChannel("EVENT");
+  useEffect(() => {
+    bc.addEventListener("message", (event) => {
+      if (event?.data && event?.data?.type === "JWT_EXPIRED") {
+        navigate("/login");
+      }
+    });
+  }, [bc]);
 
   return (
     <>

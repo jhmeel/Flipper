@@ -1,5 +1,5 @@
 const Config = {
-  PAYSTACK_SECRETE_KEY: "sk_live_09d49950cb72bd38811e939163ef90f7d0e11bf2",
+  PAYSTACK_SECRETE_KEY: "pk_live_e01be7df03cfd763e978d68adc9bc2dbd9867a6e",
   WITHDRAWAL_WINDOW: { TUESDAY: 2, FRIDAY: 5 },
   PACKAGES: [
     {

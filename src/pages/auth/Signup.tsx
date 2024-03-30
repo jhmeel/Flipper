@@ -11,7 +11,7 @@ import getToken from "../../utils/getToken";
 import HLoader from "../../components/loaders/HLoader";
 import emailjs from "@emailjs/browser";
 import { errorParser } from "../../utils/formatter";
-
+import logo from "../../assets/flipper-logo.png";
 interface FormData {
   username?: string;
   phone?: string;
@@ -115,7 +115,10 @@ const Signup = () => {
       {loading && <HLoader />}
       <SignupRenderer>
         <div className="form-header">
-          <h3 style={{ fontWeight: 1000, fontSize: "2em" }}>Create Account-</h3>
+        <div className="img-cont">
+            <img src={logo} />
+          </div>
+          <h3 style={{ fontWeight: 800, fontSize: "1.5em" }}>Create Account-</h3>
         </div>
         <form onSubmit={handleSubmit}>
           <div className="input-cont">

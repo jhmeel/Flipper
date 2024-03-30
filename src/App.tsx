@@ -1,7 +1,7 @@
 import { useEffect, lazy, Suspense } from "react";
 import { IconCloudOffline16 } from "./assets/icons";
 import toast, { useToasterStore } from "react-hot-toast";
-import { Routes, Route, useLocation, useNavigate } from "react-router-dom";
+import { Routes, Route, useLocation} from "react-router-dom";
 import NavBar from "./components/Nav";
 import CSpinner from "./components/loaders/CSpinner";
 import ScrollReveal from "scrollreveal";
@@ -10,7 +10,6 @@ const HomePage = lazy(() => import("./pages/Home"));
 const TermsPage = lazy(() => import("./pages/meta/Terms"));
 const PrivacyPolicyPage = lazy(() => import("./pages/meta/PrivacyPolicy"));
 const AboutUsPage = lazy(() => import("./pages/meta/AboutUs"));
-const PaymentPage = lazy(() => import("./pages/Payment"));
 const TaskExecutionPage = lazy(() => import("./pages/Task"));
 const BlogPage = lazy(() => import("./pages/blog/Blog"));
 const NotfoundPage = lazy(() => import("./pages/Notfound"));
@@ -69,15 +68,6 @@ function App() {
       { opacity: 0, interval: 300 }
     );
   }, []);
-  const navigate = useNavigate();
-  const bc = new BroadcastChannel("EVENT");
-  useEffect(() => {
-    bc.addEventListener("message", (event) => {
-      if (event?.data && event?.data?.type === "JWT_EXPIRED") {
-        navigate("/login");
-      }
-    });
-  }, [bc]);
 
   return (
     <>
@@ -107,7 +97,6 @@ function App() {
           <Route path="/reset-password" element={<ResetPasswordPage />} />
           <Route path="/blog" element={<BlogPage />} />
           <Route path="/task" element={<TaskExecutionPage />} />
-          <Route path="/payment" element={<PaymentPage />} />
           <Route path="/verify-otp" element={<OTP_VerificationPage />} />
           <Route path="/about-us" element={<AboutUsPage />} />
           <Route path="/terms-of-service" element={<TermsPage />} />

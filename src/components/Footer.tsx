@@ -7,12 +7,14 @@ import {
   IconSquareTwitter,
 } from "../assets/icons";
 import Config from "../config/Config";
+import logo from '../assets/flipper-logo.png'
 
 const Footer = () => {
   return (
     <>
+
       <MainFooter className="footer">
-        <img className="foot-logo" src={""} alt="flipper" />
+        <img className="foot-logo" src={logo} alt="flipper" />
 
         <div className="f-socials">
           <span className="f-social-txt">Follow us</span>
@@ -72,8 +74,8 @@ const MainFooter = styled.footer`
   z-index: 99;
 
   .foot-logo {
-    height: 130px;
-    width: 130px;
+    height: auto;
+    width: 4.5em;
     border: 1px solid #ccc;
   }
 

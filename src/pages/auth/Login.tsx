@@ -1,7 +1,7 @@
 import React, { ChangeEvent, useEffect, useState } from "react";
 import MetaData from "../../misc/MetaData";
 import styled from "styled-components";
-import signupImg from "../../assets/images/undraw_sign_up.svg";
+import logo from "../../assets/flipper-logo.png";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
@@ -62,7 +62,7 @@ const Login = () => {
       <FormMain onSubmit={handleSubmit}>
         <LoginHeader>
           <div className="img-cont">
-            <img src={signupImg} />
+            <img src={logo} />
           </div>
           <h3 style={{ fontWeight: 1000 }}>Login</h3>
         </LoginHeader>
@@ -180,10 +180,12 @@ const LoginHeader = styled.p`
   }
 
   .img-cont img {
-    position: absolute;
-    width: 100%;
     height: auto;
+    width: 100%;
+    z-index: 10;
+    cursor: progress;
   }
+  
 `;
 
 const InputContainer = styled.div`

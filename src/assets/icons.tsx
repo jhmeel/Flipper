@@ -2216,4 +2216,3 @@ export const IconBarChartLineFill = (props: React.SVGProps<SVGSVGElement>) =>{
   );
 }
 
-IconFile

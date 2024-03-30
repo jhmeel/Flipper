@@ -108,7 +108,7 @@ const TaskExecution = () => {
   }, [dispatch]);
 
   useEffect(() => {
-    const countToDate = new Date().getTime() + 12 * 60 * 60 * 1000;
+    const countToDate = tasks ? new Date().getTime() + 12 * 60 * 60 * 1000 : 0
     const updateCountdown = () => {
       const currentDate = new Date();
       const timeBetweenDates = Math.ceil(

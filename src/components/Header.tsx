@@ -4,6 +4,7 @@ import emptyAvatar from "../assets/images/empty_avatar.png";
 import { IconSettings2 } from "../assets/icons";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
+import logo from '../assets/flipper-logo.png'
 const Header = (): React.ReactElement => {
   const [modalActive, setModalActive] = useState<boolean>(false);
   const [isMobile, setIsMobile] = useState<boolean>(false);
@@ -43,7 +44,7 @@ const Header = (): React.ReactElement => {
 
   return (
     <HeaderRenderer ref={modalRef}>
-      <div className="logo-cont"><h3>Flipper</h3></div>
+      <div className="logo-cont"><img src={logo} alt="flipper"/></div>
       <div className="user-mod" onClick={toggleModal}>
         <div className="user-avatar">
           <img src={user?.avatar || emptyAvatar} />
@@ -114,6 +115,12 @@ const HeaderRenderer = styled.div`
   justify-content: space-between;
   padding: 10px;
 
+  .logo-cont img{
+    height:auto;
+    width: 4.5em;
+    z-index: 10;
+    cursor: pointer;
+  }
   .user-mod {
     display: flex;
     flex-direction: row;

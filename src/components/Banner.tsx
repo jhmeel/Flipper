@@ -1,6 +1,6 @@
 import React from "react";
 import styled, { keyframes } from "styled-components";
-import bannerImg from "../assets/images/investmentImg.png";
+import bannerImg from "../assets/images/investment_data.svg";
 
 const gradientAnimation = keyframes`
   0% {

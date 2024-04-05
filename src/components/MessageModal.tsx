@@ -157,5 +157,9 @@ const MessageModalRenderer = styled.div`
       font-size: 14px;
       width: 100%;
     }
+    .m-card-avt {
+    right: 45px;
+
+  }
   }
 `;

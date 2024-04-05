@@ -71,7 +71,7 @@ const BannerImage = styled.img`
     & {
       width:90%;
       position: absolute;
-      bottom:-70px;
+      bottom:-60px;
       z-index:1;
     }
   }

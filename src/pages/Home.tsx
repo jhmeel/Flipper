@@ -19,7 +19,6 @@ import Faq from "../components/faq/Faq";
 const Home = (): React.ReactElement => {
   return (
     <>
-
       <MetaData title="Home" />
       <HomeRenderer>
         <Header />
@@ -29,9 +28,8 @@ const Home = (): React.ReactElement => {
             <h3>
               <IconCubeOutline /> Available Packages
             </h3>
-            </div>
-            <Packages /> 
-          
+          </div>
+          <Packages />
         </div>
         <div className="revenue-source">
           <div className="s-header">
@@ -46,12 +44,12 @@ const Home = (): React.ReactElement => {
           <MessageModal />
         </div>
         <div className="faq">
-        <div className="s-header">
+          <div className="s-header">
             <h3>
-           <IconHelp/> Frequently Asked Questions
+              <IconHelp /> Frequently Asked Questions
             </h3>
           </div>
-          <Faq/>
+          <Faq />
         </div>
 
         <div className="testimonial-cont">
@@ -79,19 +77,21 @@ const HomeRenderer = styled.div`
 
   .testimonial-cont {
     padding: 5px 10px;
-    background-color:#ffffff;
+    background-color: #ffffff;
   }
   .s-header {
     width: 100%;
     padding: 5px 10px;
     display: flex;
-    justify-content:center;
+    justify-content: center;
     align-items: center;
   }
-  .s-header h3{
-    font-size:28px;
-    font-weight:600;
-    font-family:system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", "Noto Sans", "Liberation Sans", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  .s-header h3 {
+    font-size: 28px;
+    font-weight: 600;
+    font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue",
+      "Noto Sans", "Liberation Sans", Arial, sans-serif, "Apple Color Emoji",
+      "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
   }
   .avail-pkg {
     display: flex;
@@ -100,7 +100,7 @@ const HomeRenderer = styled.div`
     justify-content: center;
     align-items: center;
     border-bottom: 1px solid #ededed;
-    background-color:#fafafa;
+    background-color: #fafafa;
   }
   .revenue-source {
     display: flex;
@@ -109,14 +109,19 @@ const HomeRenderer = styled.div`
     justify-content: center;
     align-items: center;
     border-bottom: 1px solid #ededed;
-    background-color:#ffffff;
+    background-color: #ffffff;
   }
-  .msg-modal{
+  .msg-modal {
     display: flex;
     flex-direction: column;
     width: 100%;
     justify-content: center;
     align-items: center;
-    background-color:#fafafa;
+    background-color: #fafafa;
+  }
+  @media (max-width: 767px) {
+    .s-header h3 {
+      font-size: 24px;
+    }
   }
 `;

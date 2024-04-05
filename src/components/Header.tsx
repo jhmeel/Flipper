@@ -153,7 +153,7 @@ const HeaderRenderer = styled.div`
   .user-details {
     display: flex;
     flex-direction: column;
-    margin-left:20px;
+    margin-left:15px;
   }
   .user-details span {
     font-size: 12px;
@@ -221,6 +221,5 @@ const HeaderRenderer = styled.div`
   .btns-cont button:hover {
     transform: scale(1.01);
   }
-  @media (max-width: 767px) {
-  }
+ 
 `;

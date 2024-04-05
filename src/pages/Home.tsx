@@ -9,10 +9,12 @@ import RevenueSourceChart from "../components/RevenueSourceChart";
 import {
   IconArrowTrendUp,
   IconCubeOutline,
+  IconHelp,
   IconPeople16,
 } from "../assets/icons";
 import Packages from "../components/Packages";
 import MessageModal from "../components/MessageModal";
+import Faq from "../components/faq/Faq";
 
 const Home = (): React.ReactElement => {
   return (
@@ -43,6 +45,14 @@ const Home = (): React.ReactElement => {
         <div className="msg-modal">
           <MessageModal />
         </div>
+        <div className="faq">
+        <div className="s-header">
+            <h3>
+           <IconHelp/> Frequently Asked Questions
+            </h3>
+          </div>
+          <Faq/>
+        </div>
 
         <div className="testimonial-cont">
           <div className="s-header">
@@ -69,15 +79,19 @@ const HomeRenderer = styled.div`
 
   .testimonial-cont {
     padding: 5px 10px;
+    background-color:#ffffff;
   }
   .s-header {
     width: 100%;
     padding: 5px 10px;
     display: flex;
+    justify-content:center;
     align-items: center;
   }
   .s-header h3{
-    font-size:18px;
+    font-size:28px;
+    font-weight:600;
+    font-family:system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", "Noto Sans", "Liberation Sans", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
   }
   .avail-pkg {
     display: flex;
@@ -86,6 +100,7 @@ const HomeRenderer = styled.div`
     justify-content: center;
     align-items: center;
     border-bottom: 1px solid #ededed;
+    background-color:#fafafa;
   }
   .revenue-source {
     display: flex;
@@ -94,6 +109,7 @@ const HomeRenderer = styled.div`
     justify-content: center;
     align-items: center;
     border-bottom: 1px solid #ededed;
+    background-color:#ffffff;
   }
   .msg-modal{
     display: flex;
@@ -101,5 +117,6 @@ const HomeRenderer = styled.div`
     width: 100%;
     justify-content: center;
     align-items: center;
+    background-color:#fafafa;
   }
 `;

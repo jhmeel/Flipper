@@ -24,6 +24,7 @@ import RDotSpinner from "../components/loaders/RDotSpinner";
 import HLoader from "../components/loaders/HLoader";
 import { getROC } from "../utils/formatter";
 import { useSnackbar } from "notistack";
+import { RootState } from "../store";
 const TaskExecution = () => {
   const [taskCompletionStatus, setTaskCompletionStatus] = useState<
     "Pending..." | "Inprogress" | "Completed" | "Closed" | "N/A"
@@ -35,15 +36,15 @@ const TaskExecution = () => {
     loading: taskLoading,
     progress,
     tasks,
-  } = useSelector((state: any) => state.task);
+  } = useSelector((state: RootState) => state.task);
   const {
     error: walletErr,
     loading: walletLoading,
     balance,
     tillLastweekCumulation,
-  } = useSelector((state: any) => state.wallet);
+  } = useSelector((state: RootState) => state.wallet);
 
-  const { wallet } = useSelector((state: any) => state.package);
+  const { wallet } = useSelector((state: RootState) => state.package);
   const [time, setTime] = useState<number>(0);
   const [activeTask, setActiveTask] = useState<Task | null>(null);
   const [isTaskExecModalActive, setIsTaskExecModalActive] =

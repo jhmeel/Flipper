@@ -29,18 +29,19 @@ import { UPDATE_PROFILE_RESET } from "../../constants";
 import { useSnackbar } from "notistack";
 import { getPercentage } from "../../utils/formatter";
 import Config from "../../config/Config";
+import { RootState } from "../../store";
 
 const Profile = () => {
   const dispatch = useDispatch();
   const { enqueueSnackbar } = useSnackbar();
   const { user, error, wallet, txHistory, weeklyCumulation, loading } =
-    useSelector((state: any) => state.user);
+    useSelector((state: RootState) => state.user);
 
   const {
     isUpdated,
     error: profileUpdateErr,
     loading: profileUpdateLoading,
-  } = useSelector((state: any) => state.profile);
+  } = useSelector((state: RootState) => state.profile);
 
   const [accountDetailsEditMode, setAccountDetailsEditMode] =
     useState<boolean>(false);

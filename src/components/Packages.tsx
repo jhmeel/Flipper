@@ -5,6 +5,7 @@ import PaymentModal from "./PaymentModal";
 import NotificationItem from "./NotificationItem";
 import { Package } from "../types";
 import Config from "../config/Config";
+import { RoughNotation } from "react-rough-notation";
 
 const Packages = () => {
   const [purchasedPackage, setPurchasedPackage] = useState<{
@@ -69,7 +70,10 @@ const Packages = () => {
           </span>
         </div>
         <span className="pname">{packages[0].name}</span>
-        <span className="pp">{`₦${packages[0].price}`}</span>
+        <RoughNotation type="underline" show={true}>
+          <span className="pp">{`₦${packages[0].price}`}</span>
+        </RoughNotation>
+
         <button
           className="p-btn"
           onClick={() =>
@@ -80,7 +84,7 @@ const Packages = () => {
         </button>
       </div>
 
-      <div className="package">
+      <div className="package _mid">
         <div className="pkg-header">
           <span className="pid2">{packages[1].id}</span>
           <span
@@ -101,7 +105,10 @@ const Packages = () => {
           </span>
         </div>
         <span className="pname">{packages[1].name}</span>
-        <span className="pp">{`₦${packages[1].price}`}</span>
+        <RoughNotation type="underline" show={true}>
+          <span className="pp">{`₦${packages[1].price}`}</span>
+        </RoughNotation>
+
         <button
           className="p-btn"
           onClick={() =>
@@ -133,7 +140,10 @@ const Packages = () => {
           </span>
         </div>
         <span className="pname">{packages[2].name}</span>
-        <span className="pp">{`₦${packages[2].price}`}</span>
+        <RoughNotation type="underline" show={true}>
+          <span className="pp">{`₦${packages[2].price}`}</span>
+        </RoughNotation>
+
         <button
           className="p-btn"
           onClick={() =>
@@ -229,6 +239,11 @@ const PackageRenderer = styled.div`
     transition: 0.3s ease-in-out;
     position: relative;
   }
+  .package._mid {
+    max-width: 350px;
+    width: 220px;
+    height: 250px;
+  }
   .package span {
     cursor: pointer;
   }
@@ -240,7 +255,8 @@ const PackageRenderer = styled.div`
     font-weight: 700;
   }
   .pname {
-    background-color: crimson;
+    border-style: dashed;
+    background-color: #1978b7;
     padding: 3px 6px;
     color: #fff;
     font-weight: 600;
@@ -266,6 +282,11 @@ const PackageRenderer = styled.div`
       display: flex;
       max-width: 350px;
       height: 200px;
+    }
+    .package._mid {
+      max-width: 350px;
+      width: 220px;
+      height: 220px;
     }
   }
   .pname {

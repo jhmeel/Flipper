@@ -157,7 +157,7 @@ const FormMain = styled.form`
 const LoginHeader = styled.p`
   font-size: 2em;
   color: #2e2e2e;
-  font-weight: 700;
+  font-weight: 600;
   margin: 5px 0 10px 0;
   z-index: 2;
   .img-cont {
@@ -247,7 +247,7 @@ const Button = styled.button`
 
 const LoginFooter = styled.div`
   z-index: 2;
-  font-size: 0.6em;
+  font-size: 11px;
   font-weight: 500;
   text-decoration: none;
   padding: 8px 15px;

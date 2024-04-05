@@ -114,6 +114,7 @@ const HeaderRenderer = styled.div`
   align-items: center;
   justify-content: space-between;
   padding: 10px;
+  border-bottom:1px solid #ededed;
 
   .logo-cont img{
     height:auto;
@@ -152,6 +153,7 @@ const HeaderRenderer = styled.div`
   .user-details {
     display: flex;
     flex-direction: column;
+    margin-left:20px;
   }
   .user-details span {
     font-size: 12px;

@@ -118,7 +118,7 @@ const Signup = () => {
         <div className="img-cont">
             <img src={logo} />
           </div>
-          <h3 style={{ fontWeight: 800, fontSize: "1.5em" }}>Create Account-</h3>
+          <h3 style={{ fontWeight: 600, fontSize: "1.5em" }}>Create Account</h3>
         </div>
         <form onSubmit={handleSubmit}>
           <div className="input-cont">
@@ -180,7 +180,7 @@ const Signup = () => {
           </div>
           <div className="input-cont">
             <input
-              placeholder="Referral code"
+              placeholder="Referral code(Optional)"
               className="referreal-code-inp"
               type="number"
               name="referralCode"
@@ -342,7 +342,7 @@ const SignupRenderer = styled.div`
     transform: scale(1.01);
   }
   .terms {
-    font-size: 0.6em;
+    font-size: 11px;
     padding: 5px 20px;
   }
   .terms a {

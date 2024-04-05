@@ -83,6 +83,8 @@ function App() {
           "/forgot-password",
           "/#/verify-otp",
           "/verify-otp",
+          "/privacy-policy",
+          "/terms-of-service"
         ].includes(pathname) && (
           <>
             <NavBar />

@@ -18,3 +18,8 @@ a{
   text-decoration: none;
 }
 
+button:hover{
+  transform: scale(1.01);
+  transition: 200ms ease-in-out;
+  cursor: pointer;
+}

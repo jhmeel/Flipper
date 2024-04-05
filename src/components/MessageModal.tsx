@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
-import chatImg from "../assets/images/online_tx.svg";
+import telgImg from "../assets/images/telegram.png";
 
 const MessageModal = () => {
   const [currentMsg, setCurrentMsg] = useState(0);
@@ -10,7 +10,7 @@ const MessageModal = () => {
     {
       title: "Join Our Telegram Community!!",
       paragraph: `Get Involved in the community on Telegram!`,
-      image: chatImg,
+      image: telgImg,
       btn: "Join",
       link: "https://t.me/+vqcGKoD_j643ZjI0",
     },
@@ -69,7 +69,7 @@ const MessageModalRenderer = styled.div`
   margin-right: 8px;
   position: relative;
   border-radius: 4px;
-
+  background-color:#f1f7fe;
   .m-content {
     display: flex;
     width: 100%;
@@ -107,7 +107,7 @@ const MessageModalRenderer = styled.div`
     font-weight: 600;
     border: none;
     cursor: pointer;
-    background: #5555ec;
+    background: #368eef;
     transition:.3s ease-in-out;
 
   }

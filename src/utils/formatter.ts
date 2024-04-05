@@ -132,3 +132,20 @@ export const getCumulativePercentage = (
   const percent = (100 / LROI) * amount;
   return Math.round(percent);
 };
+
+/**
+ * Replaces all but the last n of characters with the specified mask character.
+ * @param cc string to mask
+ * @param n last n of characters to be left unmask
+ * @param m  mask symbol
+ * @returns 
+ */
+export const Mask = (
+  cc: string,
+  n: number,
+  m: string | number | boolean
+): string => {
+  const maskedPart = String(m).repeat(cc.length - n);
+  const visiblePart = cc.slice(cc.length - n);
+  return maskedPart + visiblePart;
+};

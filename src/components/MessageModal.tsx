@@ -69,7 +69,7 @@ const MessageModalRenderer = styled.div`
   margin-right: 8px;
   position: relative;
   border-radius: 4px;
-  background-color:#f1f7fe;
+  background-color: #f1f7fe;
   .m-content {
     display: flex;
     width: 100%;
@@ -108,11 +108,10 @@ const MessageModalRenderer = styled.div`
     border: none;
     cursor: pointer;
     background: #368eef;
-    transition:.3s ease-in-out;
-
+    transition: 0.3s ease-in-out;
   }
-  .m-btn:hover{
-    transform:scale(1.01);
+  .m-btn:hover {
+    transform: scale(1.01);
   }
   &::before {
     content: "";
@@ -147,7 +146,7 @@ const MessageModalRenderer = styled.div`
       max-height: 500px;
       min-height: 500px;
       justify-content: flex-start;
-      align-items:center;
+      align-items: center;
     }
     .m-content .m-heading {
       font-size: 22px;
@@ -158,8 +157,7 @@ const MessageModalRenderer = styled.div`
       width: 100%;
     }
     .m-card-avt {
-    right: 45px;
-
-  }
+      right: 18px;
+    }
   }
 `;

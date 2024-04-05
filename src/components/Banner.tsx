@@ -1,17 +1,17 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import bannerImg from "../assets/images/investment.png";
+import getToken from "../utils/getToken";
 
 const BannerWrapper = styled.div`
   padding: 10px 0;
-  height:fit-content;
+  height: fit-content;
   display: flex;
-  align-items:center;
+  align-items: center;
   background: #fff;
   background-size: 200% 200%;
   overflow: hidden;
-
 `;
 
 const BannerContainer = styled.div`
@@ -34,13 +34,13 @@ const BannerContainer = styled.div`
 const BannerText = styled.div`
   flex: 1;
   position: relative;
-  z-index:10;
-  .get-started-btn{
+  z-index: 10;
+  .get-started-btn {
     padding: 10px 20px;
     background-color: #3498db;
     border: none;
-    color:#fff;
-    margin-top:10px;
+    color: #fff;
+    margin-top: 10px;
   }
 `;
 
@@ -69,18 +69,28 @@ const BannerImage = styled.img`
   max-width: 400px;
   @media (max-width: 767px) {
     & {
-      width:90%;
+      width: 90%;
       position: absolute;
-      bottom:-60px;
-      z-index:1;
+      bottom: -60px;
+      z-index: 1;
     }
   }
 `;
 
 const Banner: React.FC = () => {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
+  const [accessToken, setAcessToken] = useState<string | undefined>(undefined);
+
+  const getAccessToken = async () => {
+    const token = await getToken();
+    setAcessToken(token);
+  };
+
+  useEffect(() => {
+    getAccessToken();
+  }, []);
   return (
-    <BannerWrapper id='banner'>
+    <BannerWrapper id="banner">
       <BannerContainer>
         <BannerText>
           <Title>
@@ -90,9 +100,16 @@ const Banner: React.FC = () => {
             Explore secure and lucrative investment opportunities tailored for
             long-term growth. Join us on the journey to financial freedom!
           </Description>
-          <button className='get-started-btn' onClick={()=> navigate('/signup')}>Get Started</button>
+          {!accessToken && (
+            <button
+              className="get-started-btn"
+              onClick={() => navigate("/signup")}
+            >
+              Get Started
+            </button>
+          )}
         </BannerText>
-    
+
         <BannerImage src={bannerImg} loading="lazy" />
       </BannerContainer>
     </BannerWrapper>
@@ -100,6 +117,3 @@ const Banner: React.FC = () => {
 };
 
 export default Banner;
-
-       
-  

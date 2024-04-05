@@ -18,7 +18,7 @@ import {
   clearErrors as clearWalletErr,
   getTxHistory,
 } from "../actions/user";
-import getToken from "../utils/getToken";
+import GetToken from "../utils/getToken";
 import { useSelector, useDispatch } from "react-redux";
 import RDotSpinner from "../components/loaders/RDotSpinner";
 import HLoader from "../components/loaders/HLoader";
@@ -76,7 +76,7 @@ const TaskExecution = () => {
     }
 
     const getTask = async () => {
-      const authToken = await getToken();
+      const authToken = await GetToken();
       dispatch<any>(getDailyTask(authToken));
     };
 
@@ -84,7 +84,7 @@ const TaskExecution = () => {
   }, [dispatch]);
 
   const getTillLastWeekCumulation = async () => {
-    const authToken = await getToken();
+    const authToken = await GetToken();
     dispatch<any>(getTxHistory(authToken));
   };
 
@@ -101,7 +101,7 @@ const TaskExecution = () => {
     }
 
     const getWalletBalance = async () => {
-      const authToken = await getToken();
+      const authToken = await GetToken();
       dispatch<any>(getBalance(authToken));
     };
 

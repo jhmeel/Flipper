@@ -7,7 +7,7 @@ import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import toast from "react-hot-toast";
 import { clearErrors, registerUser } from "../../actions/user";
-import getToken from "../../utils/getToken";
+import GetToken from "../../utils/getToken";
 import HLoader from "../../components/loaders/HLoader";
 import emailjs from "@emailjs/browser";
 import { errorParser } from "../../utils/formatter";
@@ -50,7 +50,7 @@ const Signup = () => {
 
   useEffect(() => {
     const setToken = async () => {
-      const t: string = await getToken();
+      const t: string = await GetToken();
       setAuthToken(t);
     };
     setToken();

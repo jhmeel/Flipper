@@ -23,7 +23,7 @@ import WithdrawalModal from "../../components/WithdrawalModal";
 import { useSelector, useDispatch } from "react-redux";
 import { clearErrors, logoutUser, updateProfile } from "../../actions/user";
 import HLoader from "../../components/loaders/HLoader";
-import getToken from "../../utils/getToken";
+import GetToken from "../../utils/getToken";
 import PDotSpinner from "../../components/loaders/PDotSpinner";
 import { UPDATE_PROFILE_RESET } from "../../constants";
 import { useSnackbar } from "notistack";
@@ -129,7 +129,7 @@ const Profile = () => {
   };
 
   const onUpdateProfile = async (avatar: string) => {
-    const authToken = await getToken();
+    const authToken = await GetToken();
     dispatch<any>(updateProfile(authToken, avatar));
   };
 

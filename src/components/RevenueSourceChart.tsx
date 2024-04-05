@@ -122,7 +122,7 @@ const progressBarAnimation = keyframes`
     width: 0;
   }
   100% {
-    width: ${(props) => props.width};
+    width: ${(props:any) => props?.width};
   }
 `;
 

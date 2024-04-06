@@ -155,10 +155,10 @@ export const forgotPassword =
 
 // Reset Password
 export const resetPassword =
-  (newPassword?: string) => async (dispatch: (action: ACTION) => void) => {
+  (email?: string, newPassword?: string) => async (dispatch: (action: ACTION) => void) => {
     try {
       dispatch({ type: RESET_PASSWORD_REQUEST });
-      const { data } = await axiosInstance().put(`/api/v1/password/reset`, {
+      const { data } = await axiosInstance().put(`/api/v1/password/reset/${email}`, {
         newPassword,
       });
       dispatch({

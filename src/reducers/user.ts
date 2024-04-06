@@ -84,7 +84,7 @@ export const userReducer = (
     token: undefined,
     wallet: undefined,
     txHistory: undefined,
-    weeklyCumulation:undefined,
+    weeklyCumulation: undefined,
     error: null,
   },
   { type, payload }: { type: string; payload: any }
@@ -172,9 +172,17 @@ export const passwordReducer = (
 
     case RESET_PASSWORD_SUCCESS:
     case UPDATE_PASSWORD_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        success: payload?.success,
+        message: payload?.message,
+      };
+
     case OTP_VERIFY_SUCCESS:
       return {
         ...state,
+        email: payload?.email,
         loading: false,
         success: payload?.success,
         message: payload?.message,
@@ -215,6 +223,8 @@ export const passwordReducer = (
     case RESEND_OTP_RESET:
       return {
         ...state,
+        //exclude expiresAt so that it can be access from otp verification page
+        loading: false,
         message: undefined,
         otp: undefined,
       };

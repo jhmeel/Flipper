@@ -6,9 +6,10 @@ import toast from "react-hot-toast";
 import { clearErrors, onWithdrawFunds } from "../actions/user";
 import { WITHDRAW_FUNDS_RESET } from "../constants";
 import HLoader from "./loaders/HLoader";
-import getToken from "../utils/getToken";
+
 import { useSelector } from "react-redux";
 import { useSnackbar } from "notistack";
+import useGetToken from "../utils/getToken";
 
 interface WithdrawalProps {
   amount?: number;
@@ -20,7 +21,7 @@ const WithdrawalModal = ({ onRemove }: { onRemove: () => void }) => {
   const dispatch = useDispatch();
   const { enqueueSnackbar } = useSnackbar();
   const { loading, message, error } = useSelector((state: any) => state.wallet);
-
+  const accessToken = useGetToken()
   useEffect(() => {
     if (error) {
       enqueueSnackbar(error, { variant: "error" });
@@ -57,8 +58,7 @@ const WithdrawalModal = ({ onRemove }: { onRemove: () => void }) => {
 
       return;
     }
-    const authToken = await getToken();
-    dispatch<any>(onWithdrawFunds(authToken, withdrawalDetails.amount));
+    dispatch<any>(onWithdrawFunds(await accessToken, withdrawalDetails.amount));
   };
   return (
     <WithdrawalModalRenderer>

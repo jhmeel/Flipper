@@ -18,13 +18,13 @@ import {
   clearErrors as clearWalletErr,
   getTxHistory,
 } from "../actions/user";
-import GetToken from "../utils/getToken";
 import { useSelector, useDispatch } from "react-redux";
 import RDotSpinner from "../components/loaders/RDotSpinner";
 import HLoader from "../components/loaders/HLoader";
 import { getROC } from "../utils/formatter";
 import { useSnackbar } from "notistack";
 import { RootState } from "../store";
+import useGetToken from "../utils/getToken";
 const TaskExecution = () => {
   const [taskCompletionStatus, setTaskCompletionStatus] = useState<
     "Pending..." | "Inprogress" | "Completed" | "Closed" | "N/A"
@@ -43,7 +43,7 @@ const TaskExecution = () => {
     balance,
     tillLastweekCumulation,
   } = useSelector((state: RootState) => state.wallet);
-
+  const accessToken = useGetToken()
   const { wallet } = useSelector((state: RootState) => state.package);
   const [time, setTime] = useState<number>(0);
   const [activeTask, setActiveTask] = useState<Task | null>(null);
@@ -76,16 +76,16 @@ const TaskExecution = () => {
     }
 
     const getTask = async () => {
-      const authToken = await GetToken();
-      dispatch<any>(getDailyTask(authToken));
+      
+      dispatch<any>(getDailyTask(await accessToken));
     };
 
     getTask();
   }, [dispatch]);
 
   const getTillLastWeekCumulation = async () => {
-    const authToken = await GetToken();
-    dispatch<any>(getTxHistory(authToken));
+    
+    dispatch<any>(getTxHistory(await accessToken));
   };
 
   useEffect(() => {
@@ -101,8 +101,8 @@ const TaskExecution = () => {
     }
 
     const getWalletBalance = async () => {
-      const authToken = await GetToken();
-      dispatch<any>(getBalance(authToken));
+      
+      dispatch<any>(getBalance(await accessToken));
     };
 
     getWalletBalance();

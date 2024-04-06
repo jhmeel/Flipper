@@ -157,7 +157,7 @@ const MessageModalRenderer = styled.div`
       width: 100%;
     }
     .m-card-avt {
-      right: 18px;
+      right: 10px;
     }
   }
 `;

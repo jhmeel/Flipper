@@ -1,7 +1,7 @@
 import React, { ChangeEvent, useEffect, useState } from "react";
 import MetaData from "../../misc/MetaData";
 import styled from "styled-components";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import toast from "react-hot-toast";
 import { clearErrors, resetPassword } from "../../actions/user";
@@ -13,6 +13,7 @@ import Footer from "../../components/Footer";
 const ResetPassword = () => {
   const [password, setPassword] = useState<string | undefined>(undefined);
   const navigate = useNavigate();
+  const param = useParams()
   const dispatch = useDispatch();
   const { loading, message, error } = useSelector(
     (state: any) => state.password
@@ -40,7 +41,7 @@ const ResetPassword = () => {
 
   const handleSubmit = (e: ChangeEvent<HTMLFormElement>) => {
     e.preventDefault();
-    dispatch<any>(resetPassword(password));
+    dispatch<any>(resetPassword(param?.email, password));
   };
   return (
     <>

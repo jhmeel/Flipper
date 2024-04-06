@@ -11,6 +11,7 @@ import emailjs from "@emailjs/browser";
 import MetaData from "../../misc/MetaData";
 import { useSnackbar } from "notistack";
 import { errorParser } from "../../utils/formatter";
+import { FORGOT_PASSWORD_RESET } from "../../constants";
 
 const ForgotPassword = () => {
   const [email, setEmail] = useState<string | undefined>(undefined);
@@ -20,10 +21,9 @@ const ForgotPassword = () => {
   const { enqueueSnackbar } = useSnackbar();
 
   //To ensure state is at init when page is first loaded
-   useEffect(() => {
+  useEffect(() => {
     dispatch<any>(clearErrors());
   }, []);
-
 
   useEffect(() => {
     emailjs.init({
@@ -36,18 +36,21 @@ const ForgotPassword = () => {
       const serviceID = "service_6fw6u9h";
       const templateID = "template_r4q3xh8";
 
-      const params = {
-        to_email: email,
-        to_name: email.split("@")[0],
-        from_name: "Flipper",
-        OTP: otp,
-        site_name: "Flipper",
-      };
+      if (email) {
+        const params = {
+          to_email: email,
+          to_name: email.split("@")[0],
+          from_name: "Flipper",
+          OTP: otp,
+          site_name: "Flipper",
+        };
 
-      await emailjs.send(serviceID, templateID, params);
+        await emailjs.send(serviceID, templateID, params);
 
-      toast.success(`Verify your account- An OTP has been sent to ${email}`);
-      navigate("/verify-otp");
+        toast.success(`Verify your account- An OTP has been sent to ${email}`);
+
+        navigate("/verify-otp");
+      }
     } catch (error) {
       enqueueSnackbar(errorParser(error), { variant: "error" });
     }
@@ -60,8 +63,9 @@ const ForgotPassword = () => {
     }
     if (otp) {
       sendEmail();
+      dispatch({ type: FORGOT_PASSWORD_RESET });
     }
-  }, [dispatch, error, otp]);
+  }, [dispatch, enqueueSnackbar, error, otp]);
 
   const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
     setEmail(e.target.value);
@@ -156,7 +160,6 @@ const ForgotPasswordRenderer = styled.div`
     height: 40px;
     width: 320px;
     outline: none;
-
   }
   .input-cont input:focus {
     border-bottom: 2px solid #2481a9;
@@ -171,7 +174,7 @@ const ForgotPasswordRenderer = styled.div`
     color: #fff;
     margin-top: 10px;
     transition: 0.3s ease-out;
-    width:100%;
+    width: 100%;
   }
   button:hover {
     transform: scale(1.01);

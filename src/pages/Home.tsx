@@ -34,7 +34,7 @@ const Home = (): React.ReactElement => {
         <div className="revenue-source">
           <div className="s-header">
             <h3>
-              <IconArrowTrendUp /> Revenue Source
+              <IconArrowTrendUp /> Revenue Sources
             </h3>
           </div>
 
@@ -87,8 +87,12 @@ const HomeRenderer = styled.div`
     align-items: center;
   }
   .s-header h3 {
-    font-size: 28px;
-    font-weight: 600;
+    display:flex;
+    align-items:center;
+    gap:15px;
+    font-size: 1.675rem;
+    line-height: 2.25rem;
+    font-weight: 700;
     font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue",
       "Noto Sans", "Liberation Sans", Arial, sans-serif, "Apple Color Emoji",
       "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";

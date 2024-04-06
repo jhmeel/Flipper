@@ -7,11 +7,11 @@ import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import toast from "react-hot-toast";
 import { clearErrors, registerUser } from "../../actions/user";
-import GetToken from "../../utils/getToken";
 import HLoader from "../../components/loaders/HLoader";
 import emailjs from "@emailjs/browser";
 import { errorParser } from "../../utils/formatter";
 import logo from "../../assets/flipper-logo.png";
+import useGetToken from "../../utils/getToken";
 interface FormData {
   username?: string;
   phone?: string;
@@ -23,6 +23,7 @@ const Signup = () => {
   const { loading, isAuthenticated, user, error } = useSelector(
     (state: any) => state.user
   );
+  const accessToken = useGetToken()
   const [formData, setFormData] = useState<FormData>({
     username: "",
     phone: "",
@@ -47,14 +48,6 @@ const Signup = () => {
       publicKey: "tTnt3JKDvvNxscd-i",
     });
   }, []);
-
-  useEffect(() => {
-    const setToken = async () => {
-      const t: string = await GetToken();
-      setAuthToken(t);
-    };
-    setToken();
-  }, [isAuthenticated]);
 
   const sendEmail = async () => {
     try {
@@ -83,14 +76,14 @@ const Signup = () => {
       toast.error(error);
       dispatch<any>(clearErrors());
     }
-    if (isAuthenticated === true && authToken !== undefined) {
+    if (isAuthenticated === true && accessToken !== undefined) {
       toast.success(
         "Signed up successfully! -Proceed to activate a package that fit your investment plan and setup your profile."
       );
       sendEmail();
       navigate("/");
     }
-  }, [authToken, dispatch, error, isAuthenticated, navigate]);
+  }, [accessToken, dispatch, error, isAuthenticated, navigate]);
 
   const togglePasswordVisibility = () => {
     setIsPasswordVisible(!isPasswordVisible);

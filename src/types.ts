@@ -45,6 +45,7 @@ export interface ROOT_STATE {
     message?: string;
     success?: boolean;
     otp?: number;
+    email?: string;
     expiresAt?: number | string | Date;
     error?: any;
   };

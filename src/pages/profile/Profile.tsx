@@ -23,20 +23,20 @@ import WithdrawalModal from "../../components/WithdrawalModal";
 import { useSelector, useDispatch } from "react-redux";
 import { clearErrors, logoutUser, updateProfile } from "../../actions/user";
 import HLoader from "../../components/loaders/HLoader";
-import GetToken from "../../utils/getToken";
 import PDotSpinner from "../../components/loaders/PDotSpinner";
 import { UPDATE_PROFILE_RESET } from "../../constants";
 import { useSnackbar } from "notistack";
 import { getPercentage } from "../../utils/formatter";
 import Config from "../../config/Config";
 import { RootState } from "../../store";
+import useGetToken from "../../utils/getToken";
 
 const Profile = () => {
   const dispatch = useDispatch();
   const { enqueueSnackbar } = useSnackbar();
   const { user, error, wallet, txHistory, weeklyCumulation, loading } =
     useSelector((state: RootState) => state.user);
-
+    const accessToken = useGetToken()
   const {
     isUpdated,
     error: profileUpdateErr,
@@ -129,8 +129,7 @@ const Profile = () => {
   };
 
   const onUpdateProfile = async (avatar: string) => {
-    const authToken = await GetToken();
-    dispatch<any>(updateProfile(authToken, avatar));
+    dispatch<any>(updateProfile(await accessToken, avatar));
   };
 
   useEffect(() => {

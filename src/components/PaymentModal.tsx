@@ -4,13 +4,13 @@ import { PaystackButton } from "react-paystack";
 import { IconChevronLeft, SuccessIcon } from "../assets/icons";
 import styled from "styled-components";
 import { useDispatch } from "react-redux";
-import getToken from "../utils/getToken";
 import { activatePackage, clearErrors } from "../actions/user";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import HLoader from "./loaders/HLoader";
 import Config from "../config/Config";
 import { useSnackbar } from "notistack";
+import useGetToken from "../utils/getToken";
 
 const PaymentModal = ({
   packageId,
@@ -26,7 +26,7 @@ const PaymentModal = ({
   const publicKey: string = Config.PAYSTACK_SECRETE_KEY;
   const [price, setPrice] = useState<number | string | undefined>(packagePrice);
   const [email, setEmail] = useState<string>("");
-
+const accessToken = useGetToken()
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { loading, isActivated, error } = useSelector(
@@ -66,8 +66,8 @@ const PaymentModal = ({
   }, [dispatch, enqueueSnackbar, error, isActivated]);
 
   const onPackagePurchase = async () => {
-    const authToken = await getToken();
-    dispatch<any>(activatePackage(authToken, packageId));
+    
+    dispatch<any>(activatePackage(await accessToken, packageId));
   };
 
   return (

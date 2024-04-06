@@ -1,8 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import bannerImg from "../assets/images/investment.png";
-import getToken from "../utils/getToken";
+import useGetToken from "../utils/getToken";
+import { RoughNotation } from "react-rough-notation";
 
 const BannerWrapper = styled.div`
   padding: 10px 0;
@@ -45,20 +46,21 @@ const BannerText = styled.div`
 `;
 
 const Title = styled.h1`
-  font-size: 2rem;
+  font-size: 2.2rem;
+  width:80%;
   margin-bottom: 10px;
   color: #000000;
   @media (max-width: 767px) {
-    font-size: 1.5rem;
+    font-size: 1.67rem;
   }
 `;
 
 const Description = styled.p`
   font-family: "Inter", sans-serif;
-  font-size: 0.875rem;
+  font-size: 1.2rem;
   letter-spacing: 0.02em;
   line-height: 1.5;
-  color: #929292;
+  color: #625c5c;
   @media (max-width: 767px) {
     font-size: 1rem;
   }
@@ -79,35 +81,48 @@ const BannerImage = styled.img`
 
 const Banner: React.FC = () => {
   const navigate = useNavigate();
-  const [accessToken, setAcessToken] = useState<string | undefined>(undefined);
+  const token = useGetToken();
 
-  const getAccessToken = async () => {
-    const token = await getToken();
-    setAcessToken(token);
-  };
-
-  useEffect(() => {
-    getAccessToken();
-  }, []);
   return (
     <BannerWrapper id="banner">
       <BannerContainer>
         <BannerText>
           <Title>
-            Welcome to flipper, where financial success meets innovation
+            Welcome to flipper, where you &nbsp;
+            <RoughNotation
+              show
+              type="highlight"
+              animationDelay={250}
+              animationDuration={2000}
+              color={"#567"}
+            >
+              Execute
+            </RoughNotation>
+            &nbsp;
+            and &nbsp;
+            <RoughNotation
+              show
+              type="highlight"
+              animationDelay={250}
+              animationDuration={2000}
+              color={"#287dd2"}
+            >
+              Earn
+            </RoughNotation>
           </Title>
           <Description>
             Explore secure and lucrative investment opportunities tailored for
-            long-term growth. Join us on the journey to financial freedom!
+            long-term growth.
           </Description>
-          {!accessToken && (
-            <button
-              className="get-started-btn"
-              onClick={() => navigate("/signup")}
-            >
-              Get Started
-            </button>
-          )}
+          {!token ||
+            (typeof token !== "string" && (
+              <button
+                className="get-started-btn"
+                onClick={() => navigate("/signup")}
+              >
+                Get Started
+              </button>
+            ))}
         </BannerText>
 
         <BannerImage src={bannerImg} loading="lazy" />

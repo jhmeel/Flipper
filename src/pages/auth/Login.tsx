@@ -64,7 +64,7 @@ const Login = () => {
           <div className="img-cont">
             <img src={logo} />
           </div>
-          <h3 style={{ fontWeight: 1000 }}>Login</h3>
+          <h3>Login</h3>
         </LoginHeader>
 
         <InputContainer>
@@ -155,7 +155,7 @@ const FormMain = styled.form`
 `;
 
 const LoginHeader = styled.p`
-  font-size: 2em;
+  font-size: 1.5em;
   color: #2e2e2e;
   font-weight: 600;
   margin: 5px 0 10px 0;

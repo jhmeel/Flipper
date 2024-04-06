@@ -5,11 +5,11 @@ import { useNavigate } from "react-router-dom";
 import { Task } from "../types";
 import { verifyExec, clearErrors } from "../actions/task";
 import { useSelector, useDispatch } from "react-redux";
-import getToken from "../utils/getToken";
 import toast from "react-hot-toast";
 import { VERIFY_TASK_EXEC_RESET } from "../constants";
 import HLoader from "./loaders/HLoader";
 import { useSnackbar } from "notistack";
+import useGetToken from "../utils/getToken";
 const VerifyTaskExecModal = ({
   task,
   onRemove,
@@ -21,6 +21,7 @@ const VerifyTaskExecModal = ({
   const { isVerified, loading, error } = useSelector(
     (state: any) => state.task
   );
+  const accessToken = useGetToken()
   const { enqueueSnackbar } = useSnackbar();
   const navigate = useNavigate();
   const [postLink, setPostLink] = useState<string | undefined>(undefined);
@@ -44,7 +45,6 @@ const VerifyTaskExecModal = ({
 
   const verifyPost = async (e: any) => {
     e.preventDefault();
-    const authToken = await getToken();
     if (!postLink) {
       toast.error("Please provide the link!");
       return;
@@ -53,7 +53,7 @@ const VerifyTaskExecModal = ({
       return;
     }
     dispatch<any>(
-      verifyExec(authToken, { taskId: task?._id, postUrl: postLink })
+      verifyExec(await accessToken, { taskId: task?._id, postUrl: postLink })
     );
   };
   return (

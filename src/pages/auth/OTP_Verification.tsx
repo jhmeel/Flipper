@@ -5,14 +5,14 @@ import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { clearErrors, verifyOTP } from "../../actions/user";
-import { FORGOT_PASSWORD_RESET, OTP_VERIFY_RESET } from "../../constants";
+import { OTP_VERIFY_RESET } from "../../constants";
 import HLoader from "../../components/loaders/HLoader";
 import { IconInfoCircleFill } from "../../assets/icons";
 import Footer from "../../components/Footer";
 import { enqueueSnackbar } from "notistack";
 
 const OTP_Verification = (): React.ReactElement => {
-  const { error, loading, message, expiresAt } = useSelector(
+  const { error, loading, message, email, expiresAt } = useSelector(
     (state: any) => state.password
   );
   const [OTP, setOTP] = useState<string | null>(null);
@@ -20,8 +20,8 @@ const OTP_Verification = (): React.ReactElement => {
     useRef<HTMLInputElement | null>(null)
   );
 
-   //To ensure state is at init when page is first loaded
-   useEffect(() => {
+  //To ensure state is at init when page is first loaded
+  useEffect(() => {
     dispatch<any>(clearErrors());
   }, []);
 
@@ -35,9 +35,8 @@ const OTP_Verification = (): React.ReactElement => {
     }
     if (message) {
       toast.success(message);
-      dispatch<any>({ type: FORGOT_PASSWORD_RESET });
       dispatch<any>({ type: OTP_VERIFY_RESET });
-      navigate("/reset-password");
+      navigate(`/reset-password/${email}`);
     }
   }, [dispatch, error, message, navigate]);
 
@@ -90,14 +89,15 @@ const OTP_Verification = (): React.ReactElement => {
       const currentInput = e.currentTarget as HTMLInputElement;
       currentInput.value = "";
       currentInput.disabled = true;
-  
-      const previousInput = OTPInputs[index].current?.previousElementSibling as HTMLInputElement;
+
+      const previousInput = OTPInputs[index].current
+        ?.previousElementSibling as HTMLInputElement;
       if (previousInput) {
         previousInput.focus();
       }
     }
   };
-  const onVerifyOTP = (e:any) => {
+  const onVerifyOTP = (e: any) => {
     e.preventDefault();
     if (!OTP) {
       return;
@@ -116,7 +116,7 @@ const OTP_Verification = (): React.ReactElement => {
     const updateCountdown = () => {
       const currentDate = new Date();
       const timeBetweenDates = Math.ceil(
-        (expiresAt - currentDate.getTime()) / 1000
+        (new Date(expiresAt).getTime() - currentDate.getTime()) / 1000
       );
       setTime(timeBetweenDates);
     };

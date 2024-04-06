@@ -7,7 +7,7 @@ interface AxiosInstanceConfig extends AxiosRequestConfig {
 
 const axiosInstance = (token?: string): AxiosInstance => {
   const config: AxiosInstanceConfig = {
-    baseURL: "https://flipper-server.onrender.com",   //"http://localhost:8000"
+    baseURL: "http://localhost:8000", // "https://flipper-server.onrender.com",
     headers: { "Content-Type": "application/json" },
   };
 

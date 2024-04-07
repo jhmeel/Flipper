@@ -15,6 +15,7 @@ import {
 import Packages from "../components/Packages";
 import MessageModal from "../components/MessageModal";
 import Faq from "../components/faq/Faq";
+import HowItWorks from "../components/HowItWorks/HowItWorks";
 
 const Home = (): React.ReactElement => {
   return (
@@ -30,6 +31,13 @@ const Home = (): React.ReactElement => {
             </h3>
           </div>
           <Packages />
+        </div>
+
+        <div className="h-it-w">
+          <div className="s-header">
+            <h3>How It Works</h3>
+          </div>
+          <HowItWorks />
         </div>
         <div className="revenue-source">
           <div className="s-header">
@@ -87,9 +95,9 @@ const HomeRenderer = styled.div`
     align-items: center;
   }
   .s-header h3 {
-    display:flex;
-    align-items:center;
-    gap:15px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
     font-size: 1.675rem;
     line-height: 2.25rem;
     font-weight: 700;
@@ -115,13 +123,15 @@ const HomeRenderer = styled.div`
     border-bottom: 1px solid #ededed;
     background-color: #ffffff;
   }
+  .h-it-w {
+    border-bottom: 1px solid #ededed;
+  }
   .msg-modal {
     display: flex;
     flex-direction: column;
     width: 100%;
     justify-content: center;
     align-items: center;
-    background-color: #fafafa;
   }
   @media (max-width: 767px) {
     .s-header h3 {

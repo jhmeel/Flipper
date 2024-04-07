@@ -1,16 +1,19 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
-import { Icon010Blog, IconCubeOutline, IconProfile } from "../assets/icons";
-import { useNavigate } from "react-router-dom";
+import { IconCubeOutline, IconProfile } from "../assets/icons";
+import { useLocation, useNavigate } from "react-router-dom";
+import { FaBlog } from "react-icons/fa";
 interface StyledLabelProps {
   isSelected: boolean;
 }
 
 const NavBar: React.FC = () => {
   const navigate = useNavigate();
+  const { pathname } = useLocation();
   const [selectedTab, setSelectedTab] = useState<string>("home");
 
   const handleLabelClick = (tab: string) => {
+    if (["/", ""].includes(tab)) tab = "home";
     setSelectedTab(tab);
   };
   useEffect(() => {
@@ -20,6 +23,10 @@ const NavBar: React.FC = () => {
     }
     navigate(`/${selectedTab}`);
   }, [selectedTab]);
+
+  useEffect(() => {
+    handleLabelClick(pathname.replace(/^\/+/, ""));
+  }, []);
   return (
     <StyledSection>
       <StyledLabel
@@ -64,18 +71,18 @@ const NavBar: React.FC = () => {
       </StyledLabel>
 
       <StyledLabel
-        title="blog"
-        htmlFor="blog"
-        onClick={() => handleLabelClick("blog")}
-        isSelected={selectedTab === "blog"}
+        title="ads"
+        htmlFor="ads"
+        onClick={() => handleLabelClick("ads")}
+        isSelected={selectedTab === "ads"}
       >
         <input
-          id="blog"
+          id="ads"
           name="page"
           type="radio"
-          checked={selectedTab === "blog"}
+          checked={selectedTab === "ads"}
         />
-        <Icon010Blog className="navIcon" />
+        <FaBlog className="navIcon" />
       </StyledLabel>
 
       <StyledLabel

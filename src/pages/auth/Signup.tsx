@@ -337,6 +337,7 @@ const SignupRenderer = styled.div`
   .terms {
     font-size: 11px;
     padding: 5px 20px;
+    font-weight:600;
   }
   .terms a {
     color: crimson;

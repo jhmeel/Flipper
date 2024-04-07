@@ -38,7 +38,7 @@ const BannerText = styled.div`
   z-index: 10;
   .get-started-btn {
     padding: 10px 20px;
-    background-color: #3498db;
+    background-color: rgb(85, 85, 263);
     border: none;
     color: #fff;
     margin-top: 10px;
@@ -47,11 +47,13 @@ const BannerText = styled.div`
 
 const Title = styled.h1`
   font-size: 2.2rem;
-  width:80%;
+  font-weight: 700;
+  width: 80%;
   margin-bottom: 10px;
   color: #000000;
   @media (max-width: 767px) {
     font-size: 1.67rem;
+    margin-top: 15px;
   }
 `;
 
@@ -81,7 +83,7 @@ const BannerImage = styled.img`
 
 const Banner: React.FC = () => {
   const navigate = useNavigate();
-  const token = useGetToken();
+  const token = Promise.resolve(useGetToken()).then((val) => val);
 
   return (
     <BannerWrapper id="banner">
@@ -98,8 +100,7 @@ const Banner: React.FC = () => {
             >
               Execute
             </RoughNotation>
-            &nbsp;
-            and &nbsp;
+            &nbsp; and &nbsp;
             <RoughNotation
               show
               type="highlight"
@@ -107,7 +108,7 @@ const Banner: React.FC = () => {
               animationDuration={2000}
               color={"#287dd2"}
             >
-              Earn
+              Earn!
             </RoughNotation>
           </Title>
           <Description>

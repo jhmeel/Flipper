@@ -97,9 +97,9 @@ const FaqRenderer = styled.div`
   }
   .h-des {
     font-size: 14px;
-    color: #8b8e98;
+    color: #000000;
     font-weight: 600;
-    padding: 5px 10px;
+    padding: 10px 20px;
   }
   input[type="radio"] {
     display: none;
@@ -109,10 +109,11 @@ const FaqRenderer = styled.div`
     padding: 5px 10px;
     border-bottom: 1px solid #ccc;
     color: #fff;
-    background-color: #368eef;
+    background-color:  rgb(85, 85, 263);
     z-index: 2;
     cursor: pointer;
     font-size: 16px;
+    font-family:serif;
     padding: 10px 20px;
   }
 

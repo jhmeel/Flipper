@@ -25,8 +25,7 @@ const Login = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-
-   //To ensure state is at init when page is first loaded
+  //To ensure state is at init when page is first loaded
   useEffect(() => {
     dispatch<any>(clearErrors());
   }, []);
@@ -185,7 +184,6 @@ const LoginHeader = styled.p`
     z-index: 10;
     cursor: progress;
   }
-  
 `;
 
 const InputContainer = styled.div`
@@ -247,12 +245,15 @@ const Button = styled.button`
 
 const LoginFooter = styled.div`
   z-index: 2;
+  width: 100%;
   font-size: 11px;
-  font-weight: 500;
+  font-weight: 600;
   text-decoration: none;
   padding: 8px 15px;
   border-radius: 20px;
   display: flex;
+  align-items: center;
+  justify-content: center;
   gap: 5px;
   a {
     color: crimson;

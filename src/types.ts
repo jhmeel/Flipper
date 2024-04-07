@@ -18,7 +18,14 @@ export interface ACTION {
   type: string;
   payload?: any;
 }
-
+export interface Ads {
+  title?: string;
+  brand?: string;
+  content?: string;
+  image?: string;
+  url?: string;
+  createdAt?: string;
+}
 export type ARTICLE = {
   title?: string;
   content?: string;
@@ -87,20 +94,10 @@ export type USER = {
     accountName: string;
     bankName: string;
   };
-  role?: "FP:USER" | "FP:ADMIN";
+  role?: ROLE;
   referredBy?: USER;
   referrals?: Array<USER>;
   referralCode?: string;
   activity_logs?: Array<string>;
   createdAt?: Date;
-};
-
-export type SignInResult = {
-  accessToken?: string;
-  user?: USER;
-};
-
-export type LogInResult = {
-  accessToken?: string;
-  user?: USER;
 };

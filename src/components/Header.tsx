@@ -207,7 +207,7 @@ const HeaderRenderer = styled.div`
   .btns-cont button {
     padding: 6px;
     border: none;
-    color:  rgb(85, 85, 236);
+    color:  rgb(103, 62, 122);
     background-color:transparent;
     cursor: pointer;
     font-size: 12px;
@@ -216,7 +216,7 @@ const HeaderRenderer = styled.div`
     font-weight:700;
   }
   .pipe{
-    color:  rgb(85, 85, 236);
+    color:  rgb(85, 85, 263);
   }
   .btns-cont button:hover {
     transform: scale(1.01);

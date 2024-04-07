@@ -107,7 +107,7 @@ const MessageModalRenderer = styled.div`
     font-weight: 600;
     border: none;
     cursor: pointer;
-    background: #368eef;
+    background: rgb(85, 85, 263);
     transition: 0.3s ease-in-out;
   }
   .m-btn:hover {

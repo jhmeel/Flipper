@@ -1,17 +1,18 @@
 import { useEffect, lazy, Suspense } from "react";
 import { IconCloudOffline16 } from "./assets/icons";
 import toast, { useToasterStore } from "react-hot-toast";
-import { Routes, Route, useLocation} from "react-router-dom";
+import { Routes, Route, useLocation } from "react-router-dom";
 import NavBar from "./components/Nav";
 import CSpinner from "./components/loaders/CSpinner";
 import ScrollReveal from "scrollreveal";
+import PrivateRoute from "./components/PrivateRoute";
 
 const HomePage = lazy(() => import("./pages/Home"));
 const TermsPage = lazy(() => import("./pages/meta/Terms"));
 const PrivacyPolicyPage = lazy(() => import("./pages/meta/PrivacyPolicy"));
 const AboutUsPage = lazy(() => import("./pages/meta/AboutUs"));
 const TaskExecutionPage = lazy(() => import("./pages/Task"));
-const BlogPage = lazy(() => import("./pages/blog/Blog"));
+const AdsPage = lazy(() => import("./pages/ads/Ads"));
 const NotfoundPage = lazy(() => import("./pages/Notfound"));
 const ProfilePage = lazy(() => import("./pages/profile/Profile"));
 const SignupPage = lazy(() => import("./pages/auth/Signup"));
@@ -84,7 +85,7 @@ function App() {
           "/#/verify-otp",
           "/verify-otp",
           "/privacy-policy",
-          "/terms-of-service"
+          "/terms-of-service",
         ].includes(pathname) && (
           <>
             <NavBar />
@@ -94,11 +95,28 @@ function App() {
           <Route path="/" element={<HomePage />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/signup" element={<SignupPage />} />
-          <Route path="/profile" element={<ProfilePage />} />
+          <Route
+            path="/profile"
+            element={
+              <PrivateRoute>
+                <ProfilePage />
+              </PrivateRoute>
+            }
+          />
           <Route path="/forgot-password" element={<ForgotPasswordPage />} />
-          <Route path="/reset-password/:email" element={<ResetPasswordPage />} />
-          <Route path="/blog" element={<BlogPage />} />
-          <Route path="/task" element={<TaskExecutionPage />} />
+          <Route
+            path="/reset-password/:email"
+            element={<ResetPasswordPage />}
+          />
+          <Route path="/ads" element={<AdsPage />} />
+          <Route
+            path="/task"
+            element={
+              <PrivateRoute>
+                <TaskExecutionPage />{" "}
+              </PrivateRoute>
+            }
+          />
           <Route path="/verify-otp" element={<OTP_VerificationPage />} />
           <Route path="/about-us" element={<AboutUsPage />} />
           <Route path="/terms-of-service" element={<TermsPage />} />

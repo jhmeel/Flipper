@@ -24,7 +24,6 @@ const PaymentModal = ({
   oncloseHandler: () => void;
 }): React.ReactElement => {
   const publicKey: string = Config.PAYSTACK_SECRETE_KEY;
-  const [price, setPrice] = useState<number | string | undefined>(packagePrice);
   const [email, setEmail] = useState<string>("");
 const accessToken = useGetToken()
   const dispatch = useDispatch();
@@ -37,7 +36,7 @@ const accessToken = useGetToken()
   const componentProps = {
     className: "purchase-btn",
     email,
-    amount: Number(price) * 100,
+    amount: Number(packagePrice) * 100,
     publicKey,
     text: `Purchase "${packageName}"`,
     onSuccess: () => {

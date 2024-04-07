@@ -33,7 +33,7 @@ const RevenueSourceChart = () => {
               className="src-progress"
               style={{
                 width: source.percentage,
-                animationDuration: `${index * 0.5 + 1}s`,
+                animationDuration: `${index * 0.5 + 5}s`,
               }}
             ></div>
           </ProgressBarContainer>
@@ -67,8 +67,12 @@ const RevenueItem = styled.div`
   background-color: #ffffff;
   border-radius: 8px;
   padding: 1.5rem;
-  margin: 0 10px;
-  box-shadow: 0 2px 3px rgba(0, 0, 0, 0.1);
+  margin: 5px 10px;
+  border: 1px solid #ededed;
+  &:hover {
+    transition: 200ms ease-in-out;
+    transform: scale(1.01);
+  }
 
   @media (max-width: 768px) {
     padding: 1rem;
@@ -122,7 +126,7 @@ const progressBarAnimation = keyframes`
     width: 0;
   }
   100% {
-    width: ${(props:any) => props?.width};
+    width: ${(props: any) => props?.width};
   }
 `;
 
@@ -137,7 +141,7 @@ const ProgressBarContainer = styled.div`
   .src-progress {
     position: absolute;
     height: 100%;
-    background-color: #1978b7;
+    background-color: rgb(85, 85, 263);
     animation: ${progressBarAnimation} forwards;
     animation-timing-function: ease-in-out;
   }

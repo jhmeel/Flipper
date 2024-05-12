@@ -65,15 +65,14 @@ const Faq = () => {
 export default Faq;
 
 const FaqRenderer = styled.div`
-  height: fit-content;
-  width: 100%;
-  font-size: 13px;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
-    Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
-  color: #000;
-  display: flex;
-  justify-content: center;
-  padding: 3px 6px;
+height: fit-content;
+width: 100%;
+font-size: 13px;
+font-family: 'Open Sans', sans-serif;
+color: #000;
+display: flex;
+justify-content: center;
+padding: 3px 6px;
   .help-main {
     width: 70%;
     height: fit-content;
@@ -91,8 +90,6 @@ const FaqRenderer = styled.div`
     }
   }
   .help-h-txt {
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
-      Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
     padding: 5px 10px;
   }
   .h-des {
@@ -112,8 +109,8 @@ const FaqRenderer = styled.div`
     background-color:  rgb(85, 85, 263);
     z-index: 2;
     cursor: pointer;
-    font-size: 16px;
-    font-family:serif;
+    font-size: 14px;
+    font-family: 'Open Sans', sans-serif;
     padding: 10px 20px;
   }
 
@@ -124,8 +121,10 @@ const FaqRenderer = styled.div`
     overflow: hidden;
     z-index: -1;
     transition: 0.3s linear;
-    line-height: 1.5rem;
+    line-height: 1.6rem;
     font-size: 14px;
+    font-family:'Playfair Display';
+    color:#000;
   }
   .h-accordion:last-child > .h-accordion-title,
   .h-accordion:last-child > .h-accordion-content {

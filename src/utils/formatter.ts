@@ -51,15 +51,17 @@ export const errorParser = (error: any): string => {
     error?.response?.data?.message ||
     error?.response?.statusText ||
     error?.message;
-  if (errMsg?.includes("jwt")) {
-    LocalForageProvider.removeAuthToken();
-    return "Your session has expired, relogin into your account";
-  } else if (
+  if (
     errMsg?.includes("timeout") ||
     errMsg?.includes("Network Error") ||
     errMsg?.includes("timed out")
   ) {
     return "Request timeout. Please Check your network status and try again.";
+  } else if (errMsg?.includes("jwt")) {
+    LocalForageProvider.removeAuthToken();
+    return "Your session has expired, relogin into your account";
+  } else if (errMsg?.includes("429")) {
+    return "We are currently experiencing high traffic and won't be able to process your request, please checkback-in in the next 5 minutes";
   } else {
     return errMsg || "An error occurred.";
   }
@@ -138,7 +140,7 @@ export const getCumulativePercentage = (
  * @param cc string to mask
  * @param n last n of characters to be left unmask
  * @param m  mask symbol
- * @returns 
+ * @returns
  */
 export const Mask = (
   cc: string,

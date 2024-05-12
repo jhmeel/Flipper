@@ -29,7 +29,7 @@ const LoaderRenderer = styled.div`
 const Loader = styled.div`
   display: block;
   --height-of-loader: 5px;
-  --loader-color:#368eef;
+  --loader-color: #bb3550;
   width: 100%;
   height: var(--height-of-loader);
   border-radius: 30px;

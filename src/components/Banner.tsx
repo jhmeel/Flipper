@@ -1,9 +1,31 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
 import bannerImg from "../assets/images/investment.png";
 import useGetToken from "../utils/getToken";
 import { RoughNotation } from "react-rough-notation";
+
+const fadeIn = keyframes`
+  0% {
+    opacity: 0;
+    transform: translateY(50px);
+  }
+  100% { 
+    opacity: 1;
+    transform: translateY(0);
+  }
+`;
+
+const reveal = keyframes`
+  0% {
+    transform: translateY(50%);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+`;
 
 const BannerWrapper = styled.div`
   padding: 10px 0;
@@ -36,6 +58,7 @@ const BannerText = styled.div`
   flex: 1;
   position: relative;
   z-index: 10;
+  margin-top:30px;
   .get-started-btn {
     padding: 10px 20px;
     background-color: rgb(85, 85, 263);
@@ -46,31 +69,33 @@ const BannerText = styled.div`
 `;
 
 const Title = styled.h1`
-  font-size: 2.2rem;
-  font-weight: 700;
-  width: 80%;
-  margin-bottom: 10px;
-  color: #000000;
+  color: rgb(32, 33, 36);
+  font-size: 3rem;
+  font-family: 'Zeitung', serif; 
+  opacity: 0;
+  animation: ${fadeIn} 0.3s ease-in-out 0.5s 1 normal both;
   @media (max-width: 767px) {
-    font-size: 1.67rem;
-    margin-top: 15px;
+    font-size: 2.123rem;
   }
 `;
 
 const Description = styled.p`
-  font-family: "Inter", sans-serif;
-  font-size: 1.2rem;
-  letter-spacing: 0.02em;
-  line-height: 1.5;
-  color: #625c5c;
+  color: rgb(95, 99, 104);
+  font-size: 20px;
+  font-family: 'Source Sans Pro', sans-serif; 
+  font-weight: 400;
+  text-align: left;
+  margin-bottom: 10px;
+  opacity: 0;
+  animation: ${reveal} 0.3s ease-in-out 0.6s 1 normal both;
   @media (max-width: 767px) {
-    font-size: 1rem;
+    font-size: 1.123rem;
   }
 `;
-
 const BannerImage = styled.img`
-  width: 50%;
-  max-width: 400px;
+  width: 80%;
+  max-width: 600px;
+  animation: ${fadeIn} 0.3s ease-in-out 0.5s 1 normal both;
   @media (max-width: 767px) {
     & {
       width: 90%;
@@ -90,7 +115,6 @@ const Banner: React.FC = () => {
       <BannerContainer>
         <BannerText>
           <Title>
-            Welcome to flipper, where you &nbsp;
             <RoughNotation
               show
               type="highlight"

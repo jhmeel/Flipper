@@ -21,7 +21,7 @@ import {
 import { useSelector, useDispatch } from "react-redux";
 import RDotSpinner from "../components/loaders/RDotSpinner";
 import HLoader from "../components/loaders/HLoader";
-import { getROC } from "../utils/formatter";
+import { Mask, getROC } from "../utils/formatter";
 import { useSnackbar } from "notistack";
 import { RootState } from "../store";
 import useGetToken from "../utils/getToken";
@@ -43,8 +43,9 @@ const TaskExecution = () => {
     balance,
     tillLastweekCumulation,
   } = useSelector((state: RootState) => state.wallet);
-  const accessToken = useGetToken()
+  const accessToken = useGetToken();
   const { wallet } = useSelector((state: RootState) => state.package);
+  const [isBalanceVisible, setIsBalanceVisible] = useState<boolean>(true);
   const [time, setTime] = useState<number>(0);
   const [activeTask, setActiveTask] = useState<Task | null>(null);
   const [isTaskExecModalActive, setIsTaskExecModalActive] =
@@ -68,7 +69,7 @@ const TaskExecution = () => {
     setIsTaskExecModalActive(false);
   };
 
-   //Only show error if package is activated
+  //Only show error if package is activated
   useEffect(() => {
     if (taskErr) {
       enqueueSnackbar(taskErr, { variant: "error" });
@@ -76,7 +77,6 @@ const TaskExecution = () => {
     }
 
     const getTask = async () => {
-      
       dispatch<any>(getDailyTask(await accessToken));
     };
 
@@ -84,14 +84,12 @@ const TaskExecution = () => {
   }, [dispatch]);
 
   const getTillLastWeekCumulation = async () => {
-    
     dispatch<any>(getTxHistory(await accessToken));
   };
 
   useEffect(() => {
     getTillLastWeekCumulation();
   }, []);
-
 
   //Only show error if package is activated
   useEffect(() => {
@@ -101,7 +99,6 @@ const TaskExecution = () => {
     }
 
     const getWalletBalance = async () => {
-      
       dispatch<any>(getBalance(await accessToken));
     };
 
@@ -109,7 +106,7 @@ const TaskExecution = () => {
   }, [dispatch]);
 
   useEffect(() => {
-    const countToDate = tasks ? new Date().getTime() + 12 * 60 * 60 * 1000 : 0
+    const countToDate = tasks ? new Date().getTime() + 12 * 60 * 60 * 1000 : 0;
     const updateCountdown = () => {
       const currentDate = new Date();
       const timeBetweenDates = Math.ceil(
@@ -150,8 +147,20 @@ const TaskExecution = () => {
               <IconSubtask style={{ cursor: "pointer" }} />
               <h6>{taskCompletionStatus}</h6>
             </header>
-            <h2 className="current-earning" title="Balance">
-              {walletLoading ? <RDotSpinner /> : balance ? `₦${balance}` : "--"}
+            <h2
+              className="current-earning"
+              title="Balance"
+              onClick={() => setIsBalanceVisible(!isBalanceVisible)}
+            >
+              {walletLoading ? (
+                <RDotSpinner />
+              ) : balance && isBalanceVisible ? (
+                `₦${balance}`
+              ) : balance && !isBalanceVisible ? (
+                Mask(String(balance), 0, "*")
+              ) : (
+                "--"
+              )}
             </h2>
             <div className="progrss-desc"></div>
             <div className="act-progress">
@@ -340,7 +349,7 @@ const TaskActivityRenderer = styled.div`
     justify-content: space-between;
     align-items: center;
     display: flex;
-    gap:4px;
+    gap: 4px;
   }
   .task-icon-cont {
     height: 30px;

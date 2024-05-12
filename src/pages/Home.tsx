@@ -12,6 +12,7 @@ import {
   IconHelp,
   IconPeople16,
 } from "../assets/icons";
+import { RiGuideFill } from "react-icons/ri";
 import Packages from "../components/Packages";
 import MessageModal from "../components/MessageModal";
 import Faq from "../components/faq/Faq";
@@ -35,7 +36,7 @@ const Home = (): React.ReactElement => {
 
         <div className="h-it-w">
           <div className="s-header">
-            <h3>How It Works</h3>
+            <h3> <RiGuideFill/>How It Works</h3>
           </div>
           <HowItWorks />
         </div>
@@ -91,19 +92,19 @@ const HomeRenderer = styled.div`
     width: 100%;
     padding: 5px 10px;
     display: flex;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: center;
+    font-family: "Zeitung", serif;
   }
   .s-header h3 {
     display: flex;
     align-items: center;
     gap: 15px;
-    font-size: 1.675rem;
-    line-height: 2.25rem;
-    font-weight: 700;
-    font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue",
-      "Noto Sans", "Liberation Sans", Arial, sans-serif, "Apple Color Emoji",
-      "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+    color: rgb(32, 33, 36);
+    font-size: 24px;
+    font-weight: 400;
+    line-height: 32px;
+    font-family: zeitung, sans-serif;
   }
   .avail-pkg {
     display: flex;

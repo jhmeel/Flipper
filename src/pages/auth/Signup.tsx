@@ -18,7 +18,7 @@ interface FormData {
   phone?: string;
   email?: string;
   password?: string;
-  referralCode?: number;
+  referralCode?: string;
 }
 const Signup = () => {
   const { loading, isAuthenticated, user, error } = useSelector(
@@ -30,7 +30,7 @@ const Signup = () => {
     phone: "",
     email: "",
     password: "",
-    referralCode: undefined,
+    referralCode: "",
   });
   const [isPasswordVisible, setIsPasswordVisible] = useState<boolean>(false);
 
@@ -178,7 +178,7 @@ const Signup = () => {
             <input
               placeholder="Referral code(Optional)"
               className="referreal-code-inp"
-              type="number"
+              type="text"
               name="referralCode"
               value={formData.referralCode}
               onChange={handleChange}

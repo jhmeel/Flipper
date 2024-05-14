@@ -74,7 +74,7 @@ const TaskExecution = () => {
   const navigate = useNavigate();
   useEffect(() => {
     if (
-      taskErr && 
+      taskErr &&
       taskErr?.includes(
         "Please choose an investment plan and activate your wallet!"
       )
@@ -83,10 +83,10 @@ const TaskExecution = () => {
       navigate("/");
       toast.error(taskErr);
       dispatch<any>(clearTaskErr());
-    } else if(taskErr) {
+    } else if (taskErr) {
       enqueueSnackbar(taskErr, { variant: "error" });
       dispatch<any>(clearTaskErr());
-    } 
+    }
     const getTask = async () => {
       dispatch<any>(getDailyTask(await accessToken));
     };
@@ -219,10 +219,7 @@ const TaskExecution = () => {
                       title="Execute"
                       onClick={() => {
                         setIsTaskExecModalActive(true);
-                        setActiveTask((prev) => ({
-                          ...prev,
-                          ...task,
-                        }));
+                        setActiveTask(task);
                       }}
                     >
                       execute

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { ChangeEvent, useEffect, useState } from "react";
 import MetaData from "../../misc/MetaData";
 import styled from "styled-components";
@@ -23,7 +24,7 @@ const Signup = () => {
   const { loading, isAuthenticated, user, error } = useSelector(
     (state: any) => state.user
   );
-  const accessToken = useGetToken()
+  const accessToken = useGetToken();
   const [formData, setFormData] = useState<FormData>({
     username: "",
     phone: "",
@@ -33,7 +34,6 @@ const Signup = () => {
   });
   const [isPasswordVisible, setIsPasswordVisible] = useState<boolean>(false);
 
-  const [authToken, setAuthToken] = useState<string | undefined>(undefined);
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -41,7 +41,6 @@ const Signup = () => {
   useEffect(() => {
     dispatch<any>(clearErrors());
   }, []);
-
 
   useEffect(() => {
     emailjs.init({
@@ -76,13 +75,17 @@ const Signup = () => {
       toast.error(error);
       dispatch<any>(clearErrors());
     }
-    if (isAuthenticated === true && accessToken !== undefined) {
-      toast.success(
-        "Signed up successfully! -Proceed to activate a package that fit your investment plan and setup your profile."
-      );
-      sendEmail();
-      navigate("/");
-    }
+    const validateAndSendMail = async () => {
+      if (isAuthenticated === true && (await accessToken) !== undefined) {
+        toast.success(
+          "Signed up successfully! -Proceed to activate a package that fit your investment plan and setup your profile."
+        );
+        sendEmail();
+        navigate("/");
+      }
+    };
+
+    validateAndSendMail();
   }, [accessToken, dispatch, error, isAuthenticated, navigate]);
 
   const togglePasswordVisibility = () => {
@@ -108,7 +111,7 @@ const Signup = () => {
       {loading && <HLoader />}
       <SignupRenderer>
         <div className="form-header">
-        <div className="img-cont">
+          <div className="img-cont">
             <img src={logo} />
           </div>
           <h3 style={{ fontWeight: 600, fontSize: "1.5em" }}>Create Account</h3>
@@ -206,7 +209,7 @@ const SignupRenderer = styled.div`
   align-items: center;
   justify-content: center;
   background-color: rgb(255, 255, 255);
-  padding: 30px 30px 30px 30px;
+  padding: 30px 10px 30px 10px;
   position: relative;
   overflow: hidden;
   margin: 0 auto;
@@ -337,7 +340,7 @@ const SignupRenderer = styled.div`
   .terms {
     font-size: 11px;
     padding: 5px 20px;
-    font-weight:600;
+    font-weight: 600;
   }
   .terms a {
     color: crimson;

@@ -147,10 +147,10 @@ const NotificationRenderer = styled.div`
     text-align: center;
   }
   .notification-desc p {
-    font-size: .775rem;
+    font-size: .875rem;
     letter-spacing: .02em;
     color:#343333;
-
+    font-family:'Times New Roman', Times, serif; 
    
   }
   .notification-desc::-webkit-scrollbar {

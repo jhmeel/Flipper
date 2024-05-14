@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { ChangeEvent, useEffect, useState } from "react";
 import styled from "styled-components";
 import { IconChevronLeft, IconInfoCircleFill } from "../assets/icons";
@@ -151,6 +152,7 @@ const WithdrawalModalRenderer = styled.div`
     border: none;
     height: 40px;
     outline: none;
+    border-radius:16px;
   }
   .input-cont input:focus {
     border-bottom: 2px solid #2481a9;

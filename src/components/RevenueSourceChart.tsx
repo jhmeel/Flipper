@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import React from "react";
 import styled, { keyframes } from "styled-components";
 
@@ -7,16 +8,19 @@ const RevenueSourceChart = () => {
       name: "Stock Market",
       amount: "$10,000",
       percentage: "50%",
+      bg:"#ba5e09"
     },
     {
       name: "Ads",
       amount: "$8,000",
       percentage: "30%",
+      bg:"#6990b0"
     },
     {
       name: "Affiliate Marketing",
       amount: "$3,500",
       percentage: "20%",
+      bg:"#4c4d89"
     },
   ];
 
@@ -32,6 +36,7 @@ const RevenueSourceChart = () => {
             <div
               className="src-progress"
               style={{
+                background:source.bg,
                 width: source.percentage,
                 animationDuration: `${index * 0.5 + 5}s`,
               }}

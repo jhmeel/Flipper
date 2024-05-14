@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { ChangeEvent, useEffect, useState } from "react";
 import styled from "styled-components";
 import { IconChevronLeft, IconInfoCircleFill, IconLink } from "../assets/icons";
@@ -145,7 +146,7 @@ const VerifyTaskExecModalRenderer = styled.div`
     height: 40px;
     width: 320px;
     outline: none;
-    border-radius: 4px;
+    border-radius:16px;
   }
   .input-cont input:focus {
     border-bottom: 2px solid #2481a9;

@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import { CircleLoaderIcon } from "../../assets/icons";
-import logo from "../../assets/flipper-logo.png";
+import logo from "../../assets/flipper-logo.svg";
 const CSpinner: React.FC = () => {
   return (
     <Loader>

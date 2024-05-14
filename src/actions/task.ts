@@ -72,7 +72,6 @@ export const getDailyTask =
       dispatch({ type: GET_DAILY_TASK_REQUEST });
 
       const { data } = await axiosInstance(token).get("/api/v1/task/daily");
-
       dispatch({
         type: GET_DAILY_TASK_SUCCESS,
         payload: data,

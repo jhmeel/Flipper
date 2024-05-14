@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { ChangeEvent, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
@@ -160,6 +161,7 @@ const ForgotPasswordRenderer = styled.div`
     height: 40px;
     width: 320px;
     outline: none;
+    border-radius:16px;
   }
   .input-cont input:focus {
     border-bottom: 2px solid #2481a9;

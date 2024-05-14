@@ -92,7 +92,7 @@ const HomeRenderer = styled.div`
     width: 100%;
     padding: 5px 10px;
     display: flex;
-    justify-content: flex-start;
+    justify-content: center;
     align-items: center;
     font-family: "Zeitung", serif;
   }
@@ -101,10 +101,10 @@ const HomeRenderer = styled.div`
     align-items: center;
     gap: 15px;
     color: rgb(32, 33, 36);
-    font-size: 24px;
-    font-weight: 400;
+    font-size: 22px;
+    font-weight: 600;
     line-height: 32px;
-    font-family: zeitung, sans-serif;
+    font-family: Arial, Helvetica, sans-serif;
   }
   .avail-pkg {
     display: flex;
@@ -113,7 +113,7 @@ const HomeRenderer = styled.div`
     justify-content: center;
     align-items: center;
     border-bottom: 1px solid #ededed;
-    background-color: #fafafa;
+    background-color: #f7fafc;;
   }
   .revenue-source {
     display: flex;
@@ -122,7 +122,7 @@ const HomeRenderer = styled.div`
     justify-content: center;
     align-items: center;
     border-bottom: 1px solid #ededed;
-    background-color: #ffffff;
+    background-color: #f7fafc;;
   }
   .h-it-w {
     border-bottom: 1px solid #ededed;
@@ -136,7 +136,7 @@ const HomeRenderer = styled.div`
   }
   @media (max-width: 767px) {
     .s-header h3 {
-      font-size: 24px;
+      font-size: 18px;
     }
   }
 `;

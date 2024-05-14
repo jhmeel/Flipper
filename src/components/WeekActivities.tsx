@@ -14,7 +14,7 @@ const WeekActivity = ({ activities, pId }): React.ReactElement => {
   const updateActivity = () => {
     if (activities) {
       setWeekActivity(
-        activities?.map((act, _) => ({
+        activities?.map((act: { _id: string; total: number; }) => ({
           name: act._id,
           amount: act?.total,
           percentage: getCumulativePercentage(pId, act._id, act?.total),
@@ -27,37 +27,16 @@ const WeekActivity = ({ activities, pId }): React.ReactElement => {
     updateActivity();
   }, [activities]);
 
-  const DemoWeekActivity = [
-    {
-      name: "Task Completion",
-      amount: "₦25,000",
-      percentage: "15%",
-    },
-    {
-      name: "Referral Bonus",
-      amount: "₦1800",
-      percentage: "10%",
-    },
-    {
-      name: "Ads",
-      amount: "₦1200",
-      percentage: "8%",
-    },
-  ];
 
   const getRandomColor = () =>
     `#${Math.floor(Math.random() * 16777215).toString(16)}`;
-
-  const parsePercentage = (percentage: string): number => {
-    return parseFloat(percentage.replace("%", ""));
-  };
 
   const [chartType, setChartType] = useState<"bar" | "pie">("bar");
 
   const toggleChartType = () => {
     setChartType((prevType) => (prevType === "bar" ? "pie" : "bar"));
   };
-
+  const randColor = getRandomColor();
   return (
     <WeekActivityRenderer id="WeekActivity_table">
       <header>
@@ -82,13 +61,15 @@ const WeekActivity = ({ activities, pId }): React.ReactElement => {
                 <span
                   style={{
                     width: activity.percentage,
-                    backgroundColor: getRandomColor(),
+                    backgroundColor: randColor,
                   }}
                 ></span>
               </div>
               <div className="amount_percentage">
                 <span className="amount">₦{activity.amount}</span>
-                <span className="percentage">{"+" + activity.percentage}</span>
+                <span className="percentage">
+                  {"+" + activity.percentage + "%"}
+                </span>
               </div>
             </div>
           ))}
@@ -99,7 +80,7 @@ const WeekActivity = ({ activities, pId }): React.ReactElement => {
             <Pie
               data={weekActivity?.map((activity) => ({
                 ...activity,
-                percentage: parsePercentage(activity.percentage),
+                percentage: activity.percentage,
               }))}
               dataKey="percentage"
               nameKey="name"
@@ -110,7 +91,7 @@ const WeekActivity = ({ activities, pId }): React.ReactElement => {
               label
             >
               {weekActivity?.map((entry, index) => (
-                <Cell key={`cell-${index}`} fill={getRandomColor()} />
+                <Cell key={`cell-${index}`} fill={randColor} />
               ))}
             </Pie>
             <Tooltip />
@@ -200,6 +181,8 @@ const WeekActivityRenderer = styled.div`
 
   .platform-item .name {
     font-size: 14px;
+    text-align: center;
+    font-family: "Times New Roman", Times, serif;
   }
 
   .platform-item .amount,

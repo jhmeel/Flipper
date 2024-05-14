@@ -16,21 +16,21 @@ const HowItWorks = () => {
       image: FaSignInAlt,
       guide: "Create an Account",
       description: "By clicking get started",
-      iconColor: "#FF5733",
-      borderColor: "#FFC300",
+      iconColor: "#467196",
+      borderColor: "#9fc6e9",
     },
     {
       image: FaMoneyCheckAlt,
       guide: "Activate a Package",
       description: "Choose a package that meets your investment goals",
-      iconColor: "#C70039",
-      borderColor: "#900C3F",
+      iconColor: "#6b001e",
+      borderColor: "#b2556f",
     },
     {
       image: FaMoneyBillWave,
       guide: "Execute Tasks and Earn",
       description: "Start completing tasks and earn rewards",
-      iconColor: "#003F63",
+      iconColor: "#457f3e",
       borderColor: "#9ED298",
     },
   ];
@@ -62,7 +62,7 @@ export default HowItWorks;
 const HowItWorksWrapper = styled.div`
   width: 100%;
   padding: 40px 0;
-  background-color: #f8f8f8;
+  background-color: #ffffff;
 `;
 
 const HowItWorksContainer = styled.div`
@@ -85,16 +85,23 @@ const Step = styled.div<StepProps>`
   align-items: center;
   text-align: center;
   max-width: 300px;
-  border-radius: 4px;
-  padding: 20px;
+  border-radius: 6px;
+  padding:20px 40px;
+  border:1px solid #ededed;
+  cursor: pointer;
+  &:hover{
+    transition:.3s ease-out;
+    transform:scale(1.01)
+  }
 `;
 
 const StepId = styled.div<StepProps>`
   width: 40px;
   height: 40px;
   border-radius: 50%;
-  background-color: #fff;
+  border:1px solid #ededed;
   display: flex;
+  font-family: 'Zeitung', serif; 
   justify-content: center;
   align-items: center;
   font-weight: 700;
@@ -106,7 +113,7 @@ const IconContainer = styled.div<StepProps>`
   height: 100px;
   width: 100px;
   border-radius: 50%;
-  border: 2px dashed ${(props) => props.borderColor};
+  background-color: ${(props) => props.borderColor};
   display: flex;
   justify-content: center;
   align-items: center;

@@ -35,7 +35,7 @@ const Packages = () => {
     setPurchasedPackage((prev) => ({
       ...prev,
       packageName: pname,
-      packagPrice: pp,
+      packagePrice: pp,
       packageId: pid,
     }));
 
@@ -46,7 +46,6 @@ const Packages = () => {
     setIsPaymentModalActive(false);
   };
   const packages: Array<Package> = Config.PACKAGES;
-
   return (
     <PackageRenderer>
       <div className="package">
@@ -238,6 +237,7 @@ const PackageRenderer = styled.div`
     justify-content: space-evenly;
     transition: 0.3s ease-in-out;
     position: relative;
+    background-color: #fff;
   }
   .package._mid {
     max-width: 350px;

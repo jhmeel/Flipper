@@ -106,8 +106,8 @@ export const IconSettings2 = (props: React.SVGProps<SVGSVGElement>)=> {
       strokeLinejoin="round"
       strokeWidth={2}
       viewBox="0 0 24 24"
-      height="1em"
-      width="1em"
+      height="1.2em"
+      width="1.2em"
       {...props}
     >
       <path d="M20 7h-9M14 17H5" />

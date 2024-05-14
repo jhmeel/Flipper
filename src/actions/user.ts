@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import axiosInstance from "../utils/axiosInstance";
 import { errorParser } from "../utils/formatter";
 import {
@@ -28,9 +29,9 @@ import {
   UPDATE_PROFILE_SUCCESS,
   LOG_OUT_USER_REQUEST,
   LOG_OUT_USER_FAIL,
-  GET_BALANCE_FAIL,
-  GET_BALANCE_REQUEST,
-  GET_BALANCE_SUCCESS,
+  GET_WALLET_FAIL,
+  GET_WALLET_REQUEST,
+  GET_WALLET_SUCCESS,
   UPDATE_BANK_INFO_REQUEST,
   WITHDRAW_FUNDS_FAIL,
   WITHDRAW_FUNDS_SUCCESS,
@@ -44,6 +45,8 @@ import {
   GET_TX_HISTORY_SUCCESS,
   GET_TX_HISTORY_REQUEST,
   GET_TX_HISTORY_FAIL,
+  UPDATE_BANK_INFO_SUCCESS,
+  UPDATE_BANK_INFO_FAIL,
 } from "../constants";
 import { ACTION } from "../types";
 
@@ -241,12 +244,12 @@ export const updateBankInfo =
       );
 
       dispatch({
-        type: UPDATE_PASSWORD_SUCCESS,
+        type: UPDATE_BANK_INFO_SUCCESS,
         payload: data,
       });
     } catch (error) {
       dispatch({
-        type: UPDATE_PROFILE_FAIL,
+        type: UPDATE_BANK_INFO_FAIL,
         payload: errorParser(error),
       });
     }
@@ -264,21 +267,20 @@ export const logoutUser = () => async (dispatch: (action: ACTION) => void) => {
   }
 };
 
-//get balance
-export const getBalance =
+//get wallet
+export const getWallet =
   (token?: string) => async (dispatch: (action: ACTION) => void) => {
     try {
-      dispatch({ type: GET_BALANCE_REQUEST });
+      dispatch({ type: GET_WALLET_REQUEST });
 
-      const { data } = await axiosInstance(token).get("/api/v1/user/balance");
-
+      const { data } = await axiosInstance(token).get("/api/v1/user/wallet");
       dispatch({
-        type: GET_BALANCE_SUCCESS,
+        type: GET_WALLET_SUCCESS,
         payload: data,
       });
     } catch (error) {
       dispatch({
-        type: GET_BALANCE_FAIL,
+        type: GET_WALLET_FAIL,
         payload: errorParser(error),
       });
     }

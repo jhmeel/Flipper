@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { useEffect, useState } from "react";
 import MetaData from "../misc/MetaData";
 import styled, { keyframes } from "styled-components";
@@ -14,7 +15,7 @@ import VerifyTaskExecModal from "../components/VerifyTaskExecModal";
 import { Task } from "../types";
 import { getDailyTask, clearErrors as clearTaskErr } from "../actions/task";
 import {
-  getBalance,
+  getWallet,
   clearErrors as clearWalletErr,
   getTxHistory,
 } from "../actions/user";
@@ -25,6 +26,8 @@ import { Mask, getROC } from "../utils/formatter";
 import { useSnackbar } from "notistack";
 import { RootState } from "../store";
 import useGetToken from "../utils/getToken";
+import { useNavigate } from "react-router-dom";
+import toast from "react-hot-toast";
 const TaskExecution = () => {
   const [taskCompletionStatus, setTaskCompletionStatus] = useState<
     "Pending..." | "Inprogress" | "Completed" | "Closed" | "N/A"
@@ -37,14 +40,14 @@ const TaskExecution = () => {
     progress,
     tasks,
   } = useSelector((state: RootState) => state.task);
+
   const {
     error: walletErr,
     loading: walletLoading,
-    balance,
+    wallet,
     tillLastweekCumulation,
   } = useSelector((state: RootState) => state.wallet);
   const accessToken = useGetToken();
-  const { wallet } = useSelector((state: RootState) => state.package);
   const [isBalanceVisible, setIsBalanceVisible] = useState<boolean>(true);
   const [time, setTime] = useState<number>(0);
   const [activeTask, setActiveTask] = useState<Task | null>(null);
@@ -68,14 +71,22 @@ const TaskExecution = () => {
   const onTaskExecModalRemove = () => {
     setIsTaskExecModalActive(false);
   };
-
-  //Only show error if package is activated
+  const navigate = useNavigate();
   useEffect(() => {
-    if (taskErr) {
+    if (
+      taskErr && 
+      taskErr?.includes(
+        "Please choose an investment plan and activate your wallet!"
+      )
+    ) {
+      //user dont have a wallet yet go to home
+      navigate("/");
+      toast.error(taskErr);
+      dispatch<any>(clearTaskErr());
+    } else if(taskErr) {
       enqueueSnackbar(taskErr, { variant: "error" });
       dispatch<any>(clearTaskErr());
-    }
-
+    } 
     const getTask = async () => {
       dispatch<any>(getDailyTask(await accessToken));
     };
@@ -91,6 +102,10 @@ const TaskExecution = () => {
     getTillLastWeekCumulation();
   }, []);
 
+  const getWalletD = async () => {
+    dispatch<any>(getWallet(await accessToken));
+  };
+
   //Only show error if package is activated
   useEffect(() => {
     if (walletErr && wallet?.pId) {
@@ -98,11 +113,7 @@ const TaskExecution = () => {
       dispatch<any>(clearWalletErr());
     }
 
-    const getWalletBalance = async () => {
-      dispatch<any>(getBalance(await accessToken));
-    };
-
-    getWalletBalance();
+    getWalletD();
   }, [dispatch]);
 
   useEffect(() => {
@@ -136,6 +147,7 @@ const TaskExecution = () => {
   const onVerificationModalRemove = () => {
     setVerificationModalActive(false);
   };
+
   return (
     <>
       <MetaData title="Tasks" />
@@ -154,10 +166,10 @@ const TaskExecution = () => {
             >
               {walletLoading ? (
                 <RDotSpinner />
-              ) : balance && isBalanceVisible ? (
-                `₦${balance}`
-              ) : balance && !isBalanceVisible ? (
-                Mask(String(balance), 0, "*")
+              ) : wallet?.balance && isBalanceVisible ? (
+                `₦ ${wallet?.balance}`
+              ) : wallet?.balance && !isBalanceVisible ? (
+                Mask(String(wallet?.balance), 0, "*")
               ) : (
                 "--"
               )}
@@ -177,7 +189,7 @@ const TaskExecution = () => {
                     : "N/A"}
                 </span>
               </span>
-              <span>{progress && (Number(progress) / 3) * 100}</span>
+              <span>{progress && (Number(progress) / 3) * 100}%</span>
             </div>
           </div>
         </div>
@@ -190,7 +202,7 @@ const TaskExecution = () => {
             </span>
           </header>
           <div className="task-cont">
-            {tasks
+            {tasks?.length > 0
               ? tasks.map((task: Task, i) => (
                   <div className="task" key={i}>
                     <span className="task-icon-cont">
@@ -298,6 +310,17 @@ const TaskActivityRenderer = styled.div`
   margin: 0 auto;
   gap: 10px;
 
+  @keyframes pulse {
+    from {
+      transform: scale(0.9);
+      opacity: 1;
+    }
+    to {
+      transform: scale(1.8);
+      opacity: 0;
+    }
+  }
+
   .activity-progress,
   .activities,
   .weekly-activity-chart {
@@ -305,6 +328,10 @@ const TaskActivityRenderer = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
+
+    h3 {
+      font-size: 14px;
+    }
   }
   .progress-banner {
     height: 120px;
@@ -435,8 +462,10 @@ const TaskActivityRenderer = styled.div`
 
   .current-earning {
     position: relative;
-    font-size: 24px;
-    animation: blink 1.3s ease-out infinite;
+    font-size: 18px;
+    font-family: "Zeitung", serif;
+    font-weight: 500;
+    animation: pulse 1.5s ease-out infinite;
     cursor: pointer;
     color: #fff;
   }
@@ -463,16 +492,5 @@ const TaskActivityRenderer = styled.div`
     width: 8px;
     height: 8px;
     animation: pulse 1s linear infinite;
-  }
-
-  @keyframes pulse {
-    from {
-      transform: scale(0.9);
-      opacity: 1;
-    }
-    to {
-      transform: scale(1.8);
-      opacity: 0;
-    }
   }
 `;

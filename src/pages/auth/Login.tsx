@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { ChangeEvent, useEffect, useState } from "react";
 import MetaData from "../../misc/MetaData";
 import styled from "styled-components";
@@ -133,7 +134,7 @@ const FormMain = styled.form`
   align-items: center;
   justify-content: center;
   background-color: rgb(255, 255, 255);
-  padding: 30px 30px 30px 30px;
+  padding: 30px 10px 30px 10px;
   position: relative;
   overflow: hidden;
   margin: 0 auto;

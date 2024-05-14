@@ -29,7 +29,7 @@ const LoaderRenderer = styled.div`
 const Loader = styled.div`
   display: block;
   --height-of-loader: 5px;
-  --loader-color: #bb3550;
+  --loader-color: #6990b0;
   width: 100%;
   height: var(--height-of-loader);
   border-radius: 30px;
@@ -39,7 +39,7 @@ const Loader = styled.div`
   &::before {
     content: "";
     position: absolute;
-    background: var(--loader-color);
+    background: linear-gradient(45deg, #3498db, #9b59b6, #2ecc71);
     top: 0;
     left: 0;
     width: 0%;

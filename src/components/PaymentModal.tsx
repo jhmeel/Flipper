@@ -1,7 +1,8 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { PaystackButton } from "react-paystack";
-import { IconChevronLeft, SuccessIcon } from "../assets/icons";
+import { IconChevronLeft } from "../assets/icons";
 import styled from "styled-components";
 import { useDispatch } from "react-redux";
 import { activatePackage, clearErrors } from "../actions/user";
@@ -11,6 +12,7 @@ import HLoader from "./loaders/HLoader";
 import Config from "../config/Config";
 import { useSnackbar } from "notistack";
 import useGetToken from "../utils/getToken";
+import { ACTIVATE_PACKAGE_RESET } from "../constants";
 
 const PaymentModal = ({
   packageId,
@@ -25,7 +27,7 @@ const PaymentModal = ({
 }): React.ReactElement => {
   const publicKey: string = Config.PAYSTACK_SECRETE_KEY;
   const [email, setEmail] = useState<string>("");
-const accessToken = useGetToken()
+  const accessToken = useGetToken();
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { loading, isActivated, error } = useSelector(
@@ -38,7 +40,7 @@ const accessToken = useGetToken()
     email,
     amount: Number(packagePrice) * 100,
     publicKey,
-    text: `Purchase "${packageName}"`,
+    text: `Purchase ${packageName}`,
     onSuccess: () => {
       onPackagePurchase();
     },
@@ -58,14 +60,14 @@ const accessToken = useGetToken()
       dispatch<any>(clearErrors());
     }
     if (isActivated) {
-      toast("Your package has been activated successfully!", {
-        icon: <SuccessIcon />,
-      });
+      toast.success("Your package has been activated successfully!");
+
+      dispatch<any>({ type: ACTIVATE_PACKAGE_RESET });
+      navigate("/task");
     }
   }, [dispatch, enqueueSnackbar, error, isActivated]);
 
   const onPackagePurchase = async () => {
-    
     dispatch<any>(activatePackage(await accessToken, packageId));
   };
 

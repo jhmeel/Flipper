@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { ChangeEvent, useEffect, useRef, useState } from "react";
 import MetaData from "../../misc/MetaData";
 import styled, { keyframes } from "styled-components";
@@ -21,7 +22,12 @@ import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 import WithdrawalModal from "../../components/WithdrawalModal";
 import { useSelector, useDispatch } from "react-redux";
-import { clearErrors, logoutUser, updateProfile } from "../../actions/user";
+import {
+  clearErrors,
+  loadProfile,
+  logoutUser,
+  updateProfile,
+} from "../../actions/user";
 import HLoader from "../../components/loaders/HLoader";
 import PDotSpinner from "../../components/loaders/PDotSpinner";
 import { UPDATE_PROFILE_RESET } from "../../constants";
@@ -34,9 +40,16 @@ import useGetToken from "../../utils/getToken";
 const Profile = () => {
   const dispatch = useDispatch();
   const { enqueueSnackbar } = useSnackbar();
-  const { user, error, wallet, txHistory, weeklyCumulation, loading } =
-    useSelector((state: RootState) => state.user);
-    const accessToken = useGetToken()
+  const {
+    user,
+    error: profileErr,
+    txHistory,
+    wallet,
+    weeklyCumulation,
+    loading,
+  } = useSelector((state: RootState) => state.user);
+
+  const accessToken = useGetToken();
   const {
     isUpdated,
     error: profileUpdateErr,
@@ -66,6 +79,17 @@ const Profile = () => {
   const toggleAccountDetailsEditMode = () => {
     setAccountDetailsEditMode(!accountDetailsEditMode);
   };
+
+  useEffect(() => {
+    if (profileErr) {
+      enqueueSnackbar(profileErr, { variant: "error" });
+      dispatch<any>(clearErrors());
+    }
+    const getProfile = async () => {
+      dispatch<any>(loadProfile(await accessToken));
+    };
+    getProfile();
+  }, [dispatch, enqueueSnackbar]);
 
   const toggleWithdrawalModal = () => {
     if (withdrawalDisabled) return;
@@ -113,7 +137,7 @@ const Profile = () => {
     if (navigator.share) {
       navigator.share({
         title: "Friend Invite",
-        text: "Please click on the link to signup on frontierscabal",
+        text: "Please click on the link to signup on flipper",
         url: user?.referralCode,
       });
     }
@@ -132,13 +156,6 @@ const Profile = () => {
     dispatch<any>(updateProfile(await accessToken, avatar));
   };
 
-  useEffect(() => {
-    if (error) {
-      enqueueSnackbar(error, { variant: "error" });
-      dispatch<any>(clearErrors());
-    }
-  }, [dispatch, enqueueSnackbar, error]);
-
   const handleAvatar = (e: ChangeEvent<HTMLInputElement>) => {
     const reader = new FileReader();
 
@@ -151,6 +168,9 @@ const Profile = () => {
 
     e.target.files && reader.readAsDataURL(e.target.files[0]);
   };
+
+  console.log(wallet)
+
   return (
     <>
       <MetaData title="Profile" />
@@ -282,43 +302,45 @@ const Profile = () => {
         </div>
 
         <div className="transactions-cont">
-          <p className="tx-date">
-            <IconCalendarEventFill />
-            {new Date().toDateString()}
-          </p>
-          {txHistory?.length > 0
-            ? txHistory.map((tx, i) => {
-                <div className="tx-item" key={i}>
-                  <span className="tx-icon">
-                    <IconArrowTrendUp fill="#fff" />
-                  </span>
-
-                  <span className="tx-amount">₦{tx?.amount}</span>
-                  <span className="in-percent">
-                    +{getPercentage(wallet?.pId, tx?.amount)}
-                  </span>
-                  <div className="tx-time">
-                    <IconClock fill="gray" />{" "}
-                    <span>
-                      {new Date(tx?.createdAt).toTimeString().split("G")[0]}
-                    </span>
-                  </div>
-                </div>;
-              })
-            : Array(5)
-                .fill(null)
-                .map((_, i) => (
-                  <div className="tx-item-loader" key={i}>
-                    <span className="tx-icon"></span>
-
-                    <span className="tx-amount"></span>
-                    <span className="in-percent"></span>
-                  </div>
-                ))}
+  <p className="tx-date">
+    <IconCalendarEventFill />
+    {new Date().toDateString()}
+  </p>
+  {txHistory?.length > 0
+    ? txHistory.map((tx, i) => (
+        <div className="tx-item" key={i}>
+          <span className="tx-icon">
+            <IconArrowTrendUp fill="#fff" />
+          </span>
+          <span className="tx-amount">₦{tx?.amount}</span>
+          <span className="in-percent">
+            +{getPercentage(wallet?.pId, tx?.amount)}
+          </span>
+          <div className="tx-time">
+            <IconClock fill="gray" />{" "}
+            <span>
+              {new Date(tx?.createdAt).toTimeString().split("G")[0]}
+            </span>
+          </div>
         </div>
+      ))
+    : Array(5)
+        .fill(null)
+        .map((_, i) => (
+          <div className="tx-item-loader" key={i}>
+            <span className="tx-icon"></span>
+            <span className="tx-amount"></span>
+            <span className="in-percent"></span>
+          </div>
+        ))}
+</div>
+
 
         {accountDetailsEditMode && (
-          <AccountDetailsForm onRemove={toggleAccountDetailsEditMode} />
+          <AccountDetailsForm
+            bankDetails={user?.bankinfo}
+            onRemove={toggleAccountDetailsEditMode}
+          />
         )}
 
         {withdrawalModalActive && (

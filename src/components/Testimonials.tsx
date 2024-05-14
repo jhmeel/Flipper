@@ -53,10 +53,7 @@ const Testimonials: React.FC = () => {
         <TestimonialsList>
           {testimonials.map((testimonial, index) => (
             <TestimonialCard key={index}>
-              <Avatar
-                src={testimonial.avatar}
-                alt={`${testimonial.name}'s Avatar`}
-              />
+              <Avatar src={testimonial.avatar} alt="" />
               <TestimonialContent>
                 <TestimonialMessage>{testimonial.message}</TestimonialMessage>
                 <TestimonialAuthor>- {testimonial.name}</TestimonialAuthor>
@@ -70,7 +67,7 @@ const Testimonials: React.FC = () => {
             <TestimonialCard key={index}>
               <Avatar
                 src={testimonial.avatar}
-                alt={`${testimonial.name}'s Avatar`}
+                alt=''
               />
               <TestimonialContent>
                 <TestimonialMessage>{testimonial.message}</TestimonialMessage>
@@ -101,13 +98,13 @@ const TestimonialsWrapper = styled.section`
 const TestimonialsContainer = styled.div`
   width: 100%;
   display: flex;
-  justify-content:space-between;
-  gap:220px;
+  justify-content: space-between;
+  gap: 220px;
 
-  @media(max-width:767px){
-    gap:500px;
+  @media (max-width: 767px) {
+    gap: 500px;
   }
-  `;
+`;
 
 const TestimonialsList = styled.div`
   width: 100%;
@@ -116,7 +113,6 @@ const TestimonialsList = styled.div`
   justify-content: space-around;
   gap: 10px;
   animation: ${scrollLeft} 30s linear infinite;
-
 `;
 
 const TestimonialCard = styled.div`
@@ -137,6 +133,7 @@ const Avatar = styled.img`
   height: 50px;
   border-radius: 50%;
   margin-bottom: 10px;
+  border: 2px solid #ededed;
 `;
 
 const TestimonialContent = styled.div`
@@ -146,15 +143,15 @@ const TestimonialContent = styled.div`
 const TestimonialMessage = styled.p`
   font-size: 12px;
   color: #1d1c1c;
-  font-family:'Playfair Display';
+  font-family: "Playfair Display";
 `;
 
 const TestimonialAuthor = styled.p`
   font-size: 1rem;
   color: #666;
   margin-top: 10px;
-  font-family: 'Playfair Display', serif; 
-  font-style: italic; 
+  font-family: "Playfair Display", serif;
+  font-style: italic;
 `;
 
 export default Testimonials;

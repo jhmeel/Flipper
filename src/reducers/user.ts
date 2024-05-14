@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import {
   CLEAR_ERRORS,
   FORGOT_PASSWORD_RESET,
@@ -34,9 +35,9 @@ import {
   ACTIVATE_PACKAGE_SUCCESS,
   ACTIVATE_PACKAGE_FAIL,
   ACTIVATE_PACKAGE_RESET,
-  GET_BALANCE_REQUEST,
-  GET_BALANCE_SUCCESS,
-  GET_BALANCE_FAIL,
+  GET_WALLET_REQUEST,
+  GET_WALLET_SUCCESS,
+  GET_WALLET_FAIL,
   WITHDRAW_FUNDS_REQUEST,
   WITHDRAW_FUNDS_SUCCESS,
   WITHDRAW_FUNDS_FAIL,
@@ -108,6 +109,7 @@ export const userReducer = (
         token: payload.accessToken,
       };
     case LOAD_PROFILE_SUCCESS:
+      
       return {
         ...state,
         loading: false,
@@ -254,7 +256,7 @@ export const profileReducer = (
       return {
         ...state,
         loading: false,
-        isUpdated: payload.isUpdated,
+        isUpdated: payload.success,
       };
     case UPDATE_PROFILE_FAIL:
     case UPDATE_BANK_INFO_FAIL:
@@ -267,6 +269,7 @@ export const profileReducer = (
     case UPDATE_BANK_INFO_RESET:
       return {
         ...state,
+        loadding: false,
         isUpdated: false,
       };
     case CLEAR_ERRORS:
@@ -305,6 +308,7 @@ export const packageReducer = (
     case ACTIVATE_PACKAGE_RESET:
       return {
         ...state,
+        isActivated:null
       };
     case CLEAR_ERRORS:
       return {
@@ -321,24 +325,23 @@ export const walletReducer = (
   { type, payload }: { type: string; payload: any }
 ) => {
   switch (type) {
-    case GET_BALANCE_REQUEST:
+    case GET_WALLET_REQUEST:
     case WITHDRAW_FUNDS_REQUEST:
     case GET_TX_HISTORY_REQUEST:
       return {
         ...state,
         loading: true,
       };
-    case GET_BALANCE_SUCCESS:
+    case GET_WALLET_SUCCESS:
       return {
         ...state,
         loading: false,
-        balance: payload.balance,
+        wallet: payload.wallet,
       };
     case GET_TX_HISTORY_SUCCESS:
       return {
         ...state,
         loading: false,
-        balance: payload.balance,
         tillLastweekCumulation: payload.tillLastweekCumulation,
       };
     case WITHDRAW_FUNDS_SUCCESS:
@@ -347,7 +350,7 @@ export const walletReducer = (
         loading: false,
         message: payload.message,
       };
-    case GET_BALANCE_FAIL:
+    case GET_WALLET_FAIL:
     case WITHDRAW_FUNDS_FAIL:
     case GET_TX_HISTORY_FAIL:
       return {

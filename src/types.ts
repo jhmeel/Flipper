@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 export type ROLE = "FP:ADMIN" | "FP:USER";
 
 export interface Package {
@@ -36,13 +37,40 @@ export type ARTICLE = {
   category?: string;
 };
 
+export interface IWALLET {
+  userId?:string;
+  balance?: number;
+  referralBonus?: number;
+  txHistory?: any[];
+  withdrawable?: number;
+  TAB?: number;
+  pId?: "XAU" | "XPT" | "XAG";
+  txPasscode?: string;
+  dailyTasks?: {
+    progress?: number;
+    tasks?: any[]; 
+  };
+  completedTask?: any[]; 
+  pendingVerifications?: {
+    id: string;
+    doc: {
+      secureUrl: string;
+      publicId: string;
+    };
+    submissionDate: Date;
+  }[];
+  expiresAt?: number;
+  createdAt?: Date;
+
+}
+
 export interface ROOT_STATE {
   user: {
     loading?: boolean;
     isAuthenticated?: boolean;
     user?: USER;
     token?: string;
-    wallet?: any;
+    wallet?:IWALLET;
     txHistory?: any;
     weeklyCumulation?: any;
     error?: any;
@@ -77,7 +105,7 @@ export interface ROOT_STATE {
   };
   wallet: {
     loading?: boolean;
-    balance?: number;
+    wallet?: IWALLET;
     tillLastweekCumulation?: any;
     message?: string;
     error?: any;

@@ -67,7 +67,7 @@ const MainFooter = styled.footer`
   bottom: 0;
   height: fit-content;
   max-width: 100%;
-  background-color: rgb(85, 85, 263);
+  background-color:#1b558f;
   color: #ccc;
   padding: 20px;
   text-align: center;

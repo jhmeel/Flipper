@@ -106,7 +106,7 @@ padding: 3px 6px;
     padding: 5px 10px;
     border-bottom: 1px solid #ccc;
     color: #fff;
-    background-color:  rgb(85, 85, 263);
+    background-color:#366da4;
     z-index: 2;
     cursor: pointer;
     font-size: 14px;

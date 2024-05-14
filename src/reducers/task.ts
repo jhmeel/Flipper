@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import {
   CLEAR_ERRORS,
   GET_ACTIVE_TASK_PROGRESS_FAIL,
@@ -38,6 +39,7 @@ export const taskReducer = (
         ...state,
         loading: false,
         tasks: payload.tasks,
+        progress: payload.progress,
       };
     case VERIFY_TASK_EXEC_SUCCESS:
       return {

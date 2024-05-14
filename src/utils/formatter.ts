@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import Config from "../config/Config";
 import LocalForageProvider from "./localforage";
 
@@ -122,16 +123,17 @@ export const getCumulativePercentage = (
   if (!type || !amount || !pId) {
     return 0;
   }
-  const possibleTypes = ["Task Completion", "Referral Bonus", "Ads"];
+  const possibleTypes = ["Task Completion", "Referral Bonus", "Ads", "50% ROI"];
   if (!possibleTypes.includes(type)) {
     return 0;
   }
   let LROI = Config.PACKAGES.find((p) => p.id === pId)?.LROI;
   do {
     LROI *= 3;
-  } while (LROI <= amount);
+  } while (amount >= LROI);
 
   const percent = (100 / LROI) * amount;
+
   return Math.round(percent);
 };
 

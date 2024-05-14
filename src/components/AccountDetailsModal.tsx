@@ -1,29 +1,47 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { ChangeEvent, useEffect, useState } from "react";
 import styled from "styled-components";
 import { IconChevronLeft } from "../assets/icons";
 import { useSelector, useDispatch } from "react-redux";
 import { clearErrors, updateBankInfo } from "../actions/user";
-import getToken from "../utils/getToken";
 import toast from "react-hot-toast";
 import { UPDATE_BANK_INFO_RESET } from "../constants";
 import HLoader from "./loaders/HLoader";
 import { useSnackbar } from "notistack";
+import useGetToken from "../utils/getToken";
+import { SupportedBanks } from "../misc/Banks";
 
 interface AccountProps {
   bankName?: string;
   accountName?: string;
   accountNumber?: string;
 }
-const AccountDetailsForm = ({ onRemove }: { onRemove: () => void }) => {
+const AccountDetailsForm = ({
+  bankDetails,
+  onRemove,
+}: {
+  bankDetails?: AccountProps;
+  onRemove: () => void;
+}) => {
   const dispatch = useDispatch();
   const { loading, isUpdated, error } = useSelector(
     (state: any) => state.profile
   );
+  const accessToken = useGetToken();
   const [accountDetails, setAccountDetails] = useState<AccountProps>({
     bankName: "",
     accountName: "",
     accountNumber: "",
   });
+
+  useEffect(() => {
+    if (bankDetails) {
+      setAccountDetails((prev) => ({
+        ...prev,
+        ...bankDetails,
+      }));
+    }
+  }, []);
   const { enqueueSnackbar } = useSnackbar();
   const handleAccountFormChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -48,12 +66,16 @@ const AccountDetailsForm = ({ onRemove }: { onRemove: () => void }) => {
 
   const handleSubmit = async (e: any) => {
     e.preventDefault();
-    if(!accountDetails.accountName || !accountDetails.accountNumber || !accountDetails.bankName){
-      toast.error('Please provide your account details')
-      return
+    if (
+      !accountDetails.accountName ||
+      !accountDetails.accountNumber ||
+      !accountDetails.bankName
+    ) {
+      toast.error("Please provide your account details");
+      return;
     }
-    const authToken = await getToken();
-    dispatch<any>(updateBankInfo(authToken, accountDetails));
+
+    dispatch<any>(updateBankInfo(await accessToken, accountDetails));
   };
   return (
     <AccountDetailsFormRenderer>
@@ -69,6 +91,7 @@ const AccountDetailsForm = ({ onRemove }: { onRemove: () => void }) => {
             Bank Name<span className="required">*</span>
           </label>
           <input
+            list="supported-banks"
             type="text"
             autoFocus
             value={accountDetails.bankName}
@@ -76,6 +99,13 @@ const AccountDetailsForm = ({ onRemove }: { onRemove: () => void }) => {
             required
             name="bankName"
           />
+          <datalist id="supported-banks">
+            {SupportedBanks.sort().map((banks, i) => (
+              <option value={banks.name} key={i}>
+                {banks.name}
+              </option>
+            ))}
+          </datalist>
         </div>
         <div className="input-cont">
           <label htmlFor="Bank name">
@@ -142,7 +172,7 @@ const AccountDetailsFormRenderer = styled.div`
     flex-direction: column;
     align-items: center;
     gap: 5px;
-    margin-top:20px;
+    margin-top: 20px;
   }
   .required {
     color: crimson;
@@ -164,6 +194,7 @@ const AccountDetailsFormRenderer = styled.div`
     border: none;
     height: 40px;
     outline: none;
+    border-radius: 16px;
   }
   .input-cont input:focus {
     border-bottom: 2px solid #2481a9;

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 import emptyAvatar from "../assets/images/empty_avatar.png";
@@ -130,14 +131,13 @@ const HeaderRenderer = styled.div`
     border-radius: 30px;
     padding: 5px 10px;
     border: 1px solid #ededed;
-    gap: 5px;
     background-color: #fff;
     position: relative;
   }
 
   .user-avatar {
-    height: 28px;
-    width: 28px;
+    height: 38px;
+    width: 38px;
     border: 1px solid #ededed;
     border-radius: 50%;
     position: relative;
@@ -145,8 +145,8 @@ const HeaderRenderer = styled.div`
   }
   .user-avatar img {
     position: absolute;
-    height: 28px;
-    width: 28px;
+    height: 38px;
+    width: 38px;
     border-radius: 50%;
   }
 
@@ -174,7 +174,7 @@ const HeaderRenderer = styled.div`
 
   .modal-user-details {
     position: absolute;
-    padding:5px 10px;
+    padding:30px 10px 10px;
     background-color: #ffffff;
     border-radius: 12px;
     display: flex;
@@ -182,7 +182,7 @@ const HeaderRenderer = styled.div`
     justify-content: center;
     flex-direction: column;
     border: 1px solid #ededed;
-    top: 45px;
+    top: 50px;
     right: 5px;
     cursor: pointer;
   }
@@ -195,10 +195,14 @@ const HeaderRenderer = styled.div`
   }
 
   .modal-avatar img {
-    width: 30px;
+    width: 40px;
     border-radius: 50%;
-    height: 30px;
+    height: 40px;
     cursor: pointer;
+    position:absolute;
+    top:-10px;
+    transform:translateX(-50%);
+    border: 4px solid #ededed;
   }
   .btns-cont {
     display: flex;

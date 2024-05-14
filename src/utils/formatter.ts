@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import Config from "../config/Config";
-import LocalForageProvider from "./localforage";
+
 
 export const FormattedCount = (count: number | undefined): string | number => {
   if (!count) return 0;
@@ -59,7 +59,6 @@ export const errorParser = (error: any): string => {
   ) {
     return "Request timeout. Please Check your network status and try again.";
   } else if (errMsg?.includes("jwt")) {
-    LocalForageProvider.removeAuthToken();
     return "Your session has expired, relogin into your account";
   } else if (errMsg?.includes("429")) {
     return "We are currently experiencing high traffic and won't be able to process your request, please checkback-in in the next 5 minutes";

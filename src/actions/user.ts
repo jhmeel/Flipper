@@ -158,12 +158,16 @@ export const forgotPassword =
 
 // Reset Password
 export const resetPassword =
-  (email?: string, newPassword?: string) => async (dispatch: (action: ACTION) => void) => {
+  (email?: string, newPassword?: string) =>
+  async (dispatch: (action: ACTION) => void) => {
     try {
       dispatch({ type: RESET_PASSWORD_REQUEST });
-      const { data } = await axiosInstance().put(`/api/v1/password/reset/${email}`, {
-        newPassword,
-      });
+      const { data } = await axiosInstance().put(
+        `/api/v1/password/reset/${email}`,
+        {
+          newPassword,
+        }
+      );
       dispatch({
         type: RESET_PASSWORD_SUCCESS,
         payload: data,
@@ -256,16 +260,17 @@ export const updateBankInfo =
   };
 
 // logout user
-export const logoutUser = () => async (dispatch: (action: ACTION) => void) => {
-  try {
-    dispatch({ type: LOG_OUT_USER_REQUEST });
-  } catch (error) {
-    dispatch({
-      type: LOG_OUT_USER_FAIL,
-      payload: errorParser(error),
-    });
-  }
-};
+export const logoutUser =
+  (username?: string) => async (dispatch: (action: ACTION) => void) => {
+    try {
+      dispatch({ type: LOG_OUT_USER_REQUEST, payload: { username } });
+    } catch (error) {
+      dispatch({
+        type: LOG_OUT_USER_FAIL,
+        payload: errorParser(error),
+      });
+    }
+  };
 
 //get wallet
 export const getWallet =

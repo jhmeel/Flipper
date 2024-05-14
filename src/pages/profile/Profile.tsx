@@ -35,7 +35,6 @@ import { useSnackbar } from "notistack";
 import { getPercentage } from "../../utils/formatter";
 import Config from "../../config/Config";
 import { RootState } from "../../store";
-import useGetToken from "../../utils/getToken";
 
 const Profile = () => {
   const dispatch = useDispatch();
@@ -45,11 +44,11 @@ const Profile = () => {
     error: profileErr,
     txHistory,
     wallet,
+    token,
     weeklyCumulation,
     loading,
   } = useSelector((state: RootState) => state.user);
 
-  const accessToken = useGetToken();
   const {
     isUpdated,
     error: profileUpdateErr,
@@ -86,9 +85,9 @@ const Profile = () => {
       dispatch<any>(clearErrors());
     }
     const getProfile = async () => {
-      dispatch<any>(loadProfile(await accessToken));
+      dispatch<any>(loadProfile(token));
     };
-    getProfile();
+    navigator.onLine && token && getProfile();
   }, [dispatch, enqueueSnackbar]);
 
   const toggleWithdrawalModal = () => {
@@ -130,7 +129,7 @@ const Profile = () => {
   }, []);
 
   const handleLogout = () => {
-    dispatch<any>(logoutUser());
+    dispatch<any>(logoutUser(user?.username));
     navigate("/login");
   };
   const handleFriendInvite = () => {
@@ -153,7 +152,7 @@ const Profile = () => {
   };
 
   const onUpdateProfile = async (avatar: string) => {
-    dispatch<any>(updateProfile(await accessToken, avatar));
+    navigator.onLine && token && dispatch<any>(updateProfile(token, avatar));
   };
 
   const handleAvatar = (e: ChangeEvent<HTMLInputElement>) => {
@@ -168,8 +167,6 @@ const Profile = () => {
 
     e.target.files && reader.readAsDataURL(e.target.files[0]);
   };
-
-  console.log(wallet)
 
   return (
     <>
@@ -277,12 +274,9 @@ const Profile = () => {
           <div className="acct-info">
             {user?.bankinfo?.accountNumber ? (
               <>
+                <span className="account-num">{user?.bankinfo?.bankName}</span>
                 <span className="bank-name">
                   {user?.bankinfo?.accountNumber}
-                </span>
-                <span className="account-num">{user?.bankinfo?.bankName}</span>
-                <span className="account-name">
-                  {user?.bankinfo?.accountName}
                 </span>
               </>
             ) : (
@@ -302,39 +296,36 @@ const Profile = () => {
         </div>
 
         <div className="transactions-cont">
-  <p className="tx-date">
-    <IconCalendarEventFill />
-    {new Date().toDateString()}
-  </p>
-  {txHistory?.length > 0
-    ? txHistory.map((tx, i) => (
-        <div className="tx-item" key={i}>
-          <span className="tx-icon">
-            <IconArrowTrendUp fill="#fff" />
-          </span>
-          <span className="tx-amount">₦{tx?.amount}</span>
-          <span className="in-percent">
-            +{getPercentage(wallet?.pId, tx?.amount)}
-          </span>
-          <div className="tx-time">
-            <IconClock fill="gray" />{" "}
-            <span>
-              {new Date(tx?.createdAt).toTimeString().split("G")[0]}
-            </span>
-          </div>
+          <p className="tx-date">
+            <IconCalendarEventFill />
+            {new Date().toDateString()}
+          </p>
+          {txHistory?.length > 0
+            ? txHistory.map((tx, i) => (
+                <div className="tx-item" key={i}>
+                  <span className="tx-icon">
+                    <IconArrowTrendUp fill="#fff" />
+                  </span>
+                  <span className="tx-amount">₦{tx?.amount}</span>
+                  <span className="in-percent">
+                    +{getPercentage(wallet?.pId, tx?.amount)}
+                  </span>
+                  <div className="tx-time">
+                    <IconClock fill="gray" />{" "}
+                    <span>{new Date(tx?.createdAt).toLocaleTimeString()}</span>
+                  </div>
+                </div>
+              ))
+            : Array(5)
+                .fill(null)
+                .map((_, i) => (
+                  <div className="tx-item-loader" key={i}>
+                    <span className="tx-icon"></span>
+                    <span className="tx-amount"></span>
+                    <span className="in-percent"></span>
+                  </div>
+                ))}
         </div>
-      ))
-    : Array(5)
-        .fill(null)
-        .map((_, i) => (
-          <div className="tx-item-loader" key={i}>
-            <span className="tx-icon"></span>
-            <span className="tx-amount"></span>
-            <span className="in-percent"></span>
-          </div>
-        ))}
-</div>
-
 
         {accountDetailsEditMode && (
           <AccountDetailsForm
@@ -477,13 +468,11 @@ const ProfileRenderer = styled.div`
     display: flex;
     justify-content: space-around;
     align-items: center;
+    gap: 5px;
   }
   .b-account-details span {
     font-size: 12px;
     font-weight: 600;
-    @media(max-width:767px){
-      font-size: 10px;
-    }
   }
 
   .transactions-cont {

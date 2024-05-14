@@ -6,11 +6,12 @@ import { IconSettings2 } from "../assets/icons";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import logo from '../assets/flipper-logo.png'
+import { RootState } from "../store";
 const Header = (): React.ReactElement => {
   const [modalActive, setModalActive] = useState<boolean>(false);
   const [isMobile, setIsMobile] = useState<boolean>(false);
 
-  const { user, isAuthenticated } = useSelector((state: any) => state.user);
+  const { user, isAuthenticated } = useSelector((state: RootState) => state.user);
   useEffect(() => {
     const handleResize = () => {
       setIsMobile(window.innerWidth <= 767);

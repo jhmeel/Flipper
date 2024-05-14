@@ -25,7 +25,6 @@ import HLoader from "../components/loaders/HLoader";
 import { Mask, getROC } from "../utils/formatter";
 import { useSnackbar } from "notistack";
 import { RootState } from "../store";
-import useGetToken from "../utils/getToken";
 import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 const TaskExecution = () => {
@@ -47,7 +46,8 @@ const TaskExecution = () => {
     wallet,
     tillLastweekCumulation,
   } = useSelector((state: RootState) => state.wallet);
-  const accessToken = useGetToken();
+  const { token } = useSelector((state: RootState) => state.user);
+
   const [isBalanceVisible, setIsBalanceVisible] = useState<boolean>(true);
   const [time, setTime] = useState<number>(0);
   const [activeTask, setActiveTask] = useState<Task | null>(null);
@@ -88,14 +88,14 @@ const TaskExecution = () => {
       dispatch<any>(clearTaskErr());
     }
     const getTask = async () => {
-      dispatch<any>(getDailyTask(await accessToken));
+      navigator.onLine && token && dispatch<any>(getDailyTask(token));
     };
 
     getTask();
   }, [dispatch]);
 
   const getTillLastWeekCumulation = async () => {
-    dispatch<any>(getTxHistory(await accessToken));
+    dispatch<any>(getTxHistory(token));
   };
 
   useEffect(() => {
@@ -103,7 +103,7 @@ const TaskExecution = () => {
   }, []);
 
   const getWalletD = async () => {
-    dispatch<any>(getWallet(await accessToken));
+    navigator.onLine && token && dispatch<any>(getWallet(token));
   };
 
   //Only show error if package is activated

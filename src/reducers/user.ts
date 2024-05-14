@@ -56,7 +56,6 @@ import {
   GET_TX_HISTORY_FAIL,
 } from "../constants";
 import { USER } from "../types";
-import LocalForageProvider from "../utils/localforage";
 import { ROOT_STATE } from "../types";
 
 const initialState: USER = {
@@ -93,14 +92,17 @@ export const userReducer = (
   switch (type) {
     case LOGIN_USER_REQUEST:
     case REGISTER_USER_REQUEST:
-    case LOAD_PROFILE_REQUEST:
       return {
         loading: true,
         isAuthenticated: false,
       };
+    case LOAD_PROFILE_REQUEST:
+      return {
+        ...state,
+        loading: true,
+      };
     case LOGIN_USER_SUCCESS:
     case REGISTER_USER_SUCCESS:
-      LocalForageProvider.setAuthToken(payload?.accessToken);
       return {
         ...state,
         loading: false,
@@ -109,7 +111,6 @@ export const userReducer = (
         token: payload.accessToken,
       };
     case LOAD_PROFILE_SUCCESS:
-      
       return {
         ...state,
         loading: false,
@@ -119,7 +120,6 @@ export const userReducer = (
         txHistory: payload.txHistory,
       };
     case LOG_OUT_USER_REQUEST:
-      LocalForageProvider.removeAuthToken();
       return {
         loading: false,
         user: undefined,
@@ -308,7 +308,7 @@ export const packageReducer = (
     case ACTIVATE_PACKAGE_RESET:
       return {
         ...state,
-        isActivated:null
+        isActivated: null,
       };
     case CLEAR_ERRORS:
       return {

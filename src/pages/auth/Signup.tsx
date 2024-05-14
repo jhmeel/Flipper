@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import React, { ChangeEvent, useEffect, useState } from "react";
+import  { ChangeEvent, useEffect, useState } from "react";
 import MetaData from "../../misc/MetaData";
 import styled from "styled-components";
 import { Link, useNavigate } from "react-router-dom";
@@ -12,7 +12,7 @@ import HLoader from "../../components/loaders/HLoader";
 import emailjs from "@emailjs/browser";
 import { errorParser } from "../../utils/formatter";
 import logo from "../../assets/flipper-logo.png";
-import useGetToken from "../../utils/getToken";
+import { RootState } from "../../store";
 interface FormData {
   username?: string;
   phone?: string;
@@ -21,10 +21,10 @@ interface FormData {
   referralCode?: string;
 }
 const Signup = () => {
-  const { loading, isAuthenticated, user, error } = useSelector(
-    (state: any) => state.user
+  const { loading, isAuthenticated, token, user, error } = useSelector(
+    (state: RootState) => state.user
   );
-  const accessToken = useGetToken();
+ 
   const [formData, setFormData] = useState<FormData>({
     username: "",
     phone: "",
@@ -76,7 +76,7 @@ const Signup = () => {
       dispatch<any>(clearErrors());
     }
     const validateAndSendMail = async () => {
-      if (isAuthenticated === true && (await accessToken) !== undefined) {
+      if (isAuthenticated === true && token !== undefined) {
         toast.success(
           "Signed up successfully! -Proceed to activate a package that fit your investment plan and setup your profile."
         );
@@ -86,7 +86,7 @@ const Signup = () => {
     };
 
     validateAndSendMail();
-  }, [accessToken, dispatch, error, isAuthenticated, navigate]);
+  }, [ dispatch, error, isAuthenticated, navigate]);
 
   const togglePasswordVisibility = () => {
     setIsPasswordVisible(!isPasswordVisible);

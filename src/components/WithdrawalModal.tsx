@@ -7,10 +7,9 @@ import toast from "react-hot-toast";
 import { clearErrors, onWithdrawFunds } from "../actions/user";
 import { WITHDRAW_FUNDS_RESET } from "../constants";
 import HLoader from "./loaders/HLoader";
-
 import { useSelector } from "react-redux";
 import { useSnackbar } from "notistack";
-import useGetToken from "../utils/getToken";
+import { RootState } from "../store";
 
 interface WithdrawalProps {
   amount?: number;
@@ -21,8 +20,8 @@ const WithdrawalModal = ({ onRemove }: { onRemove: () => void }) => {
   });
   const dispatch = useDispatch();
   const { enqueueSnackbar } = useSnackbar();
-  const { loading, message, error } = useSelector((state: any) => state.wallet);
-  const accessToken = useGetToken()
+  const { loading, message, error } = useSelector((state:RootState) => state.wallet);
+  const { token } = useSelector((state: RootState) => state.user);
   useEffect(() => {
     if (error) {
       enqueueSnackbar(error, { variant: "error" });
@@ -59,7 +58,7 @@ const WithdrawalModal = ({ onRemove }: { onRemove: () => void }) => {
 
       return;
     }
-    dispatch<any>(onWithdrawFunds(await accessToken, withdrawalDetails.amount));
+    dispatch<any>(onWithdrawFunds(token, withdrawalDetails.amount));
   };
   return (
     <WithdrawalModalRenderer>
@@ -152,7 +151,7 @@ const WithdrawalModalRenderer = styled.div`
     border: none;
     height: 40px;
     outline: none;
-    border-radius:16px;
+    border-radius: 16px;
   }
   .input-cont input:focus {
     border-bottom: 2px solid #2481a9;

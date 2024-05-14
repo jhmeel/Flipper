@@ -5,6 +5,7 @@ import styled, { keyframes } from "styled-components";
 import bannerImg from "../assets/images/investment.png";
 import { RoughNotation } from "react-rough-notation";
 import { useSelector } from "react-redux";
+import { RootState } from "../store";
 
 const fadeIn = keyframes`
   0% {
@@ -109,7 +110,7 @@ const BannerImage = styled.img`
 
 const Banner: React.FC = () => {
   const navigate = useNavigate();
-  const { accessToken } = useSelector((state: any) => state.user);
+  const { accessToken } = useSelector((state: RootState) => state.user);
 
   return (
     <BannerWrapper id="banner">

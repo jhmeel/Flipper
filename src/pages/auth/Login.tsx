@@ -9,6 +9,7 @@ import { useSelector } from "react-redux";
 import toast from "react-hot-toast";
 import { clearErrors, loginUser } from "../../actions/user";
 import HLoader from "../../components/loaders/HLoader";
+import { RootState } from "../../store";
 
 interface FormData {
   email?: string;
@@ -16,7 +17,7 @@ interface FormData {
 }
 const Login = () => {
   const { loading, isAuthenticated, error } = useSelector(
-    (state: any) => state.user
+    (state: RootState) => state.user
   );
   const [formData, setFormData] = useState<FormData>({
     email: "",

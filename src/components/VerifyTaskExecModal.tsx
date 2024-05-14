@@ -10,7 +10,7 @@ import toast from "react-hot-toast";
 import { VERIFY_TASK_EXEC_RESET } from "../constants";
 import HLoader from "./loaders/HLoader";
 import { useSnackbar } from "notistack";
-import useGetToken from "../utils/getToken";
+import { RootState } from "../store";
 const VerifyTaskExecModal = ({
   task,
   onRemove,
@@ -20,9 +20,10 @@ const VerifyTaskExecModal = ({
 }) => {
   const dispatch = useDispatch();
   const { isVerified, loading, error } = useSelector(
-    (state: any) => state.task
+    (state: RootState) => state.task
   );
-  const accessToken = useGetToken()
+  const { token } = useSelector((state: RootState) => state.user);
+
   const { enqueueSnackbar } = useSnackbar();
   const navigate = useNavigate();
   const [postLink, setPostLink] = useState<string | undefined>(undefined);
@@ -53,9 +54,9 @@ const VerifyTaskExecModal = ({
       toast.error("Please provide a valid link!");
       return;
     }
-    dispatch<any>(
-      verifyExec(await accessToken, { taskId: task?._id, postUrl: postLink })
-    );
+
+    //taskname is used as taskId
+    dispatch<any>(verifyExec(token, { taskId: task?.name, postUrl: postLink }));
   };
   return (
     <VerifyTaskExecModalRenderer>
@@ -146,7 +147,7 @@ const VerifyTaskExecModalRenderer = styled.div`
     height: 40px;
     width: 320px;
     outline: none;
-    border-radius:16px;
+    border-radius: 16px;
   }
   .input-cont input:focus {
     border-bottom: 2px solid #2481a9;

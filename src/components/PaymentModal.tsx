@@ -11,7 +11,6 @@ import { useNavigate } from "react-router-dom";
 import HLoader from "./loaders/HLoader";
 import Config from "../config/Config";
 import { useSnackbar } from "notistack";
-import useGetToken from "../utils/getToken";
 import { ACTIVATE_PACKAGE_RESET } from "../constants";
 
 const PaymentModal = ({
@@ -27,13 +26,12 @@ const PaymentModal = ({
 }): React.ReactElement => {
   const publicKey: string = Config.PAYSTACK_SECRETE_KEY;
   const [email, setEmail] = useState<string>("");
-  const accessToken = useGetToken();
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { loading, isActivated, error } = useSelector(
     (state: any) => state.package
   );
-  const { user, error: userErr } = useSelector((state: any) => state.user);
+  const { user,token, error: userErr } = useSelector((state: any) => state.user);
   const { enqueueSnackbar } = useSnackbar();
   const componentProps = {
     className: "purchase-btn",
@@ -68,7 +66,7 @@ const PaymentModal = ({
   }, [dispatch, enqueueSnackbar, error, isActivated]);
 
   const onPackagePurchase = async () => {
-    dispatch<any>(activatePackage(await accessToken, packageId));
+    dispatch<any>(activatePackage(token, packageId));
   };
 
   return (

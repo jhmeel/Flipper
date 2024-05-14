@@ -8,8 +8,8 @@ import toast from "react-hot-toast";
 import { UPDATE_BANK_INFO_RESET } from "../constants";
 import HLoader from "./loaders/HLoader";
 import { useSnackbar } from "notistack";
-import useGetToken from "../utils/getToken";
 import { SupportedBanks } from "../misc/Banks";
+import { RootState } from "../store";
 
 interface AccountProps {
   bankName?: string;
@@ -27,7 +27,9 @@ const AccountDetailsForm = ({
   const { loading, isUpdated, error } = useSelector(
     (state: any) => state.profile
   );
-  const accessToken = useGetToken();
+  const {
+    token
+  } = useSelector((state: RootState) => state.user);
   const [accountDetails, setAccountDetails] = useState<AccountProps>({
     bankName: "",
     accountName: "",
@@ -75,7 +77,7 @@ const AccountDetailsForm = ({
       return;
     }
 
-    dispatch<any>(updateBankInfo(await accessToken, accountDetails));
+    dispatch<any>(updateBankInfo(token, accountDetails));
   };
   return (
     <AccountDetailsFormRenderer>

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { useEffect, useRef, useState } from "react";
 import MetaData from "../../misc/MetaData";
 import styled from "styled-components";
@@ -10,13 +11,15 @@ import HLoader from "../../components/loaders/HLoader";
 import { IconInfoCircleFill } from "../../assets/icons";
 import Footer from "../../components/Footer";
 import { enqueueSnackbar } from "notistack";
+import { RootState } from "../../store";
 
 const OTP_Verification = (): React.ReactElement => {
   const { error, loading, message, email, expiresAt } = useSelector(
-    (state: any) => state.password
+    (state: RootState) => state.password
   );
   const [OTP, setOTP] = useState<string | null>(null);
   const OTPInputs = Array.from({ length: 4 }, () =>
+    // eslint-disable-next-line react-hooks/rules-of-hooks
     useRef<HTMLInputElement | null>(null)
   );
 
@@ -70,7 +73,7 @@ const OTP_Verification = (): React.ReactElement => {
     if (isFilled) {
       btn.current?.classList.add("active");
       const otpVals: string = OTPInputs.map(
-        (inp, i) => inp["current"]["value"]
+        (inp) => inp["current"]["value"]
       ).join("");
       setOTP(otpVals);
     } else {

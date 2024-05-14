@@ -11,11 +11,9 @@ import {
   ResponsiveContainer,
 } from "recharts";
 const Chart = ({ weeklyCumulation }) => {
-
   const [cumulations, setCumulation] = useState([]);
   const days = ["SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT"];
 
-  
   /**
    * @updateCumulation- reformat the activities object keys {coming from the server} with a more native keys;
    *  it exchange the {_id} which is a list of numbers {1-7} representing days of the week with actual day in the days array above
@@ -23,10 +21,10 @@ const Chart = ({ weeklyCumulation }) => {
   const updateCumulation = () => {
     if (weeklyCumulation) {
       setCumulation(
-        weeklyCumulation?.map((cumu, _) => ({
+        weeklyCumulation?.map((cumu) => ({
           name: days[cumu?._id - 1],
-          earnings: cumu?.total,
-          amt: cumu?.total,
+          earnings: cumu?.total || 0,
+          amt: cumu?.total || 0,
         }))
       );
     }
@@ -41,43 +39,6 @@ const Chart = ({ weeklyCumulation }) => {
     return colors[Math.floor(Math.random() * colors.length)];
   };
 
-const demoData = [
-  {
-    name: "Sun",
-    earnings: 2400,
-    amt: 2400,
-  },
-  {
-    name: "Mon",
-    earnings: 1398,
-    amt: 2210,
-  },
-  {
-    name: "Tue",
-    earnings: 9800,
-    amt: 2290,
-  },
-  {
-    name: "Wed",
-    earnings: 3908,
-    amt: 2000,
-  },
-  {
-    name: "Thur",
-    earnings: 4800,
-    amt: 2181,
-  },
-  {
-    name: "Fri",
-    earnings: 3800,
-    amt: 2500,
-  },
-  {
-    name: "Sat",
-    earnings: 4300,
-    amt: 2100,
-  },
-];
   return (
     <Section>
       <div className="sales">
@@ -126,6 +87,11 @@ const Section = styled.section`
       display: flex;
       justify-content: space-between;
       margin-top: 5px;
+      h3 {
+        @media (max-width: 767px) {
+          font-size: 14px;
+        }
+      }
       div {
         display: flex;
         gap: 1rem;

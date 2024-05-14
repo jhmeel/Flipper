@@ -8,11 +8,13 @@ interface PrivateRouteProps {
 }
 
 const PrivateRoute: React.FC<PrivateRouteProps> = ({ children }) => {
-  const { loading, user, accessToken} = useSelector((state: RootState) => state.user);
+  const { loading, isAuthenticated, accessToken } = useSelector(
+    (state: RootState) => state.user
+  );
 
   return (
     <>
-      {!loading && !user && !accessToken && <Navigate to="/login" />}
+      {!loading && !isAuthenticated && !accessToken && <Navigate to="/login" />}
       {children}
     </>
   );

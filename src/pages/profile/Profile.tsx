@@ -481,6 +481,9 @@ const ProfileRenderer = styled.div`
   .b-account-details span {
     font-size: 12px;
     font-weight: 600;
+    @media(max-width:767px){
+      font-size: 10px;
+    }
   }
 
   .transactions-cont {

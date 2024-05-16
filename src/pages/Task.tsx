@@ -91,7 +91,7 @@ const TaskExecution = () => {
     };
 
     getTask();
-  }, [dispatch, taskErr]);
+  }, [dispatch]);
 
   const getTillLastWeekCumulation = async () => {
     dispatch<any>(getTxHistory(token));

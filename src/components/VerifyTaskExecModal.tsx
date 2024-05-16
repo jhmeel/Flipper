@@ -43,7 +43,7 @@ const VerifyTaskExecModal = ({
       dispatch({ type: VERIFY_TASK_EXEC_RESET });
       navigate("/profile");
     }
-  }, [dispatch, navigate, error, isVerified, enqueueSnackbar]);
+  }, [dispatch, error, isVerified]);
 
   const verifyPost = async (e: any) => {
     e.preventDefault();
@@ -55,8 +55,7 @@ const VerifyTaskExecModal = ({
       return;
     }
 
-    //taskname is used as taskId
-    dispatch<any>(verifyExec(token, { taskId: task?.name, postUrl: postLink }));
+    dispatch<any>(verifyExec(token, { taskId: task?._id, postUrl: postLink }));
   };
   return (
     <VerifyTaskExecModalRenderer>

@@ -47,7 +47,7 @@ export const verifyExec =
   async (dispatch: (action: ACTION) => void) => {
     try {
       dispatch({ type: VERIFY_TASK_EXEC_REQUEST });
-      console.log('tf',taskDetails)
+  
       const { data } = await axiosInstance(token).post(
         "/api/v1/task/verify",
         taskDetails

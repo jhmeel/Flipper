@@ -12,7 +12,7 @@ import WeekActivity from "../components/WeekActivities";
 import Footer from "../components/Footer";
 import NotificationItem from "../components/NotificationItem";
 import VerifyTaskExecModal from "../components/VerifyTaskExecModal";
-import { Task } from "../types";
+import { Task, taskStatus } from "../types";
 import { getDailyTask, clearErrors as clearTaskErr } from "../actions/task";
 import {
   getWallet,
@@ -27,6 +27,7 @@ import { useSnackbar } from "notistack";
 import { RootState } from "../store";
 import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
+import { RiVerifiedBadgeFill } from "react-icons/ri";
 const TaskExecution = () => {
   const [taskCompletionStatus, setTaskCompletionStatus] = useState<
     "Pending..." | "Inprogress" | "Completed" | "Closed" | "N/A"
@@ -75,9 +76,7 @@ const TaskExecution = () => {
   useEffect(() => {
     if (
       taskErr &&
-      taskErr?.includes(
-        "Please choose an investment plan and activate your wallet!"
-      )
+      taskErr == "Please choose an investment plan and activate your wallet!"
     ) {
       //user dont have a wallet yet go to home
       navigate("/");
@@ -92,7 +91,7 @@ const TaskExecution = () => {
     };
 
     getTask();
-  }, [dispatch]);
+  }, [dispatch, taskErr]);
 
   const getTillLastWeekCumulation = async () => {
     dispatch<any>(getTxHistory(token));
@@ -215,14 +214,24 @@ const TaskExecution = () => {
                       ROC | <span>₦{getROC(wallet?.pId)}</span>
                     </p>
                     <button
-                      className="active-btn"
+                      disabled={task.status == taskStatus.COMPLETED}
+                      className={
+                        task.status == taskStatus.COMPLETED
+                          ? "disabled-btn"
+                          : "active-btn"
+                      }
                       title="Execute"
                       onClick={() => {
                         setIsTaskExecModalActive(true);
                         setActiveTask(task);
                       }}
                     >
-                      execute
+                      {task.status == taskStatus.COMPLETED ? (
+                        <RiVerifiedBadgeFill fill="green" fontSize={20} />
+                      ) : (
+                        "Execute"
+                      )}
+
                       <IconChevronRight fill="#fff" />
                     </button>
                   </div>
@@ -386,7 +395,7 @@ const TaskActivityRenderer = styled.div`
   }
   .task {
     width: 180px;
-    height: 150px;
+    height: 140px;
     border-radius: 8px;
     border: 1px solid #ededed;
     padding: 5px 10px;

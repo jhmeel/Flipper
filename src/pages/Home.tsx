@@ -28,7 +28,7 @@ const Home = (): React.ReactElement => {
         <div className="avail-pkg">
           <div className="s-header">
             <h3>
-              <IconCubeOutline /> Available Packages
+              <IconCubeOutline /> Available Packages 
             </h3>
           </div>
           <Packages />

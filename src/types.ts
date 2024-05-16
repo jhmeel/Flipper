@@ -1,6 +1,10 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 export type ROLE = "FP:ADMIN" | "FP:USER";
-
+export const taskStatus = {
+  PENDING: 0,
+  INPROGRESS: 0.5,
+  COMPLETED: 1,
+};
 export interface Package {
   id?: string;
   name?: string;
@@ -13,6 +17,7 @@ export interface Task {
   variant: "social" | "typical";
   name?: string;
   instruction?: string;
+  status?: number;
   expires_at?: number | string;
 }
 export interface ACTION {
@@ -38,7 +43,7 @@ export type ARTICLE = {
 };
 
 export interface IWALLET {
-  userId?:string;
+  userId?: string;
   balance?: number;
   referralBonus?: number;
   txHistory?: any[];
@@ -48,9 +53,9 @@ export interface IWALLET {
   txPasscode?: string;
   dailyTasks?: {
     progress?: number;
-    tasks?: any[]; 
+    tasks?: any[];
   };
-  completedTask?: any[]; 
+  completedTask?: any[];
   pendingVerifications?: {
     id: string;
     doc: {
@@ -61,7 +66,6 @@ export interface IWALLET {
   }[];
   expiresAt?: number;
   createdAt?: Date;
-
 }
 
 export interface ROOT_STATE {
@@ -70,7 +74,7 @@ export interface ROOT_STATE {
     isAuthenticated?: boolean;
     user?: USER;
     token?: string;
-    wallet?:IWALLET;
+    wallet?: IWALLET;
     txHistory?: any;
     weeklyCumulation?: any;
     error?: any;

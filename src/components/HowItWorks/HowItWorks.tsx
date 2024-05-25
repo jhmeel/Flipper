@@ -62,7 +62,8 @@ export default HowItWorks;
 const HowItWorksWrapper = styled.div`
   width: 100%;
   padding: 40px 0;
-  background-color: #ffffff;
+  height:fit-content;
+
 `;
 
 const HowItWorksContainer = styled.div`
@@ -72,12 +73,13 @@ const HowItWorksContainer = styled.div`
   justify-content: center;
   align-items: center;
   gap: 40px;
-
+  background:transparent;
   @media (max-width: 768px) {
     flex-direction: column;
-    gap: 20px;
+    gap: 30px;
   }
 `;
+
 
 const Step = styled.div<StepProps>`
   display: flex;
@@ -85,28 +87,37 @@ const Step = styled.div<StepProps>`
   align-items: center;
   text-align: center;
   max-width: 300px;
-  border-radius: 6px;
-  padding:20px 40px;
-  border:1px solid #ededed;
+  border-radius: 16px;
+  padding: 20px 40px;
+  border: 1px solid #ededed;
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  -moz-backdrop-filter: blur(10px);
+  -o-backdrop-filter: blur(10px);
+  transform: 0.5s;
   cursor: pointer;
-  &:hover{
-    transition:.3s ease-out;
-    transform:scale(1.01)
+  position: relative;
+  &:hover {
+    transition: 0.3s ease-out;
+    transform: scale(1.01);
   }
 `;
 
 const StepId = styled.div<StepProps>`
+  position: absolute;
+  top: -18px;
   width: 40px;
   height: 40px;
   border-radius: 50%;
-  border:1px solid #ededed;
+  border: 1px solid #ededed;
   display: flex;
-  font-family: 'Zeitung', serif; 
+  font-family: "Zeitung", serif;
   justify-content: center;
   align-items: center;
+  background-color: #fff;
   font-weight: 700;
   color: ${(props) => props.borderColor};
-  margin-bottom: 20px;
 `;
 
 const IconContainer = styled.div<StepProps>`
@@ -117,6 +128,7 @@ const IconContainer = styled.div<StepProps>`
   display: flex;
   justify-content: center;
   align-items: center;
+  margin-top: 10px;
   margin-bottom: 20px;
 `;
 
@@ -132,11 +144,11 @@ const StepContent = styled.div`
 const StepGuide = styled.h3`
   font-family: serif;
   font-weight: 600;
-  margin-bottom: 10px;
+  margin-bottom: 5v px;
+  color:#3d3d3d;
 `;
 
 const StepDescription = styled.p`
-  color: #666;
+  color: #bbbbbb;
   font-size: 14px;
-  line-height: 1.6;
 `;

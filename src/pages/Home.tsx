@@ -3,16 +3,9 @@ import Header from "../components/Header";
 import MetaData from "../misc/MetaData";
 import Banner from "../components/Banner";
 import Footer from "../components/Footer";
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
 import Testimonials from "../components/Testimonials";
 import RevenueSourceChart from "../components/RevenueSourceChart";
-import {
-  IconArrowTrendUp,
-  IconCubeOutline,
-  IconHelp,
-  IconPeople16,
-} from "../assets/icons";
-import { RiGuideFill } from "react-icons/ri";
 import Packages from "../components/Packages";
 import MessageModal from "../components/MessageModal";
 import Faq from "../components/faq/Faq";
@@ -25,50 +18,44 @@ const Home = (): React.ReactElement => {
       <HomeRenderer>
         <Header />
         <Banner />
-        <div className="avail-pkg">
-          <div className="s-header">
-            <h3>
-              <IconCubeOutline /> Available Packages 
-            </h3>
-          </div>
-          <Packages />
-        </div>
-
-        <div className="h-it-w">
-          <div className="s-header">
-            <h3> <RiGuideFill/>How It Works</h3>
-          </div>
-          <HowItWorks />
-        </div>
-        <div className="revenue-source">
-          <div className="s-header">
-            <h3>
-              <IconArrowTrendUp /> Revenue Sources
-            </h3>
+        <section className="main">
+          <div className="avail-pkg">
+            <div className="s-header">
+              <h3>Available Packages</h3>
+            </div>
+            <Packages />
           </div>
 
-          <RevenueSourceChart />
-        </div>
-        <div className="msg-modal">
-          <MessageModal />
-        </div>
-        <div className="faq">
-          <div className="s-header">
-            <h3>
-              <IconHelp /> Frequently Asked Questions
-            </h3>
+          <div className="h-it-w">
+            <div className="s-header">
+              <h3> How It Works</h3>
+            </div>
+            <HowItWorks />
           </div>
-          <Faq />
-        </div>
+          <div className="revenue-source">
+            <div className="s-header">
+              <h3>Revenue Sources</h3>
+            </div>
 
-        <div className="testimonial-cont">
-          <div className="s-header">
-            <h3>
-              <IconPeople16 /> Testimonials
-            </h3>
+            <RevenueSourceChart />
           </div>
-          <Testimonials />
-        </div>
+          <div className="msg-modal">
+            <MessageModal />
+          </div>
+          <div className="faq">
+            <div className="s-header">
+              <h3>Frequently Asked Questions</h3>
+            </div>
+            <Faq />
+          </div>
+
+          <div className="testimonial-cont">
+            <div className="s-header">
+              <h3>Testimonials</h3>
+            </div>
+            <Testimonials />
+          </div>
+        </section>
       </HomeRenderer>
       <Footer />
     </>
@@ -77,16 +64,34 @@ const Home = (): React.ReactElement => {
 
 export default Home;
 
+const gradientAnimation = keyframes`
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+
+  
+`;
 const HomeRenderer = styled.div`
   min-height: 100vh;
   width: 100%;
   display: flex;
   flex-direction: column;
   gap: 8px;
+  .main {
+    animation: ${gradientAnimation} 5s infinite;
+    background: linear-gradient(45deg, #ccd5dc, #ffffff, #a9c7b6);
+    background-size: 200% 200%;
+    position: relative;
+  }
 
   .testimonial-cont {
     padding: 5px 10px;
-    background-color: #ffffff;
   }
   .s-header {
     width: 100%;
@@ -112,8 +117,6 @@ const HomeRenderer = styled.div`
     width: 100%;
     justify-content: center;
     align-items: center;
-    border-bottom: 1px solid #ededed;
-    background-color: #f7fafc;;
   }
   .revenue-source {
     display: flex;
@@ -122,16 +125,20 @@ const HomeRenderer = styled.div`
     justify-content: center;
     align-items: center;
     border-bottom: 1px solid #ededed;
-    background-color: #f7fafc;;
+    background-color:#fff;
   }
   .h-it-w {
     border-bottom: 1px solid #ededed;
+    border-top-right-radius: 40px;
+    border-top-left-radius: 40px;
+    background-color: #fefefe;
   }
   .msg-modal {
     display: flex;
     flex-direction: column;
     width: 100%;
     justify-content: center;
+    margin-top: 20px;
     align-items: center;
   }
   @media (max-width: 767px) {

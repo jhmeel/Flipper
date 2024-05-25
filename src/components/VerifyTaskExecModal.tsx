@@ -138,6 +138,9 @@ const VerifyTaskExecModalRenderer = styled.div`
     display: flex;
     align-items: center;
     gap: 3px;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+      Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue",
+      sans-serif;
   }
   .input-cont input {
     padding: 10px;
@@ -146,7 +149,6 @@ const VerifyTaskExecModalRenderer = styled.div`
     height: 40px;
     width: 320px;
     outline: none;
-    border-radius: 16px;
   }
   .input-cont input:focus {
     border-bottom: 2px solid #2481a9;
@@ -179,23 +181,5 @@ const VerifyTaskExecModalRenderer = styled.div`
     align-items: center;
     cursor: pointer;
     z-index: 99;
-  }
-
-  .info {
-    margin-top: 15px;
-    margin-bottom: 40px;
-    padding: 10px;
-    background-color: #77b1d7;
-    border-radius: 8px;
-    max-width: 600px;
-    width: 90%;
-    font-size: 12px;
-    border-left: 4px solid #2b7eb6;
-  }
-  .info p {
-    color: #f1f1f1;
-    font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
-      Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue",
-      sans-serif;
   }
 `;

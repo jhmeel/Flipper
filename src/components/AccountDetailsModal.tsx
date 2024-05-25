@@ -188,6 +188,7 @@ const AccountDetailsFormRenderer = styled.div`
     font-weight: 600;
     font-size: 15px;
     padding: 5px;
+    font-family:system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
   }
   .input-cont input {
     width: 300px;
@@ -196,7 +197,6 @@ const AccountDetailsFormRenderer = styled.div`
     border: none;
     height: 40px;
     outline: none;
-    border-radius: 16px;
   }
   .input-cont input:focus {
     border-bottom: 2px solid #2481a9;

@@ -416,7 +416,7 @@ const TaskActivityRenderer = styled.div`
     align-items: center;
     justify-content: center;
     font-size: 12px;
-    cursor: pointer;
+    cursor: not-allowed;
     border-radius: 8px;
     background-color: rgb(141, 141, 155);
     color: #fff;

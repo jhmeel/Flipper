@@ -41,7 +41,7 @@ const BannerWrapper = styled.div`
 
 const BannerContainer = styled.div`
   width: 90%;
-  height: 300px;
+  height: 400px;
   margin: 0 auto;
   display: flex;
   justify-content: space-between;
@@ -49,7 +49,7 @@ const BannerContainer = styled.div`
   position: relative;
   @media (max-width: 767px) {
     & {
-      height: 370px;
+      height: 330px;
       flex-direction: column;
       justify-content: space-between;
     }
@@ -60,12 +60,13 @@ const BannerText = styled.div`
   flex: 1;
   position: relative;
   z-index: 10;
-  margin-top: 30px;
+  margin-top: 10px;
   .get-started-btn {
     padding: 10px 20px;
     background-color: #287dd2;
     border: none;
     color: #fff;
+    animation: ${fadeIn} 0.3s ease-in-out 0.5s 1 normal both;
     margin-top: 10px;
   }
 `;
@@ -100,7 +101,7 @@ const BannerImage = styled.img`
   animation: ${fadeIn} 0.3s ease-in-out 0.5s 1 normal both;
   @media (max-width: 767px) {
     & {
-      width: 90%;
+      width: 100%;
       position: absolute;
       bottom: -60px;
       z-index: 1;

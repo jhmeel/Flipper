@@ -150,20 +150,4 @@ const ResetPasswordRenderer = styled.div`
     transform: scale(1.01);
   }
 
-  .info {
-    margin-bottom: 40px;
-    padding: 10px;
-    background-color: #77b1d7;
-    border-radius: 8px;
-    max-width: 600px;
-    width: 90%;
-    font-size: 12px;
-    border-left: 4px solid #2b7eb6;
-  }
-  .info p {
-    color: #f1f1f1;
-    font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
-      Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue",
-      sans-serif;
-  }
 `;

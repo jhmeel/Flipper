@@ -1,8 +1,9 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import {
-  BarChart,
-  Bar,
+  AreaChart,
+  Area,
   XAxis,
   YAxis,
   CartesianGrid,
@@ -34,6 +35,28 @@ const Chart = ({ weeklyCumulation }) => {
     updateCumulation();
   }, [weeklyCumulation]);
 
+  const demoData = [{
+    name:'Sun',
+    earnings:1000,
+    amt:1000
+  },{
+    name:"Mon",
+    earnings:300,
+    amt:300
+  },{
+    name:"Tue",
+    earnings:2000,
+    amt:2000
+  },{
+    name:"  Wed",
+    earnings:800,
+    amt:800
+  },{
+    name:"Thur",
+    earnings:9000,
+    amt:9000
+  }]
+
   const getRandomColor = () => {
     const colors = ["#3498db", "#9b59b6", " #2ecc71"];
     return colors[Math.floor(Math.random() * colors.length)];
@@ -52,7 +75,7 @@ const Chart = ({ weeklyCumulation }) => {
         </div>
         <div className="sales__graph">
           <ResponsiveContainer width="100%" height="150%">
-            <BarChart
+            <AreaChart
               width={500}
               height={300}
               data={cumulations}
@@ -63,13 +86,17 @@ const Chart = ({ weeklyCumulation }) => {
                 bottom: 5,
               }}
             >
-              <CartesianGrid strokeDasharray="3 3" />
+              <CartesianGrid strokeDasharray="1" />
               <XAxis dataKey="name" />
-              <YAxis />
-              <Tooltip />
+              <YAxis unit="₦" />
+              <Tooltip/>
               <Legend />
-              <Bar dataKey="earnings" stackId="a" fill={getRandomColor()} />
-            </BarChart>
+              <Area
+                dataKey="earnings"
+                type="monotone"
+                fill={getRandomColor()}
+              />
+            </AreaChart>
           </ResponsiveContainer>
         </div>
       </div>
@@ -105,8 +132,7 @@ const Section = styled.section`
       height: 10rem;
       width: 100%;
       .recharts-default-tooltip {
-        background-color: black !important;
-        border-color: black !important;
+        background-color: #ab71fd !important;
         color: white !important;
       }
     }

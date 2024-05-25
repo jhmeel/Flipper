@@ -212,8 +212,6 @@ const Input = styled.input`
   color: black;
   font-size: 0.8em;
   font-weight: 500;
-  box-sizing: border-box;
-  padding: 10px;
   padding-left: 30px;
 
   &:focus {

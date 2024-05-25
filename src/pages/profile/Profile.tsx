@@ -198,7 +198,7 @@ const Profile = () => {
                     Invite friends
                   </li>
 
-                  <li onClick={handleLogout}>
+                  <li title="Logout" onClick={handleLogout}>
                     <IconLogout fill="#000" className="u-ul-icon" />
                     Logout
                   </li>
@@ -274,7 +274,7 @@ const Profile = () => {
           <div className="acct-info">
             {user?.bankinfo?.accountNumber ? (
               <>
-                <span className="account-num">{user?.bankinfo?.bankName}</span>
+                <span className="account-num">{user?.bankinfo?.bankName}</span>|
                 <span className="bank-name">
                   {user?.bankinfo?.accountNumber}
                 </span>
@@ -466,9 +466,9 @@ const ProfileRenderer = styled.div`
   }
   .acct-info {
     display: flex;
-    justify-content: space-around;
+    justify-content: center;
     align-items: center;
-    gap: 5px;
+    gap: 10px;
   }
   .b-account-details span {
     font-size: 12px;

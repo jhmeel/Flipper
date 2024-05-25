@@ -1,50 +1,53 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import React from "react";
 import styled, { keyframes } from "styled-components";
-
+import sourceImg from "../assets/images/sources.jpg";
 const RevenueSourceChart = () => {
   const sources = [
     {
       name: "Stock Market",
       amount: "$10,000",
       percentage: "50%",
-      bg:"#ba5e09"
+      bg: "#ba5e09",
     },
     {
       name: "Ads",
       amount: "$8,000",
       percentage: "30%",
-      bg:"#6990b0"
+      bg: "#6990b0",
     },
     {
       name: "Affiliate Marketing",
       amount: "$3,500",
       percentage: "20%",
-      bg:"#4c4d89"
+      bg: "#4c4d89",
     },
   ];
 
   return (
     <RevenueSourceContainer>
-      {sources.map((source, index) => (
-        <RevenueItem key={index}>
-          <RevenueItemHeader>
-            <RevenueItemTitle>{source.name}</RevenueItemTitle>
-            <RevenueItemPercentage>{source.percentage}</RevenueItemPercentage>
-          </RevenueItemHeader>
-          <ProgressBarContainer>
-            <div
-              className="src-progress"
-              style={{
-                background:source.bg,
-                width: source.percentage,
-                animationDuration: `${index * 0.5 + 5}s`,
-              }}
-            ></div>
-          </ProgressBarContainer>
-          <RevenueItemAmount>{source.amount}</RevenueItemAmount>
-        </RevenueItem>
-      ))}
+      <div className="rev-main">
+        {sources.map((source, index) => (
+          <RevenueItem key={index}>
+            <RevenueItemHeader>
+              <RevenueItemTitle>{source.name}</RevenueItemTitle>
+              <RevenueItemPercentage>{source.percentage}</RevenueItemPercentage>
+            </RevenueItemHeader>
+            <ProgressBarContainer>
+              <div
+                className="src-progress"
+                style={{
+                  background: source.bg,
+                  width: source.percentage,
+                  animationDuration: `${index * 0.5 + 5}s`,
+                }}
+              ></div>
+            </ProgressBarContainer>
+            <RevenueItemAmount>{source.amount}</RevenueItemAmount>
+          </RevenueItem>
+        ))}
+      </div>
+      <img src={sourceImg} />
     </RevenueSourceContainer>
   );
 };
@@ -53,15 +56,35 @@ export default RevenueSourceChart;
 
 const RevenueSourceContainer = styled.div`
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   align-items: center;
-  justify-content: center;
-  gap: 1.5rem;
+  justify-content: space-around;
+  gap: 1rem;
   width: 100%;
-
-  @media (max-width: 768px) {
-    gap: 1rem;
+ 
+  .rev-main {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    flex-direction: column;
   }
+  img {
+    width: 40%;
+  }
+  @media (max-width: 767px) {
+    flex-direction:column-reverse;
+    .rev-main {
+    display: flex;
+    align-items: center;
+    justify-content:center;
+    flex-direction: column;
+  }
+  img {
+    width: 90%;
+  }
+
+    }
 `;
 
 const RevenueItem = styled.div`

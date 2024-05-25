@@ -230,7 +230,7 @@ const PackageRenderer = styled.div`
     width: 180px;
     height: 220px;
     border: 1px solid #ededed;
-    border-radius: 8px;
+    border-radius:20px;
     flex-direction: column;
     padding: 5px 10px;
     align-items: center;

@@ -5,7 +5,7 @@ import logo from "../../assets/flipper-logo.svg";
 const CSpinner: React.FC = () => {
   return (
     <Loader>
-      <img src={logo} /> <CircleLoaderIcon className="custom-loader" />
+      <img src={logo}/> <CircleLoaderIcon className="custom-loader" />
     </Loader>
   );
 };

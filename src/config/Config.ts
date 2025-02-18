@@ -1,5 +1,5 @@
 const Config = {
-  PAYSTACK_SECRETE_KEY: "pk_test_64f68f5cd8d1edfcf88de19bce88c2a9b837415b",
+  PAYSTACK_SECRETE_KEY: "",
   WITHDRAWAL_WINDOW: { TUESDAY: 2, FRIDAY: 5 },
   PACKAGES: [
     {
@@ -27,15 +27,15 @@ const Config = {
   HOST: "",
   SOCIALS: {
     instagram: {
-      url: "https://instagram.com/flipper?igshid=NTc4MTIwNjQ2YQ==",
+      url: "",
       name: "flipper",
     },
     facebook: {
-      url: "https://www.facebook.com/profile.php?id=61552011542263",
+      url: "",
       name: "flipper",
     },
     twitter: {
-      url: "https://x.com/frontiersc25471?s=20",
+      url: "",
       name: "flipper",
     },
     linkedIn: {
